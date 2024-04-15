@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
-            var col = new GameObject((boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
+            var col = new GameObject("y_"+(boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
             col.transform.position = new Vector3(0, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
@@ -126,6 +127,7 @@ public class Stage : MonoBehaviour
                 AddToBoard(tetrominoNode);
                 CheckBoardColumn();
                 CreateTetromino();
+                CheckTileGroups();
 
                 if (!CanMoveTo(tetrominoNode))
                 {
@@ -149,8 +151,8 @@ public class Stage : MonoBehaviour
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            node.parent = boardNode.Find(y.ToString());
-            node.name = x.ToString();
+            node.parent = boardNode.Find("y_"+y.ToString());
+            node.name = "x_"+x.ToString();
         }
     }
 
@@ -174,12 +176,16 @@ public class Stage : MonoBehaviour
             }
         }
 
+
+
+
+
         // 비어 있는 행이 존재하면 아래로 당기기
         if (isCleared)
         {
             for (int i = 1; i < boardNode.childCount; ++i)
             {
-                var column = boardNode.Find(i.ToString());
+                var column = boardNode.Find("y_"+i.ToString());
 
                 // 이미 비어 있는 행은 무시
                 if (column.childCount == 0)
@@ -189,7 +195,7 @@ public class Stage : MonoBehaviour
                 int j = i - 1;
                 while (j >= 0)
                 {
-                    if (boardNode.Find(j.ToString()).childCount == 0)
+                    if (boardNode.Find("y_"+j.ToString()).childCount == 0)
                     {
                         emptyCol++;
                     }
@@ -198,7 +204,7 @@ public class Stage : MonoBehaviour
 
                 if (emptyCol > 0)
                 {
-                    var targetColumn = boardNode.Find((i - emptyCol).ToString());
+                    var targetColumn = boardNode.Find("y_"+(i - emptyCol).ToString());
 
                     while (column.childCount > 0)
                     {
@@ -210,6 +216,16 @@ public class Stage : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    void gravity(int xpic, int ypic)
+    {
+        for(int i = ypic; i <= boardHeight; i++)
+        {
+            
+        }
+
     }
 
     // 이동 가능한지 체크
@@ -227,9 +243,9 @@ public class Stage : MonoBehaviour
             if (y < 0)
                 return false;
 
-            var column = boardNode.Find(y.ToString());
+            var column = boardNode.Find("y_"+y.ToString());
 
-            if (column != null && column.Find(x.ToString()) != null)
+            if (column != null && column.Find("x_"+x.ToString()) != null)
                 return false;
         }
 
@@ -394,6 +410,9 @@ public class Stage : MonoBehaviour
         }
     }
 
+    
+    
+    
     void CheckTileGroups()
     {
         // 게임 보드의 모든 행을 순회합니다.
@@ -404,7 +423,22 @@ public class Stage : MonoBehaviour
 
             foreach (Vector2Int blockPosition in continuousBlocks)
             {
-                RemoveBlockAtPosition(blockPosition);
+                GameObject rowObject = GameObject.Find("y_" + blockPosition.y.ToString());
+                string blockName = "x_" + blockPosition.x.ToString();
+                Transform blockTransform = rowObject.transform.Find(blockName);
+
+                if (blockTransform != null)
+                {
+                    // 게임 오브젝트를 찾았으므로 삭제합니다.
+                    Destroy(blockTransform.gameObject);
+                    UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
+                    gravity(blockpostion.x(),blockposition.y());
+                }
+                else
+                {
+                    // 게임 오브젝트를 찾지 못했음을 알립니다.
+                    UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
+                }
             }
 
         }
@@ -418,7 +452,7 @@ public class Stage : MonoBehaviour
 
         List<Vector2Int> currentGroup = new List<Vector2Int>(); //연속 블럭그룹
         // 첫 번째 블록의 색상을 가져옵니다.
-
+         UnityEngine.Debug.Log(" 첫 블록 색상 ");
         Color32 previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
 
         // 현재 연속된 블록의 가중치를 초기화합니다.
@@ -436,6 +470,7 @@ public class Stage : MonoBehaviour
             {
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 currentWeight++;
+                UnityEngine.Debug.Log(" 연속임! \n ");
             }
             else
             {
@@ -446,9 +481,10 @@ public class Stage : MonoBehaviour
                     for (int i = x - currentWeight; i < x; i++)
                     {
                         continuousBlocks.Add(new Vector2Int(i, row));
+                        UnityEngine.Debug.Log(" 블럭 추가!! \n ");
                     }
                 }
-
+                
                 // 가중치를 초기화합니다.
                 currentWeight = 1;
             }
@@ -459,24 +495,54 @@ public class Stage : MonoBehaviour
 
         return continuousBlocks;
     }
-
+   
+    
 
     Color32 GetTileColorAtPosition(Vector2Int position)
     {
-        // 게임 보드에서 해당 위치에 있는 타일의 색상을 가져옵니다.
-        // gameBoard 배열의 길이나 범위를 벗어나지 않는지 확인해야 합니다.
+        // 유효한 위치인지 확인합니다.
         if (position.x >= 0 && position.x < boardWidth &&
             position.y >= 0 && position.y < boardHeight)
         {
-            // 게임 보드에서 해당 위치의 타일 색상을 가져옵니다.
-            return gameBoard[position.x, position.y].Color;
+            // 해당 행의 게임 오브젝트를 가져옵니다.
+            GameObject rowObject = GameObject.Find("y_"+position.y.ToString());
+
+            // 해당 행에 있는 모든 블럭을 가져옵니다.
+
+            if (rowObject != null)
+            {
+                // 행 오브젝트가 발견되면 해당 행의 자식 오브젝트 중에서 x 좌표와 같은 이름을 가진 블록을 찾습니다.
+                string blockName = "x_" + position.x.ToString();
+                Transform blockTransform = rowObject.transform.Find(blockName);
+
+                if (blockTransform != null)
+                {
+                    // 블록을 찾았습니다
+                    SpriteRenderer spriteRenderer = blockTransform.GetComponent<SpriteRenderer>();
+
+                    Color32 coll = spriteRenderer.color;
+
+                    return coll;
+                }
+                else
+                {
+                    // 해당 x 좌표를 가진 블록이 없습니다.
+                }
+            }
+            else
+            {
+                // 해당 y 좌표를 가진 행이 없습니다.
+            }
+
+    
+            
         }
-        else
-        {
-            // 위치가 게임 보드 범위를 벗어나면 기본값으로 투명색을 반환합니다.
-            return Color.clear;
-        }
+
+        // 위치가 유효하지 않거나 해당 위치에 블럭이 없는 경우 기본값으로 투명색을 반환합니다.
+        return Color.clear;
     }
+    
+   }
 
+    
 
-}
