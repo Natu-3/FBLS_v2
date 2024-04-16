@@ -9,7 +9,7 @@ public class Stage : MonoBehaviour
     [Header("Editor Objects")]
     public GameObject tilePrefab; //타일프리펩 불러옴
     public Transform backgroundNode; // 백그라운드 
-    public Transform boardNode; //게임판
+    public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
     public Transform tetrominoNode; //테트리미노
     public GameObject gameoverPanel; //게임오버
 
@@ -144,15 +144,18 @@ public class Stage : MonoBehaviour
     // 테트로미노를 보드에 추가
     void AddToBoard(Transform root)
     {
+       // String keyTime = DateTime.Now.ToString("HHmmss"); //처음 생성될때 시분초값을 tag값으로 사용 <<<< 못써먹음 개가튼거
         while (root.childCount > 0)
         {
             var node = root.GetChild(0);
-
+        
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_"+y.ToString());
             node.name = "x_"+x.ToString();
+            //node.tag = keyTime; <<< 못써먹음2
+            //UnityEngine.Debug.Log(keyTime + "생성됨");
         }
     }
 
@@ -160,11 +163,10 @@ public class Stage : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-
-        // 완성된 행 == 행의 자식 갯수가 가로 크기
+       
         foreach (Transform column in boardNode)
         {
-            if (column.childCount == boardWidth)
+            if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
             {
                 foreach (Transform tile in column)
                 {
@@ -429,7 +431,7 @@ public class Stage : MonoBehaviour
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
                     Destroy(blockTransform.gameObject);
                     UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
-                    //gravity(blockPosition.x,blockPosition.y);
+                    //gravity(blockName, y);
                 }
                 else
                 {
