@@ -221,10 +221,44 @@ public class Stage : MonoBehaviour
     }
 
 
-    void gravity(int xpic, int ypic)
+    void gravity(string blockname, int y)
     {
-        
+        //int x, y;
+        List<string> blocksConnect = new List<string>();
+        int xBuffer = int.Parse(blockname);
+        int yBuffer = y;
 
+        for (int i = 0; i < blocksConnect.Count; i++)
+        {
+            yBuffer = blocksConnect[i][1];
+            GameObject row = GameObject.Find("y_" + yBuffer.ToString());
+            if (row != null)
+            {
+                Transform target = boardNode.Find("x_" + blocksConnect[i][0]);
+                if (target != null)
+                {
+                    xBuffer = blocksConnect[i][0];
+                }
+
+            }
+            bool floor = false;
+            while (!floor)
+            {
+                GameObject rowNode = GameObject.Find("y_" + yBuffer.ToString());
+
+                if (rowNode != null)
+                {
+                    Transform rowNodeTransfrom = rowNode.transform.Find("x_" + xBuffer.ToString());
+                    if (rowNodeTransfrom == null)
+                    {
+                        yBuffer--;
+                    }
+                    else floor = true; // 아래가 바닥
+                }
+            }
+            Transform targetNode = boardNode.Find("x_" + blocksConnect[i][0]);
+            targetNode.SetParent(boardNode.Find("y_" + (yBuffer - 1).ToString()));
+        }
     }
 
     // 이동 가능한지 체크
