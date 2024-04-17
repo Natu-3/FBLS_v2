@@ -223,7 +223,7 @@ public class Stage : MonoBehaviour
 
     void gravity(string blockname, int y)
     {
-        //int x, y;
+        //int x, y; //확인함
         List<string> blocksConnect = new List<string>();
         int xBuffer = int.Parse(blockname);
         int yBuffer = y;
