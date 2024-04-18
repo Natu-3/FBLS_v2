@@ -19,9 +19,9 @@ MonoBehaviour:
     width: 1920
     height: 1032
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Inspector
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 392}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 0
 --- !u!114 &2
@@ -45,8 +45,8 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 982
-  m_MinSize: {x: 677, y: 342}
-  m_MaxSize: {x: 12002, y: 8042}
+  m_MinSize: {x: 679, y: 342}
+  m_MaxSize: {x: 12004, y: 8042}
   vertical: 0
   controlID: 15
 --- !u!114 &3
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 468
     height: 982
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 359
     height: 468
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -150,7 +150,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 1032
-  m_MinSize: {x: 875, y: 392}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -223,8 +223,8 @@ MonoBehaviour:
     y: 0
     width: 1452
     height: 982
-  m_MinSize: {x: 402, y: 342}
-  m_MaxSize: {x: 8002, y: 8042}
+  m_MinSize: {x: 403, y: 342}
+  m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
   controlID: 16
 --- !u!114 &10
@@ -248,8 +248,8 @@ MonoBehaviour:
     y: 0
     width: 1452
     height: 468
-  m_MinSize: {x: 402, y: 221}
-  m_MaxSize: {x: 8002, y: 4021}
+  m_MinSize: {x: 403, y: 221}
+  m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
   controlID: 17
 --- !u!114 &11
@@ -484,23 +484,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 3cf0ffff3cfbffff
+      m_SelectedIDs: c63d0000
+      m_LastClickedID: 15814
+      m_ExpandedIDs: 5efbffffbc3d0000f23d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: EventSystem
+        m_OriginalName: EventSystem
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 15826
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -6.268776, y: 8.616008, z: -256.75653}
     speed: 2
-    m_Value: {x: -5.4773145, y: 8.093416, z: -256.67624}
+    m_Value: {x: -6.268776, y: 8.616008, z: -256.75653}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 18.643312
     speed: 2
-    m_Value: 17.84049
+    m_Value: 18.643312
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -676,8 +676,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -545.5
     m_HBaseRangeMax: 545.5
-    m_VBaseRangeMin: -213
-    m_VBaseRangeMax: 213
+    m_VBaseRangeMin: -223.5
+    m_VBaseRangeMax: 223.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -694,11 +694,11 @@ MonoBehaviour:
     m_DrawArea:
       serializedVersion: 2
       x: 0
-      y: 21
+      y: 0
       width: 1091
-      height: 426
+      height: 447
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 545.5, y: 213}
+    m_Translation: {x: 545.5, y: 223.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -706,9 +706,9 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -545.5
-      y: -213
+      y: -223.5
       width: 1091
-      height: 426
+      height: 447
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 1091, y: 447}
