@@ -16,10 +16,10 @@ public class Blockstructure : MonoBehaviour
         dictionary.Add(keys, values);
     }
 
-    public List<int> searchListToKey(int key)
+    /*public List<int> searchListToKey(int key)
     {
-        foreach(in)
-    }
+       
+    }*/
 
     // Update is called once per frame
     void Update()

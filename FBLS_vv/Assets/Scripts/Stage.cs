@@ -267,7 +267,7 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - );
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - testp1);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             if (x < 0 || x > boardWidth - 1)
