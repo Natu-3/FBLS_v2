@@ -19,7 +19,7 @@ public class Stage : MonoBehaviour
     [Range(5, 20)]
     public int boardHeight = 20;
     public float fallCycle = 1.0f;
-
+    public int testp1 = 5;
     private int halfWidth; // 좌표 (가로)중앙값
     private int halfHeight; //좌표 (세로) 중앙값
 
@@ -149,7 +149,7 @@ public class Stage : MonoBehaviour
         {
             var node = root.GetChild(0);
         
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - 5 );
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_"+y.ToString());
@@ -267,7 +267,7 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - );
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             if (x < 0 || x > boardWidth - 1)
@@ -310,7 +310,7 @@ public class Stage : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                CreateTile(backgroundNode, new Vector2(x, y), color, 0);
+                CreateTile(backgroundNode, new Vector2(x - testp1, y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
             }
         }
 
@@ -318,14 +318,14 @@ public class Stage : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            CreateTile(backgroundNode, new Vector2(-halfWidth - 1, y), color, 0);
-            CreateTile(backgroundNode, new Vector2(halfWidth, y), color, 0);
+            CreateTile(backgroundNode, new Vector2(-halfWidth - 1 - testp1, y), color, 0);
+            CreateTile(backgroundNode, new Vector2(halfWidth - testp1 , y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            CreateTile(backgroundNode, new Vector2(x, -halfHeight), color, 0);
+            CreateTile(backgroundNode, new Vector2(x-testp1, -halfHeight), color, 0);
         }
     }
 
@@ -357,7 +357,7 @@ public class Stage : MonoBehaviour
         col4 = GetColor(colorArray[arrIndex, 3]);
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0, halfHeight);
+        tetrominoNode.position = new Vector2(0 - testp1, halfHeight);
 
         switch (index)
         {
@@ -606,8 +606,16 @@ public class Stage : MonoBehaviour
         // 위치가 유효하지 않거나 해당 위치에 블럭이 없는 경우 기본값으로 투명색을 반환합니다.
         return Color.clear;
     }
-    
-   }
 
-    
+    /*void StructureBlock()
+    {
+       public Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+       
+
+    }*/
+
+}
+
+
+
 
