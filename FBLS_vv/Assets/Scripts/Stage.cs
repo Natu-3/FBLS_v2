@@ -43,7 +43,7 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
-            var col = new GameObject("y_"+(boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
+            var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
             col.transform.position = new Vector3(0, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
@@ -59,7 +59,8 @@ public class Stage : MonoBehaviour
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             }
-        } else
+        }
+        else
         {
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
@@ -103,7 +104,7 @@ public class Stage : MonoBehaviour
                 MoveTetromino(moveDir, isRotate);
             }
         }
-        
+
     }
 
     bool MoveTetromino(Vector3 moveDir, bool isRotate)
@@ -144,16 +145,16 @@ public class Stage : MonoBehaviour
     // 테트로미노를 보드에 추가
     void AddToBoard(Transform root)
     {
-       // String keyTime = DateTime.Now.ToString("HHmmss"); //처음 생성될때 시분초값을 tag값으로 사용 <<<< 못써먹음 개가튼거
+        // String keyTime = DateTime.Now.ToString("HHmmss"); //처음 생성될때 시분초값을 tag값으로 사용 <<<< 못써먹음 개가튼거
         while (root.childCount > 0)
         {
             var node = root.GetChild(0);
-        
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - 5 );
+
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - 5);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            node.parent = boardNode.Find("y_"+y.ToString());
-            node.name = "x_"+x.ToString();
+            node.parent = boardNode.Find("y_" + y.ToString());
+            node.name = "x_" + x.ToString();
             //node.tag = keyTime; <<< 못써먹음2
             //UnityEngine.Debug.Log(keyTime + "생성됨");
         }
@@ -163,7 +164,7 @@ public class Stage : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-       
+
         foreach (Transform column in boardNode)
         {
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
@@ -187,7 +188,7 @@ public class Stage : MonoBehaviour
         {
             for (int i = 1; i < boardNode.childCount; ++i)
             {
-                var column = boardNode.Find("y_"+i.ToString());
+                var column = boardNode.Find("y_" + i.ToString());
 
                 // 이미 비어 있는 행은 무시
                 if (column.childCount == 0)
@@ -197,7 +198,7 @@ public class Stage : MonoBehaviour
                 int j = i - 1;
                 while (j >= 0)
                 {
-                    if (boardNode.Find("y_"+j.ToString()).childCount == 0)
+                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
                     {
                         emptyCol++;
                     }
@@ -206,7 +207,7 @@ public class Stage : MonoBehaviour
 
                 if (emptyCol > 0)
                 {
-                    var targetColumn = boardNode.Find("y_"+(i - emptyCol).ToString());
+                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
 
                     while (column.childCount > 0)
                     {
@@ -270,15 +271,15 @@ public class Stage : MonoBehaviour
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - testp1);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            if (x < 0 || x > boardWidth - 1)
+            if (x < -2 * testp1 || x > boardWidth - 1 - 2 * testp1)
                 return false;
 
             if (y < 0)
                 return false;
 
-            var column = boardNode.Find("y_"+y.ToString());
+            var column = boardNode.Find("y_" + y.ToString());
 
-            if (column != null && column.Find("x_"+x.ToString()) != null)
+            if (column != null && column.Find("x_" + x.ToString()) != null)
                 return false;
         }
 
@@ -319,13 +320,13 @@ public class Stage : MonoBehaviour
         for (int y = halfHeight; y > -halfHeight; --y)
         {
             CreateTile(backgroundNode, new Vector2(-halfWidth - 1 - testp1, y), color, 0);
-            CreateTile(backgroundNode, new Vector2(halfWidth - testp1 , y), color, 0);
+            CreateTile(backgroundNode, new Vector2(halfWidth - testp1, y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            CreateTile(backgroundNode, new Vector2(x-testp1, -halfHeight), color, 0);
+            CreateTile(backgroundNode, new Vector2(x - testp1, -halfHeight), color, 0);
         }
     }
 
@@ -443,9 +444,9 @@ public class Stage : MonoBehaviour
         }
     }
 
-    
-    
-    
+
+
+
     void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
         // 게임 보드의 모든 행을 순회합니다.
@@ -484,8 +485,8 @@ public class Stage : MonoBehaviour
 
 
         List<Vector2Int> currentGroup = new List<Vector2Int>(); //연속 블럭그룹
-        // 첫 번째 블록의 색상을 가져옵니다.
-         UnityEngine.Debug.Log(" 첫 블록 색상 ");
+                                                                // 첫 번째 블록의 색상을 가져옵니다.
+        UnityEngine.Debug.Log(" 첫 블록 색상 ");
         Color32 previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
 
         // 현재 연속된 블록의 가중치를 초기화합니다.
@@ -493,12 +494,12 @@ public class Stage : MonoBehaviour
 
 
         // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1; x < boardWidth; x++)
+        for (int x = 1 ; x < boardWidth ; x++)
         {
             // 현재 블록의 색상을 가져옵니다.
             Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
 
-            currentWeight += vertWeight(x,row,currentColor/*,continuousBlocks*/);
+            currentWeight += vertWeight(x, row, currentColor/*,continuousBlocks*/);
 
 
             // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
@@ -520,7 +521,7 @@ public class Stage : MonoBehaviour
                         UnityEngine.Debug.Log(" 블럭 추가!! \n ");
                     }
                 }
-                
+
                 // 가중치를 초기화합니다.
                 currentWeight = 1;
             }
@@ -531,35 +532,35 @@ public class Stage : MonoBehaviour
 
         return continuousBlocks;
     }
-   
-   //연속에 대한 가중치에 수직을 추가하기 위함
-    int vertWeight(int x, int y, Color32 col/*,List<Vector2Int> contList*/) 
-{
-    int weight = 0;
-    int yy = y + 1;
-    GameObject rowObject = GameObject.Find("y_" + yy.ToString());
-    if (rowObject != null)
+
+    //연속에 대한 가중치에 수직을 추가하기 위함
+    int vertWeight(int x, int y, Color32 col/*,List<Vector2Int> contList*/)
     {
-        string block = "x_" + x.ToString();
-        Transform blockUp = rowObject.transform.Find(block);
-        if (blockUp != null)
+        int weight = 0;
+        int yy = y + 1;
+        GameObject rowObject = GameObject.Find("y_" + yy.ToString());
+        if (rowObject != null)
         {
-            // 블록을 찾았습니다
-            SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
+            string block = "x_" + x.ToString();
+            Transform blockUp = rowObject.transform.Find(block);
+            if (blockUp != null)
             {
-                Color32 col2 = spriteRenderer.color;
-                if (col2.Equals(col))
+                // 블록을 찾았습니다
+                SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
                 {
-                    weight += 1;
-                    // 재귀 호출 결과를 더합니다.
-                    weight += vertWeight(x, y + 1, col);
+                    Color32 col2 = spriteRenderer.color;
+                    if (col2.Equals(col))
+                    {
+                        weight += 1;
+                        // 재귀 호출 결과를 더합니다.
+                        weight += vertWeight(x, y + 1, col);
+                    }
                 }
             }
         }
+        return weight;
     }
-    return weight;
-}
 
 
 
@@ -570,7 +571,7 @@ public class Stage : MonoBehaviour
             position.y >= 0 && position.y < boardHeight)
         {
             // 해당 행의 게임 오브젝트를 가져옵니다.
-            GameObject rowObject = GameObject.Find("y_"+position.y.ToString());
+            GameObject rowObject = GameObject.Find("y_" + position.y.ToString());
 
             // 해당 행에 있는 모든 블럭을 가져옵니다.
 
@@ -599,8 +600,8 @@ public class Stage : MonoBehaviour
                 // 해당 y 좌표를 가진 행이 없습니다.
             }
 
-    
-            
+
+
         }
 
         // 위치가 유효하지 않거나 해당 위치에 블럭이 없는 경우 기본값으로 투명색을 반환합니다.
