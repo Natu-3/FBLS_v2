@@ -1,16 +1,26 @@
+<<<<<<< Updated upstream
 using System;
 using System.Collections.Generic;
 using System.Linq;
+=======
+using System.Collections.Generic;
+>>>>>>> Stashed changes
 using UnityEditor.EditorTools;
 using UnityEditor.Overlays;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
+<<<<<<< Updated upstream
 using UnityEngine.Tilemaps;
 using Event = UnityEngine.Event;
 using Object = UnityEngine.Object;
 
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
+=======
+using UnityEngine.UIElements;
+
+using Event = UnityEngine.Event;
+>>>>>>> Stashed changes
 
 namespace UnityEditor.Tilemaps
 {
@@ -19,6 +29,7 @@ namespace UnityEditor.Tilemaps
     /// </summary>
     public class GridPaintPaletteWindow : EditorWindow, ISupportsOverlays
     {
+<<<<<<< Updated upstream
         internal enum TilemapFocusMode
         {
             None = 0,
@@ -105,11 +116,16 @@ namespace UnityEditor.Tilemaps
             public static readonly GUIContent emptyPaletteInfo = EditorGUIUtility.TrTextContent("Drag Tile, Sprite or Sprite Texture assets here.");
             public static readonly GUIContent invalidPaletteInfo = EditorGUIUtility.TrTextContent("This is an invalid palette. Did you delete the palette asset?");
             public static readonly GUIContent invalidGridInfo = EditorGUIUtility.TrTextContent("The palette has an invalid Grid. Did you add a Grid to the palette asset?");
+=======
+        private static class Styles
+        {
+>>>>>>> Stashed changes
             public static readonly GUIContent selectPaintTarget = EditorGUIUtility.TrTextContent("Select Paint Target");
             public static readonly GUIContent selectPalettePrefab = EditorGUIUtility.TrTextContent("Select Palette Prefab");
             public static readonly GUIContent selectTileAsset = EditorGUIUtility.TrTextContent("Select Tile Asset");
             public static readonly GUIContent unlockPaletteEditing = EditorGUIUtility.TrTextContent("Unlock Palette Editing");
             public static readonly GUIContent lockPaletteEditing = EditorGUIUtility.TrTextContent("Lock Palette Editing");
+<<<<<<< Updated upstream
             public static readonly GUIContent openTilePalettePreferences = EditorGUIUtility.TrTextContent("Open Tile Palette Preferences");
             public static readonly GUIContent createNewPalette = EditorGUIUtility.TrTextContent("Create New Palette");
             public static readonly GUIContent focusLabel = EditorGUIUtility.TrTextContent("Focus On");
@@ -141,11 +157,27 @@ namespace UnityEditor.Tilemaps
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
             private GameObject m_GameObject;
 =======
+=======
+            public static readonly GUIContent verticalBrushSplit = EditorGUIUtility.TrTextContent("Vertical Split for Brush Inspector");
+            public static readonly GUIContent horizontalBrushSplit = EditorGUIUtility.TrTextContent("Horizontal Split for Brush Inspector");
+            public static readonly GUIContent openTilePalettePreferences = EditorGUIUtility.TrTextContent("Open Tile Palette Preferences");
+            public static readonly GUIContent openAsFloatingWindow = EditorGUIUtility.TrTextContent("Open Window as/Floating");
+            public static readonly GUIContent openAsDockableWindow = EditorGUIUtility.TrTextContent("Open Window as/Dockable");
+
+            public static readonly GUIContent tilePalette = EditorGUIUtility.TrTextContent("Tile Palette");
+
+            public static readonly GUIContent mouseGridPositionAtZ = EditorGUIUtility.TrTextContent("Mouse Grid Position At Z", "Shows the Mouse Grid Position marquee at the Brush's Z Position.");
+        }
+
+        private static class UIStyles
+        {
+>>>>>>> Stashed changes
             public static readonly string styleSheetPath = "Packages/com.unity.2d.tilemap/Editor/UI/GridPaintPaletteWindow.uss";
             public static readonly string darkStyleSheetPath = "Packages/com.unity.2d.tilemap/Editor/UI/GridPaintPaletteWindowDark.uss";
             public static readonly string lightStyleSheetPath = "Packages/com.unity.2d.tilemap/Editor/UI/GridPaintPaletteWindowLight.uss";
             public static readonly string ussClassName = "unity-grid-paint-palette-window";
         }
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
 
             public TilePaletteSaveScope(GameObject paletteInstance)
@@ -234,6 +266,28 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs("Grid Painting/Select", "s")]
         [Shortcut("Grid Painting/Select", typeof(ShortcutContext), KeyCode.S)]
 =======
+=======
+
+        private static readonly string k_TilePaletteVerticalBrushSplitPref = "TilePaletteVerticalBrushSplit";
+        internal static bool tilePaletteVerticalBrushSplit
+        {
+            get
+            {
+                return EditorPrefs.GetBool(k_TilePaletteVerticalBrushSplitPref, true);
+            }
+            set
+            {
+                EditorPrefs.SetBool(k_TilePaletteVerticalBrushSplitPref, value);
+            }
+        }
+
+        private const float k_ActiveTargetLabelWidth = 90f;
+        private const float k_ActiveTargetDropdownWidth = 130f;
+        private const float k_ActiveTargetWarningSize = 20f;
+        private const float k_MinClipboardHeight = 200f;
+        private static readonly Vector2 k_MinWindowSize = new Vector2(k_ActiveTargetLabelWidth + k_ActiveTargetDropdownWidth + k_ActiveTargetWarningSize, k_MinClipboardHeight);
+
+>>>>>>> Stashed changes
         internal static class ShortcutIds
         {
             public const string k_Select = "Grid Painting/Select";
@@ -257,12 +311,16 @@ namespace UnityEditor.Tilemaps
         
         [FormerlyPrefKeyAs(ShortcutIds.k_Select, "s")]
         [Shortcut(ShortcutIds.k_Select, typeof(TilemapEditorTool.ShortcutContext), KeyCode.S)]
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+>>>>>>> Stashed changes
         static void GridSelectKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(SelectTool));
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Move", "m")]
         [Shortcut("Grid Painting/Move", typeof(ShortcutContext), KeyCode.M)]
@@ -270,11 +328,16 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_Move, "m")]
         [Shortcut(ShortcutIds.k_Move, typeof(TilemapEditorTool.ShortcutContext), KeyCode.M)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_Move, "m")]
+        [Shortcut(ShortcutIds.k_Move, typeof(TilemapEditorTool.ShortcutContext), KeyCode.M)]
+>>>>>>> Stashed changes
         static void GridMoveKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(MoveTool));
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Brush", "b")]
         [Shortcut("Grid Painting/Brush", typeof(ShortcutContext), KeyCode.B)]
@@ -282,11 +345,16 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_Brush, "b")]
         [Shortcut(ShortcutIds.k_Brush, typeof(TilemapEditorTool.ShortcutContext), KeyCode.B)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_Brush, "b")]
+        [Shortcut(ShortcutIds.k_Brush, typeof(TilemapEditorTool.ShortcutContext), KeyCode.B)]
+>>>>>>> Stashed changes
         static void GridBrushKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(PaintTool));
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Rectangle", "u")]
         [Shortcut("Grid Painting/Rectangle", typeof(ShortcutContext), KeyCode.U)]
@@ -294,11 +362,16 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_Rectangle, "u")]
         [Shortcut(ShortcutIds.k_Rectangle, typeof(TilemapEditorTool.ShortcutContext), KeyCode.U)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_Rectangle, "u")]
+        [Shortcut(ShortcutIds.k_Rectangle, typeof(TilemapEditorTool.ShortcutContext), KeyCode.U)]
+>>>>>>> Stashed changes
         static void GridRectangleKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(BoxTool));
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Picker", "i")]
         [Shortcut("Grid Painting/Picker", typeof(ShortcutContext), KeyCode.I)]
@@ -306,11 +379,16 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_Picker, "i")]
         [Shortcut(ShortcutIds.k_Picker, typeof(TilemapEditorTool.ShortcutContext), KeyCode.I)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_Picker, "i")]
+        [Shortcut(ShortcutIds.k_Picker, typeof(TilemapEditorTool.ShortcutContext), KeyCode.I)]
+>>>>>>> Stashed changes
         static void GridPickerKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(PickingTool));
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Erase", "d")]
         [Shortcut("Grid Painting/Erase", typeof(ShortcutContext), KeyCode.D)]
@@ -318,11 +396,16 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_Erase, "d")]
         [Shortcut(ShortcutIds.k_Erase, typeof(TilemapEditorTool.ShortcutContext), KeyCode.D)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_Erase, "d")]
+        [Shortcut(ShortcutIds.k_Erase, typeof(TilemapEditorTool.ShortcutContext), KeyCode.D)]
+>>>>>>> Stashed changes
         static void GridEraseKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(EraseTool));
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Fill", "g")]
         [Shortcut("Grid Painting/Fill", typeof(ShortcutContext), KeyCode.G)]
@@ -330,6 +413,10 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_Fill, "g")]
         [Shortcut(ShortcutIds.k_Fill, typeof(TilemapEditorTool.ShortcutContext), KeyCode.G)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_Fill, "g")]
+        [Shortcut(ShortcutIds.k_Fill, typeof(TilemapEditorTool.ShortcutContext), KeyCode.G)]
+>>>>>>> Stashed changes
         static void GridFillKey()
         {
             TilemapEditorTool.ToggleActiveEditorTool(typeof(FillTool));
@@ -341,6 +428,7 @@ namespace UnityEditor.Tilemaps
             GridPaintingState.activeGrid.Repaint();
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Rotate Clockwise", "[")]
         [Shortcut("Grid Painting/Rotate Clockwise", typeof(ShortcutContext), KeyCode.LeftBracket)]
@@ -348,12 +436,17 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_RotateClockwise, "]")]
         [Shortcut(ShortcutIds.k_RotateClockwise, typeof(TilemapEditorTool.ShortcutContext), KeyCode.RightBracket)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_RotateClockwise, "]")]
+        [Shortcut(ShortcutIds.k_RotateClockwise, typeof(TilemapEditorTool.ShortcutContext), KeyCode.RightBracket)]
+>>>>>>> Stashed changes
         static void RotateBrushClockwise()
         {
             if (GridPaintingState.gridBrush != null && GridPaintingState.activeGrid != null)
                 RotateBrush(GridBrushBase.RotationDirection.Clockwise);
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Rotate Anti-Clockwise", "]")]
         [Shortcut("Grid Painting/Rotate Anti-Clockwise", typeof(ShortcutContext), KeyCode.RightBracket)]
@@ -361,6 +454,10 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_RotateAntiClockwise, "[")]
         [Shortcut(ShortcutIds.k_RotateAntiClockwise, typeof(TilemapEditorTool.ShortcutContext), KeyCode.LeftBracket)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_RotateAntiClockwise, "[")]
+        [Shortcut(ShortcutIds.k_RotateAntiClockwise, typeof(TilemapEditorTool.ShortcutContext), KeyCode.LeftBracket)]
+>>>>>>> Stashed changes
         static void RotateBrushAntiClockwise()
         {
             if (GridPaintingState.gridBrush != null && GridPaintingState.activeGrid != null)
@@ -373,6 +470,7 @@ namespace UnityEditor.Tilemaps
             GridPaintingState.activeGrid.Repaint();
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Flip X", "#[")]
         [Shortcut("Grid Painting/Flip X", typeof(ShortcutContext), KeyCode.LeftBracket, ShortcutModifiers.Shift)]
@@ -380,12 +478,17 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_FlipX, "#[")]
         [Shortcut(ShortcutIds.k_FlipX, typeof(TilemapEditorTool.ShortcutContext), KeyCode.LeftBracket, ShortcutModifiers.Shift)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_FlipX, "#[")]
+        [Shortcut(ShortcutIds.k_FlipX, typeof(TilemapEditorTool.ShortcutContext), KeyCode.LeftBracket, ShortcutModifiers.Shift)]
+>>>>>>> Stashed changes
         static void FlipBrushX()
         {
             if (GridPaintingState.gridBrush != null && GridPaintingState.activeGrid != null)
                 FlipBrush(GridBrushBase.FlipAxis.X);
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [FormerlyPrefKeyAs("Grid Painting/Flip Y", "#]")]
         [Shortcut("Grid Painting/Flip Y", typeof(ShortcutContext), KeyCode.RightBracket, ShortcutModifiers.Shift)]
@@ -393,6 +496,10 @@ namespace UnityEditor.Tilemaps
         [FormerlyPrefKeyAs(ShortcutIds.k_FlipY, "#]")]
         [Shortcut(ShortcutIds.k_FlipY, typeof(TilemapEditorTool.ShortcutContext), KeyCode.RightBracket, ShortcutModifiers.Shift)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [FormerlyPrefKeyAs(ShortcutIds.k_FlipY, "#]")]
+        [Shortcut(ShortcutIds.k_FlipY, typeof(TilemapEditorTool.ShortcutContext), KeyCode.RightBracket, ShortcutModifiers.Shift)]
+>>>>>>> Stashed changes
         static void FlipBrushY()
         {
             if (GridPaintingState.gridBrush != null && GridPaintingState.activeGrid != null)
@@ -404,17 +511,26 @@ namespace UnityEditor.Tilemaps
             GridPaintingState.gridBrush.ChangeZPosition(change);
             GridPaintingState.activeGrid.ChangeZPosition(change);
             GridPaintingState.activeGrid.Repaint();
+<<<<<<< Updated upstream
             foreach (var window in GridPaintPaletteWindow.instances)
+=======
+
+            foreach (var window in instances)
+>>>>>>> Stashed changes
             {
                 window.Repaint();
             }
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [Shortcut("Grid Painting/Increase Z", typeof(ShortcutContext), KeyCode.Minus)]
 =======
         [Shortcut(ShortcutIds.k_IncreaseZ, typeof(TilemapEditorTool.ShortcutContext), KeyCode.Minus)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [Shortcut(ShortcutIds.k_IncreaseZ, typeof(TilemapEditorTool.ShortcutContext), KeyCode.Minus)]
+>>>>>>> Stashed changes
         static void IncreaseBrushZ()
         {
             if (GridPaintingState.gridBrush != null
@@ -424,11 +540,15 @@ namespace UnityEditor.Tilemaps
                 ChangeBrushZ(1);
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [Shortcut("Grid Painting/Decrease Z", typeof(ShortcutContext), KeyCode.Equals)]
 =======
         [Shortcut(ShortcutIds.k_DecreaseZ, typeof(TilemapEditorTool.ShortcutContext), KeyCode.Equals)]
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+        [Shortcut(ShortcutIds.k_DecreaseZ, typeof(TilemapEditorTool.ShortcutContext), KeyCode.Equals)]
+>>>>>>> Stashed changes
         static void DecreaseBrushZ()
         {
             if (GridPaintingState.gridBrush != null
@@ -438,8 +558,11 @@ namespace UnityEditor.Tilemaps
                 ChangeBrushZ(-1);
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
 =======
+=======
+>>>>>>> Stashed changes
         [Shortcut(ShortcutIds.k_SwitchToNextBrush, typeof(TilemapEditorTool.ShortcutContext), KeyCode.B, ShortcutModifiers.Shift)]
         static void SwitchToNextBrush()
         {
@@ -495,16 +618,28 @@ namespace UnityEditor.Tilemaps
             tilePaletteBrushPickOverlay.TogglePopup(GridPaintingState.lastSceneViewMousePosition);
         }
 
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+>>>>>>> Stashed changes
         internal static void PreferencesGUI()
         {
             using (new SettingsWindow.GUIScope())
             {
                 EditorGUI.BeginChangeCheck();
+<<<<<<< Updated upstream
                 var val = (TilePaletteProperties.PrefabEditModeSettings)EditorGUILayout.EnumPopup(TilePaletteProperties.targetEditModeDialogLabel, (TilePaletteProperties.PrefabEditModeSettings)EditorPrefs.GetInt(TilePaletteProperties.targetEditModeEditorPref, 0));
                 if (EditorGUI.EndChangeCheck())
                 {
                     EditorPrefs.SetInt(TilePaletteProperties.targetEditModeEditorPref, (int)val);
+=======
+                var val = (TilePaletteActiveTargetsProperties.PrefabEditModeSettings)EditorGUILayout.EnumPopup(TilePaletteActiveTargetsProperties.targetEditModeDialogLabel
+                    , (TilePaletteActiveTargetsProperties.PrefabEditModeSettings)EditorPrefs.GetInt(TilePaletteActiveTargetsProperties.targetEditModeEditorPref
+                        , 0));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorPrefs.SetInt(TilePaletteActiveTargetsProperties.targetEditModeEditorPref, (int)val);
+>>>>>>> Stashed changes
                 }
                 EditorGUI.BeginChangeCheck();
                 var val2 = EditorGUILayout.Toggle(Styles.mouseGridPositionAtZ, GridPaintingState.gridBrushMousePositionAtZ);
@@ -538,6 +673,7 @@ namespace UnityEditor.Tilemaps
             }
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         [SerializeField]
         private PreviewResizer m_PreviewResizer;
@@ -642,6 +778,30 @@ namespace UnityEditor.Tilemaps
                 }
             }
 =======
+=======
+        internal GameObject palette
+        {
+            get => GridPaintingState.palette;
+            set => GridPaintingState.palette = value;
+        }
+
+        internal GameObject paletteInstance => clipboardView.paletteInstance;
+
+        internal GridPaintPaletteClipboard clipboardView
+        {
+            get => m_ClipboardSplitView.paletteElement.clipboardView;
+        }
+
+        private Vector2 m_BrushScroll;
+        private bool m_IsUtilityWindow;
+
+        private VisualElement m_ToolbarVisualElement;
+        private VisualElement m_ActiveTargetsVisualElement;
+        private GridPaintPaletteWindowSplitView m_ClipboardSplitView;
+
+        private void CreateGUI()
+        {
+>>>>>>> Stashed changes
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(UIStyles.styleSheetPath);
             var skinStyleSheet = EditorGUIUtility.isProSkin
                 ? AssetDatabase.LoadAssetAtPath<StyleSheet>(UIStyles.darkStyleSheetPath)
@@ -671,11 +831,15 @@ namespace UnityEditor.Tilemaps
             m_ActiveTargetsVisualElement.AddManipulator(new TilePaletteContextMenuHandler(DoContextMenu));
 
             m_ClipboardSplitView.AddManipulator(new TilePaletteDragHandler(DragUpdatedForConvertGridPrefabToPalette, DragPerformedForConvertGridPrefabToPalette));
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap/Editor/GridPaintPaletteWindow.cs
+=======
+>>>>>>> Stashed changes
         }
 
         private void OnGUI()
         {
+<<<<<<< Updated upstream
             HandleContextMenu();
 
             EditorGUILayout.BeginVertical();
@@ -731,6 +895,8 @@ namespace UnityEditor.Tilemaps
 
             EditorGUILayout.EndVertical();
 
+=======
+>>>>>>> Stashed changes
             // Keep repainting until all previews are loaded
             if (AssetPreview.IsLoadingAssetPreviews(GetInstanceID()))
                 Repaint();
@@ -740,6 +906,7 @@ namespace UnityEditor.Tilemaps
                 GUIUtility.keyboardControl = 0;
         }
 
+<<<<<<< Updated upstream
         static void DoTilemapToolbar()
         {
             EditorTool active = EditorToolManager.activeTool;
@@ -866,6 +1033,8 @@ namespace UnityEditor.Tilemaps
             }
         }
 
+=======
+>>>>>>> Stashed changes
         private void DoContextMenu()
         {
             GenericMenu pm = new GenericMenu();
@@ -891,6 +1060,7 @@ namespace UnityEditor.Tilemaps
             else
                 pm.AddItem(Styles.unlockPaletteEditing, false, FlipLocked);
 
+<<<<<<< Updated upstream
             pm.AddItem(Styles.openTilePalettePreferences, false, OpenTilePalettePreferences);
 
             pm.ShowAsContext();
@@ -900,11 +1070,50 @@ namespace UnityEditor.Tilemaps
         {
             var settingsWindow = SettingsWindow.Show(SettingsScope.User);
             settingsWindow.FilterProviders(TilePaletteProperties.tilePalettePreferencesLookup);
+=======
+            if (tilePaletteVerticalBrushSplit)
+                pm.AddItem(Styles.horizontalBrushSplit, false, FlipShowToolbarInSceneView);
+            else
+                pm.AddItem(Styles.verticalBrushSplit, false, FlipShowToolbarInSceneView);
+
+            pm.AddItem(Styles.openTilePalettePreferences, false, OpenTilePalettePreferences);
+
+            pm.AddItem(Styles.openAsDockableWindow, !m_IsUtilityWindow, () => OpenWindow(false));
+            pm.AddItem(Styles.openAsFloatingWindow, m_IsUtilityWindow, () => OpenWindow(true));
+
+            pm.ShowAsContext();
+        }
+
+        private void OpenWindow(bool utility)
+        {
+            Close();
+            GridPaintPaletteWindow w = GetWindow<GridPaintPaletteWindow>(utility, Styles.tilePalette.text, true);
+            w.m_IsUtilityWindow = utility;
+        }
+
+        private void OpenTilePalettePreferences()
+        {
+            var settingsWindow = SettingsWindow.Show(SettingsScope.User);
+            settingsWindow.FilterProviders(TilePaletteActiveTargetsProperties.tilePalettePreferencesLookup);
+>>>>>>> Stashed changes
         }
 
         private void FlipLocked()
         {
+<<<<<<< Updated upstream
             clipboardView.unlocked = !clipboardView.unlocked;
+=======
+            m_ClipboardSplitView.paletteElement.clipboardUnlocked = !m_ClipboardSplitView.paletteElement.clipboardUnlocked;
+        }
+
+        private void FlipShowToolbarInSceneView()
+        {
+            var state = !m_ClipboardSplitView.isVerticalOrientation;
+            tilePaletteVerticalBrushSplit = state;
+            m_ClipboardSplitView.isVerticalOrientation = state;
+
+            SceneView.RepaintAll();
+>>>>>>> Stashed changes
         }
 
         private void SelectPaintTarget()
@@ -922,6 +1131,7 @@ namespace UnityEditor.Tilemaps
             Selection.activeObject = clipboardView.activeTile;
         }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs
         private bool NotOverridingColor(GridBrush defaultGridBrush)
         {
@@ -1036,10 +1246,26 @@ namespace UnityEditor.Tilemaps
                 ResetPreviewInstance();
                 Repaint();
             }
+=======
+        internal void OnEnable()
+        {
+            instances.Add(this);
+
+            GridSelection.gridSelectionChanged += OnGridSelectionChanged;
+            EditorApplication.projectWasLoaded += OnProjectLoaded;
+            ToolManager.activeToolChanged += ActiveToolChanged;
+
+            wantsMouseMove = true;
+            wantsMouseEnterLeaveWindow = true;
+            minSize = k_MinWindowSize;
+
+            GridPaintingState.RegisterPainterInterest(this);
+>>>>>>> Stashed changes
         }
 
         private void OnProjectLoaded()
         {
+<<<<<<< Updated upstream
             // ShortcutIntegration instance is recreated after LoadLayout which wipes the OnEnable registration
             ShortcutIntegration.instance.contextManager.RegisterToolContext(m_ShortcutContext);
         }
@@ -1050,6 +1276,9 @@ namespace UnityEditor.Tilemaps
             if (brush is GridBrush)
                 EnableFocus();
             SceneView.RepaintAll();
+=======
+            GridPaintingState.RegisterShortcutContext();
+>>>>>>> Stashed changes
         }
 
         private void OnGridSelectionChanged()
@@ -1059,6 +1288,7 @@ namespace UnityEditor.Tilemaps
 
         internal void OnDisable()
         {
+<<<<<<< Updated upstream
             m_Enabled = false;
             DisableFocus();
             focusMode = TilemapFocusMode.None;
@@ -1100,10 +1330,20 @@ namespace UnityEditor.Tilemaps
             DisableFocus();
             EnableFocus();
             Repaint();
+=======
+            GridPaintingState.UnregisterPainterInterest(this);
+
+            ToolManager.activeToolChanged -= ActiveToolChanged;
+            GridSelection.gridSelectionChanged -= OnGridSelectionChanged;
+            EditorApplication.projectWasLoaded -= OnProjectLoaded;
+
+            instances.Remove(this);
+>>>>>>> Stashed changes
         }
 
         private void ActiveToolChanged()
         {
+<<<<<<< Updated upstream
             if (GridPaintingState.gridBrush != null && PaintableGrid.InGridEditMode() && GridPaintingState.activeBrushEditor != null)
             {
                 GridBrushBase.Tool tool = PaintableGrid.EditTypeToBrushTool(ToolManager.activeToolType);
@@ -1147,6 +1387,66 @@ namespace UnityEditor.Tilemaps
 
                 if (!PaintableGrid.InGridEditMode())
                     Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+=======
+            Repaint();
+        }
+
+        private bool ValidateDragAndDrop()
+        {
+            if (DragAndDrop.objectReferences.Length != 1)
+                return false;
+
+            var draggedObject = DragAndDrop.objectReferences[0];
+            if (!PrefabUtility.IsPartOfRegularPrefab(draggedObject))
+                return false;
+
+            return true;
+        }
+
+        private void DragUpdatedForConvertGridPrefabToPalette()
+        {
+            if (!ValidateDragAndDrop())
+                return;
+
+            DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+        }
+
+        private void DragPerformedForConvertGridPrefabToPalette()
+        {
+            if (!ValidateDragAndDrop())
+                return;
+
+            var draggedObject = DragAndDrop.objectReferences[0];
+            var path = AssetDatabase.GetAssetPath(draggedObject);
+            var assets = AssetDatabase.LoadAllAssetsAtPath(path);
+            bool hasNewPaletteAsset = false;
+            Grid gridPrefab = null;
+            foreach (var asset in assets)
+            {
+                var gridPalette = asset as GridPalette;
+                hasNewPaletteAsset |= gridPalette != null;
+                GameObject go = asset as GameObject;
+                if (go != null)
+                {
+                    var grid = go.GetComponent<Grid>();
+                    if (grid != null)
+                        gridPrefab = grid;
+                }
+            }
+            if (!hasNewPaletteAsset && gridPrefab != null)
+            {
+                var cellLayout = gridPrefab.cellLayout;
+                var cellSizing = (cellLayout == GridLayout.CellLayout.Rectangle
+                    || cellLayout == GridLayout.CellLayout.Hexagon)
+                    ? GridPalette.CellSizing.Automatic
+                    : GridPalette.CellSizing.Manual;
+                var newPalette = GridPaletteUtility.CreateGridPalette(cellSizing);
+                AssetDatabase.AddObjectToAsset(newPalette, path);
+                AssetDatabase.ForceReserializeAssets(new[] {path});
+                AssetDatabase.SaveAssets();
+                Event.current.Use();
+                GUIUtility.ExitGUI();
+>>>>>>> Stashed changes
             }
         }
 
@@ -1156,6 +1456,7 @@ namespace UnityEditor.Tilemaps
             GridPaintingState.lastActiveGrid.ResetZPosition();
         }
 
+<<<<<<< Updated upstream
         private void OnBrushInspectorGUI()
         {
             if (GridPaintingState.gridBrush == null)
@@ -1620,11 +1921,14 @@ namespace UnityEditor.Tilemaps
             }
         }
 
+=======
+>>>>>>> Stashed changes
         [MenuItem("Window/2D/Tile Palette", false, 2)]
         internal static void OpenTilemapPalette()
         {
             GridPaintPaletteWindow w = GetWindow<GridPaintPaletteWindow>();
             w.titleContent = Styles.tilePalette;
+<<<<<<< Updated upstream
         }
 
         // TODO: Better way of clearing caches than AssetPostprocessor
@@ -1675,6 +1979,9 @@ namespace UnityEditor.Tilemaps
                     }
                 }
             }
+=======
+            w.m_IsUtilityWindow = false;
+>>>>>>> Stashed changes
         }
     }
 }

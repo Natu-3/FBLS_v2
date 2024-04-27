@@ -77,8 +77,11 @@ namespace UnityEditor.TestTools.TestRunner.Api
                 synchronousOnly = synchronousOnly
             };
         }
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEditor.TestRunner/Api/Filter.cs
 ========
+=======
+>>>>>>> Stashed changes
 
         private static TestPlatform ConvertTestMode(TestMode testMode)
         {

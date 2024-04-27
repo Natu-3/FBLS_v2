@@ -25,6 +25,7 @@ namespace UnityEditor.TestTools.TestRunner
             m_Settings = mSettings;
         }
         protected void CreateBootstrapScene(string sceneName, Scene scene, PlaymodeTestsController runner, Action<PlaymodeTestsController> runnerSetup)
+<<<<<<< Updated upstream
 >>>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.test-framework/UnityEditor.TestRunner/TestLaunchers/RuntimeTestLauncherBase.cs
         {
             runnerSetup(runner);
@@ -33,6 +34,10 @@ namespace UnityEditor.TestTools.TestRunner
             runner.AssembliesWithTests = editorLoadedTestAssemblyProvider.GetAssembliesGroupedByType(TestPlatform.PlayMode).Select(x => x.Assembly.GetName().Name).ToList();
 ========
 >>>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.test-framework/UnityEditor.TestRunner/TestLaunchers/RuntimeTestLauncherBase.cs
+=======
+        {
+            runnerSetup(runner);
+>>>>>>> Stashed changes
 
             EditorSceneManager.MarkSceneDirty(scene);
             AssetDatabase.SaveAssets();

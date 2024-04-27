@@ -717,7 +717,10 @@ namespace UnityEditor.U2D.Sprites
                 String.Format(SpriteEditorWindowStyles.applyRevertDialogContent.text, selectedAssetPath));
         }
 
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.sprite/Editor/SpriteEditor/SpriteEditorWindow.cs
+=======
+>>>>>>> Stashed changes
         static bool ShowHandleApplyRevertDialog(string dialogTitle, string dialogContent)
         {
             return EditorUtility.DisplayDialog(dialogTitle, dialogContent,

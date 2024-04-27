@@ -5,12 +5,18 @@ using NUnit;
 using NUnit.Framework.Api;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEngine.TestRunner/NUnitExtensions/UnityTestAssemblyBuilder.cs
 ========
 using Unity.Profiling;
 using UnityEngine.TestRunner.NUnitExtensions;
 using UnityEngine.TestRunner.NUnitExtensions.Filters;
 >>>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.test-framework/UnityEngine.TestRunner/NUnitExtensions/UnityTestAssemblyBuilder.cs
+=======
+using Unity.Profiling;
+using UnityEngine.TestRunner.NUnitExtensions;
+using UnityEngine.TestRunner.NUnitExtensions.Filters;
+>>>>>>> Stashed changes
 
 namespace UnityEngine.TestTools.NUnitExtensions
 {

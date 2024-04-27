@@ -77,10 +77,13 @@ namespace UnityEditor.TestTools.TestRunner
 
             return filteredResults.Where(pair => pair.Value).Select(pair => pair.Key).ToArray();
         }
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEditor.TestRunner/TestRunner/Utils/EditorLoadedTestAssemblyProvider.cs
         
         private void FilterAssemblyForTestReference(IAssemblyWrapper assemblyToFilter, IAssemblyWrapper[] loadedAssemblies, IDictionary<IAssemblyWrapper, bool> filterResults)
 ========
+=======
+>>>>>>> Stashed changes
 
         private void FilterAssemblyForTestReference(IAssemblyWrapper assemblyToFilter, IAssemblyWrapper[] loadedAssemblies,
             IDictionary<IAssemblyWrapper, bool> filterResults, IDictionary<IAssemblyWrapper, bool> resultsAlreadyAnalyzed)

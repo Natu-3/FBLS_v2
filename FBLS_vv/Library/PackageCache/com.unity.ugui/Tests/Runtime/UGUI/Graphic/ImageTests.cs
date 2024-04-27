@@ -121,8 +121,11 @@ namespace UnityEngine.UI.Tests
         }
 
         [Test]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Graphic/ImageTests.cs
 =======
+=======
+>>>>>>> Stashed changes
         public void RaycastOverImage_IgnoresDisabledCanvasGroup()
         {
             var canvasGroup = m_CanvasRoot.AddComponent<CanvasGroup>();

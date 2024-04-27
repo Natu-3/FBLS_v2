@@ -30,6 +30,7 @@ namespace UnityEditor.TestTools.TestRunner
         private string m_SceneName;
         private Scene m_Scene;
         private int m_HeartbeatTimeout;
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEditor.TestRunner/TestLaunchers/PlayerLauncher.cs
 
         public PlayerLauncher(PlaymodeTestsControllerSettings settings, BuildTarget? targetPlatform, ITestRunSettings overloadTestRunSettings, int heartbeatTimeout)
@@ -41,6 +42,14 @@ namespace UnityEditor.TestTools.TestRunner
 
         public PlayerLauncher(PlaymodeTestsControllerSettings settings, BuildTarget? targetPlatform, ITestRunSettings overloadTestRunSettings, int heartbeatTimeout, string playerWithTestsPath, string scenePath, Scene scene, PlaymodeTestsController runner) : base(settings)
 >>>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.test-framework/UnityEditor.TestRunner/TestLaunchers/PlayerLauncher.cs
+=======
+        private string m_PlayerWithTestsPath;
+        private PlaymodeTestsController m_Runner;
+
+        internal PlayerLauncherBuildOptions playerBuildOptions { get; private set; }
+
+        public PlayerLauncher(PlaymodeTestsControllerSettings settings, BuildTarget? targetPlatform, ITestRunSettings overloadTestRunSettings, int heartbeatTimeout, string playerWithTestsPath, string scenePath, Scene scene, PlaymodeTestsController runner) : base(settings)
+>>>>>>> Stashed changes
         {
             m_Settings = settings;
             m_TargetPlatform = targetPlatform ?? EditorUserBuildSettings.activeBuildTarget;
@@ -52,7 +61,10 @@ namespace UnityEditor.TestTools.TestRunner
             m_SceneName = scenePath;
             m_Scene = scene;
             m_Runner = runner;
+<<<<<<< Updated upstream
 >>>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.test-framework/UnityEditor.TestRunner/TestLaunchers/PlayerLauncher.cs
+=======
+>>>>>>> Stashed changes
         }
 
         protected override RuntimePlatform? TestTargetPlatform

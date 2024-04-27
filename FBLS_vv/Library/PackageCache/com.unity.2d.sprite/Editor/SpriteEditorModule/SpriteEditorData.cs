@@ -39,7 +39,10 @@ namespace UnityEditor.U2D.Sprites
 =======
             m_InternalID = so.FindProperty("m_SpriteSheet.m_InternalID").longValue;
             customData = so.FindProperty("m_SpriteSheet.m_CustomData").stringValue;
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.sprite/Editor/SpriteEditorModule/SpriteEditorData.cs
+=======
+>>>>>>> Stashed changes
         }
 
         internal SpriteDataExt(SerializedProperty sp)
@@ -76,7 +79,10 @@ namespace UnityEditor.U2D.Sprites
             spritePhysicsOutline = new List<Vector2[]>();
             spriteBone = new List<SpriteBone>();
             customData = sr.customData;
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.2d.sprite/Editor/SpriteEditorModule/SpriteEditorData.cs
+=======
+>>>>>>> Stashed changes
         }
 
         internal SpriteDataExt(SpriteRect sr)
@@ -152,9 +158,12 @@ namespace UnityEditor.U2D.Sprites
             pivot = spriteRect.pivot;
             rect = spriteRect.rect;
             spriteID = spriteRect.spriteID;
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.2d.sprite@1.0.0/Editor/SpriteEditorModule/SpriteEditorData.cs
             internalID = spriteRect.internalID;
 =======
+=======
+>>>>>>> Stashed changes
             customData = spriteRect.customData;
         }
 

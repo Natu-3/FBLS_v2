@@ -20,6 +20,47 @@ namespace UnityEditor.U2D.Sprites
             get { return m_SpriteReadOnlyList; }
         }
 
+<<<<<<< Updated upstream
+=======
+        [Serializable]
+        class StringGUIDList : List<StringGUID>, IReadOnlyList<GUID>
+        {
+            GUID IReadOnlyList<GUID>.this[int index]
+            {
+                get => this[index];
+            }
+
+            IEnumerator<GUID> IEnumerable<GUID>.GetEnumerator()
+            {
+                // Not used for now
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// List of all SpriteRects
+        /// </summary>
+        [SerializeField] private List<SpriteRect> m_SpriteRects;
+        /// <summary>
+        /// List of all names in the Name-FileId Table
+        /// </summary>
+        [SerializeField] private List<string> m_SpriteNames;
+        /// <summary>
+        /// List of all FileIds in the Name-FileId Table
+        /// </summary>
+        [SerializeField] private StringGUIDList m_SpriteFileIds;
+        /// <summary>
+        /// HashSet of all names currently in use by SpriteRects
+        /// </summary>
+        private HashSet<string> m_NamesInUse;
+        private HashSet<GUID> m_InternalIdsInUse;
+
+
+        public IReadOnlyList<SpriteRect> spriteRects => m_SpriteRects;
+        public IReadOnlyList<string> spriteNames => m_SpriteNames;
+        public IReadOnlyList<GUID> spriteFileIds => m_SpriteFileIds;
+
+>>>>>>> Stashed changes
         private SpriteRectModel()
         {
             m_Names = new HashSet<string>();

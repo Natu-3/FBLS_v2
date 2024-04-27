@@ -26,7 +26,10 @@ public class TextEditorTests
             // Unstable - https://jira.unity3d.com/browse/UUM-19454
             // yield return new TestCaseData("Hello 😁 World", new[] { 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14 }).SetName("Hello (U+1F601) World");
             // yield return new TestCaseData("見ざる🙈、聞かざる🙉、言わざる🙊", new[] { 0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19 }).SetName("Three wise monkeys");
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.ugui/Tests/Runtime/UGUI/TextEditor/TextEditorTests.cs
+=======
+>>>>>>> Stashed changes
         }
     }
 
@@ -48,7 +51,10 @@ public class TextEditorTests
             // yield return new TestCaseData("\U00010000 \U00010001 \U00010002\U00010003", new[] { 0, 3, 6 }, new[] { 2, 5, 10 }).SetName("(U+10000) (U+10001) (U+10002)(U+10003)");
             // yield return new TestCaseData("Hello 😁 World", new[] { 0, 6, 9 }, new[] { 5, 8, 14 }).SetName("Hello (U+1F601) World");
             // yield return new TestCaseData("見ざる🙈、聞かざる🙉、言わざる🙊", new[] { 0, 3, 6, 10, 13, 17 }, new[] { 3, 6, 10, 13, 17, 19 }).SetName("Three wise monkeys");
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.ugui/Tests/Runtime/UGUI/TextEditor/TextEditorTests.cs
+=======
+>>>>>>> Stashed changes
         }
     }
 

@@ -1,6 +1,9 @@
 # Changelog
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/CHANGELOG.md
 ========
+=======
+>>>>>>> Stashed changes
 ## [1.4.1] - 2023-11-27
 - Multiple improvements to the UI, including better dropdowns, filtering, and a new test list view for Player.
 - Fixed uncategorized UI tests filtering for parameterized tests (DSTR-219).

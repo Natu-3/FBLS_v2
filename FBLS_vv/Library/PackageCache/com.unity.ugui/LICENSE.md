@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 **Unity Companion Package License v1.0 ("_License_")**
 
 Copyright © 2020 Unity Technologies ApS ("**_Unity_**")
@@ -29,3 +30,10 @@ Unity hereby grants to you a worldwide, non-exclusive, no-charge, and royalty-fr
 1. *Severability*. If any provision of this License is held to be unenforceable or invalid, that provision will be enforced to the maximum extent possible and the other provisions will remain in full force and effect.
 
 1. *Governing Law and Venue*. This License is governed by and construed in accordance with the laws of Denmark, except for its conflict of laws rules; the United Nations Convention on Contracts for the International Sale of Goods will not apply. If you reside (or your principal place of business is) within the United States, you and Unity agree to submit to the personal and exclusive jurisdiction of and venue in the state and federal courts located in San Francisco County, California concerning any dispute arising out of this License ("**_Dispute_**"). If you reside (or your principal place of business is) outside the United States, you and Unity agree to submit to the personal and exclusive jurisdiction of and venue in the courts located in Copenhagen, Denmark concerning any Dispute.
+=======
+Unity UI Copyright © 2015-2020 Unity Technologies ApS ("**_Unity_**")
+
+Licensed under the Unity Companion License for Unity-dependent projects (see https://unity3d.com/legal/licenses/unity_companion_license).
+
+_Unless expressly provided otherwise, the Software under this license is made available strictly on an “AS IS” BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions.
+>>>>>>> Stashed changes

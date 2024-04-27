@@ -16,9 +16,12 @@ namespace UnityEngine.TestTools
     /// - Not explicitly specified in the included platforms list
     /// - In the excluded platforms list
     /// </summary>
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEngine.TestRunner/NUnitExtensions/Attributes/UnityPlatformAttribute.cs
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
 ========
+=======
+>>>>>>> Stashed changes
     /// <example>
     /// <code>
     /// <![CDATA[

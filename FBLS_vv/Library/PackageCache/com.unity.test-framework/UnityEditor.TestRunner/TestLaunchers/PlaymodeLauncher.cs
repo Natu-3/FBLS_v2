@@ -23,6 +23,7 @@ namespace UnityEditor.TestTools.TestRunner
         [SerializeField]
         private List<Type> m_EventHandlers = new List<Type>();
 
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:FBLS_vv/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEditor.TestRunner/TestLaunchers/PlaymodeLauncher.cs
         public PlaymodeLauncher(PlaymodeTestsControllerSettings settings)
         {
@@ -36,6 +37,15 @@ namespace UnityEditor.TestTools.TestRunner
             m_Scene = scene;
             m_Runner = runner;
 >>>>>>>> Stashed changes:FBLS_vv/Library/PackageCache/com.unity.test-framework/UnityEditor.TestRunner/TestLaunchers/PlaymodeLauncher.cs
+=======
+        private string m_SceneName;
+
+        public PlaymodeLauncher(PlaymodeTestsControllerSettings settings, string sceneName, Scene scene, PlaymodeTestsController runner) : base(settings)
+        {
+            m_SceneName = sceneName;
+            m_Scene = scene;
+            m_Runner = runner;
+>>>>>>> Stashed changes
         }
 
         public override void Run()
