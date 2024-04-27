@@ -24,7 +24,7 @@ public class Stage : MonoBehaviour
     private int halfHeight; //좌표 (세로) 중앙값
 
     private float nextFallTime;
-
+    public Blockstructure blockStatus() = new Blockstructure();
 
 
 
@@ -144,15 +144,36 @@ public class Stage : MonoBehaviour
     // 테트로미노를 보드에 추가
     void AddToBoard(Transform root)
     {
+<<<<<<< Updated upstream
+=======
+        List<int> list = new List<int>();  
+        String keyTime = DateTime.Now.ToString("HHmmss"); //처음 생성될때 시분초값을 tag값으로 사용 <<<< 못써먹음 개가튼거
+>>>>>>> Stashed changes
         while (root.childCount > 0)
         {
+            list.Clear
             var node = root.GetChild(0);
 
+<<<<<<< Updated upstream
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_"+y.ToString());
             node.name = "x_"+x.ToString();
+=======
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - 5 + (2 * testp1));
+            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
+
+            node.parent = boardNode.Find("y_" + y.ToString());
+            node.name = "x_" + x.ToString();
+            list.Add(y.ToString());
+            list.Add(x.ToString());
+
+            blockStatus.getElement(keyTime, list);
+            
+            //node.tag = keyTime; <<< 못써먹음2
+            //UnityEngine.Debug.Log(keyTime + "생성됨");
+>>>>>>> Stashed changes
         }
     }
 
