@@ -19,7 +19,7 @@ public class Stage : MonoBehaviour
     [Range(5, 20)]
     public int boardHeight = 20;
     public float fallCycle = 1.0f;
-
+    public int testp1 = 5;
     private int halfWidth; // 좌표 (가로)중앙값
     private int halfHeight; //좌표 (세로) 중앙값
 
@@ -149,7 +149,7 @@ public class Stage : MonoBehaviour
         {
             var node = root.GetChild(0);
         
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth -5 );
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_"+y.ToString());
@@ -310,7 +310,7 @@ public class Stage : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                CreateTile(backgroundNode, new Vector2(x, y), color, 0);
+                CreateTile(backgroundNode, new Vector2(x , y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
             }
         }
 
@@ -319,7 +319,7 @@ public class Stage : MonoBehaviour
         for (int y = halfHeight; y > -halfHeight; --y)
         {
             CreateTile(backgroundNode, new Vector2(-halfWidth - 1, y), color, 0);
-            CreateTile(backgroundNode, new Vector2(halfWidth, y), color, 0);
+            CreateTile(backgroundNode, new Vector2(halfWidth , y), color, 0);
         }
 
         // 아래 테두리
@@ -357,7 +357,7 @@ public class Stage : MonoBehaviour
         col4 = GetColor(colorArray[arrIndex, 3]);
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0, halfHeight);
+        tetrominoNode.position = new Vector2(0 - testp1, halfHeight);
 
         switch (index)
         {
