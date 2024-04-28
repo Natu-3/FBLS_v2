@@ -9,7 +9,7 @@ public class Stage : MonoBehaviour
     [Header("Editor Objects")]
     public GameObject tilePrefab; //타일프리펩 불러옴
     public Transform backgroundNode; // 백그라운드 
-    public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
+    public Transform boardNode; //게임판
     public Transform tetrominoNode; //테트리미노
     public GameObject gameoverPanel; //게임오버
 
@@ -144,18 +144,16 @@ public class Stage : MonoBehaviour
     // 테트로미노를 보드에 추가
     void AddToBoard(Transform root)
     {
-       // String keyTime = DateTime.Now.ToString("HHmmss"); //처음 생성될때 시분초값을 tag값으로 사용 <<<< 못써먹음 개가튼거
         while (root.childCount > 0)
         {
             var node = root.GetChild(0);
-        
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth -5 );
+
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_"+y.ToString());
             node.name = "x_"+x.ToString();
-            //node.tag = keyTime; <<< 못써먹음2
-            //UnityEngine.Debug.Log(keyTime + "생성됨");
         }
     }
 
@@ -163,10 +161,11 @@ public class Stage : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-       
+
+        // 완성된 행 == 행의 자식 갯수가 가로 크기
         foreach (Transform column in boardNode)
         {
-            if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
+            if (column.childCount == boardWidth)
             {
                 foreach (Transform tile in column)
                 {
@@ -220,10 +219,10 @@ public class Stage : MonoBehaviour
         }
     }
 
-
-    void gravity(string blockname, int y)
+    /*
+    void gravity(int x, int y)
     {
-        //int x, y; //확인함
+        //int x, y;
         List<string> blocksConnect = new List<string>();
         int xBuffer = int.Parse(blockname);
         int yBuffer = y;
@@ -259,8 +258,52 @@ public class Stage : MonoBehaviour
             Transform targetNode = boardNode.Find("x_" + blocksConnect[i][0]);
             targetNode.SetParent(boardNode.Find("y_" + (yBuffer - 1).ToString()));
         }
-    }
+    }*/
 
+    void gravity(int startX, int startY)
+    {
+        for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
+        {
+            var rowNode = GameObject.Find("y_" + y.ToString());
+            var nextRowNode = GameObject.Find("y_" + (y - 1).ToString());
+
+            if (rowNode != null && nextRowNode != null)
+            {
+                for (int x = 0; x < boardWidth; x++)
+                {
+                    var block = rowNode.transform.Find("x_" + x.ToString());
+                    if (block != null)
+                    {
+                        // 현재 행의 위쪽 행에서 같은 열에 블록이 있는지 검사
+                        var nextBlock = nextRowNode.transform.Find("x_" + x.ToString());
+                        if (nextBlock == null)
+                        {
+                            // 위쪽에 블록이 없으면 블록을 아래로 이동
+                            block.SetParent(nextRowNode.transform);
+                            block.localPosition -= new Vector3(0, 1, 0); // 아래로 이동
+                                                                         // 이동된 위치에 다른 블록이 있는지 확인
+                            for (int i = y - 1; i >= 0; i--)
+                            {
+                                var tempRowNode = GameObject.Find("y_" + i.ToString());
+                                var tempBlock = tempRowNode.transform.Find("x_" + x.ToString());
+                                if (tempBlock != null)
+                                {
+                                    break; // 다음 블록을 확인하기 위해 반복문 탈출
+                                }
+                                else
+                                {
+                                    // 위쪽에 블록이 없으면 계속해서 이동
+                                    block.SetParent(tempRowNode.transform);
+                                    block.localPosition -= new Vector3(0, 1, 0); // 아래로 이동
+                                    y = i; // y값 갱신
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     // 이동 가능한지 체크
     bool CanMoveTo(Transform root)
     {
@@ -357,7 +400,7 @@ public class Stage : MonoBehaviour
         col4 = GetColor(colorArray[arrIndex, 3]);
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0 - testp1, halfHeight);
+        tetrominoNode.position = new Vector2(0, halfHeight);
 
         switch (index)
         {
@@ -457,15 +500,18 @@ public class Stage : MonoBehaviour
             foreach (Vector2Int blockPosition in continuousBlocks)
             {
                 GameObject rowObject = GameObject.Find("y_" + blockPosition.y.ToString());
+                int xgrav = blockPosition.x;
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
 
                 if (blockTransform != null)
                 {
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
+        
+                    int ygrav = y;
                     Destroy(blockTransform.gameObject);
-                    UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
-                    //gravity(blockName, y);
+                    UnityEngine.Debug.Log("블록 삭제됨:연속 " );
+                    gravity(xgrav,ygrav);
                 }
                 else
                 {
@@ -478,6 +524,55 @@ public class Stage : MonoBehaviour
     }
 
 
+    List<Vector2Int> FindContinuousBlocksInRow(int row)
+    {
+        List<Vector2Int> continuousBlocks = new List<Vector2Int>();
+
+        List<Color32> currentGroupColors = new List<Color32>(); // 연속된 블록 그룹의 색상을 저장하는 리스트
+
+        // 첫 번째 블록의 색상을 가져옵니다.
+        UnityEngine.Debug.Log("첫 블록 색상");
+        Color32 previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
+
+        // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
+        for (int x = 0; x < boardWidth; x++)
+        {
+            // 현재 블록의 색상을 가져옵니다.
+            Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
+            vertWeight(x, row, currentColor, continuousBlocks, currentGroupColors/*,continuousBlocks*/);
+            // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
+            if (currentColor.Equals(previousColor) && currentColor != Color.clear)
+            {
+                // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
+                currentGroupColors.Add(currentColor);
+                UnityEngine.Debug.Log("연속임! \n");
+            }
+            else
+            {
+                // 이전 블록과 현재 블록의 색상이 다르면 연속된 블록 그룹이 끝났습니다.
+                // 현재 연속된 블록 그룹의 가중치를 확인하고, 4 이상인 경우에만 리스트에 추가합니다.
+                if (currentGroupColors.Count >= 4)
+                {
+                    for (int i = x - currentGroupColors.Count; i < x; i++)
+                    {
+                        continuousBlocks.Add(new Vector2Int(i, row));
+                        UnityEngine.Debug.Log("블럭 추가!! \n");
+                    }
+                }
+
+                // 현재 연속된 블록 그룹 초기화
+                currentGroupColors.Clear();
+            }
+
+            // 현재 블록의 색상을 이전 색상으로 설정합니다.
+            previousColor = currentColor;
+        }
+
+        return continuousBlocks;
+    }
+
+
+    /*
     List<Vector2Int> FindContinuousBlocksInRow(int row) //연속되는 블록 탐색 메소드
     {
         List<Vector2Int> continuousBlocks = new List<Vector2Int>();
@@ -498,11 +593,11 @@ public class Stage : MonoBehaviour
             // 현재 블록의 색상을 가져옵니다.
             Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
 
-            currentWeight += vertWeight(x,row,currentColor/*,continuousBlocks*/);
+            currentWeight += vertWeight(x,row,currentColor/*,continuousBlocks*);
 
 
             // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
-            if (currentColor.Equals(previousColor))
+            if (currentColor.Equals(previousColor) && currentColor != Color.clear )
             {
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 currentWeight++;
@@ -530,37 +625,37 @@ public class Stage : MonoBehaviour
         }
 
         return continuousBlocks;
-    }
-   
-   //연속에 대한 가중치에 수직을 추가하기 위함
-    int vertWeight(int x, int y, Color32 col/*,List<Vector2Int> contList*/) 
-{
-    int weight = 0;
-    int yy = y + 1;
-    GameObject rowObject = GameObject.Find("y_" + yy.ToString());
-    if (rowObject != null)
+    } */
+
+    //연속에 대한 가중치에 수직을 추가하기 위함
+    void vertWeight(int x, int y, Color32 col, List<Vector2Int> contBlocks, List<Color32> colorGroup)
     {
-        string block = "x_" + x.ToString();
-        Transform blockUp = rowObject.transform.Find(block);
-        if (blockUp != null)
+        int yy = y + 1;
+        GameObject rowObject = GameObject.Find("y_" + yy.ToString());
+        if (rowObject != null)
         {
-            // 블록을 찾았습니다
-            SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
+            string block = "x_" + x.ToString();
+            Transform blockUp = rowObject.transform.Find(block);
+            if (blockUp != null)
             {
-                Color32 col2 = spriteRenderer.color;
-                if (col2.Equals(col))
+                // 블록을 찾았습니다
+                SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
                 {
-                    weight += 1;
-                    // 재귀 호출 결과를 더합니다.
-                    weight += vertWeight(x, y + 1, col);
+                    Color32 col2 = spriteRenderer.color;
+                    if (col2.Equals(col) && col2 != Color.clear)
+                    {
+                        // 같은 색상의 블록을 찾았으므로 continuousBlocks와 colorGroup 리스트에 정보를 추가합니다.
+                        contBlocks.Add(new Vector2Int(x, yy));
+                        colorGroup.Add(col2);
+
+                        // 재귀 호출을 통해 위쪽 방향의 블록을 탐색합니다.
+                        vertWeight(x, yy, col, contBlocks, colorGroup);
+                    }
                 }
             }
         }
     }
-    return weight;
-}
-
 
 
     Color32 GetTileColorAtPosition(Vector2Int position)
