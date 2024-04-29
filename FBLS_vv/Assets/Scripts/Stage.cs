@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
 
 public class Stage : MonoBehaviour
 {
@@ -14,13 +11,7 @@ public class Stage : MonoBehaviour
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
     public Transform tetrominoNode; //테트리미노
-                                    // public GameObject gameoverPanel; //게임오버
-    public Text score; // 점수
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
-    public Transform preview; // 다음 블럭
+    public GameObject gameoverPanel; //게임오버
 
     [Header("Game Settings")]
     [Range(4, 40)]
@@ -31,25 +22,17 @@ public class Stage : MonoBehaviour
     public int testp1 = 5;
     private int halfWidth; // 좌표 (가로)중앙값
     private int halfHeight; //좌표 (세로) 중앙값
-    public int lineWeight; // 지워진 줄 점수
-    public int colorWeight; // 지워진 색 점수
 
     private float nextFallTime;
-    private int scoreVal = 0;
-    private int indexVal = -1;
-    private int arrIndexVal = -1;
-    private int redVal = 0; // 사라진 블럭 개수
-    private int greenVal = 0; // 사라진 블럭 개수
-    private int blueVal = 0;   // 사라진 블럭 개수
-    private int yellowVal = 0; // 사라진 블랙 개수
+
+
 
 
 
 
     private void Start()
     {
-
-        //gameoverPanel.SetActive(false);
+        gameoverPanel.SetActive(false);
 
         halfWidth = Mathf.RoundToInt(boardWidth * 0.5f); //(5)
         halfHeight = Mathf.RoundToInt(boardHeight * 0.5f); //(10)
@@ -66,155 +49,64 @@ public class Stage : MonoBehaviour
         }
 
         CreateTetromino();  //테트리미노 생성 메소드 실행
-        CreatePreview(); // 미리보기
-        score.text = "Score: " + scoreVal; // 점수 출력
-        PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
-        red.text = redVal.ToString(); //블럭 개수 출력
-        green.text = greenVal.ToString(); // 블럭 개수 출력
-        blue.text = blueVal.ToString(); // 블럭 개수 출력
-        yellow.text = yellowVal.ToString(); // 블럭 개수 출력
     }
 
     void Update()
     {
-
-        Vector3 moveDir = Vector3.zero;
-        bool isRotate = false;
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (gameoverPanel.activeSelf)
         {
-            moveDir.x = -1;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            moveDir.x = 1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            isRotate = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            moveDir.y = -1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            while (MoveTetromino(Vector3.down, false))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            }
+        }
+        else
+        {
+            Vector3 moveDir = Vector3.zero;
+            bool isRotate = false;
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                moveDir.x = -1;
+
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                moveDir.x = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                isRotate = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                moveDir.y = -1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                while (MoveTetromino(Vector3.down, false))
+                {
+                }
+            }
+
+            // 아래로 떨어지는 경우는 강제로 이동시킵니다.
+            if (Time.time > nextFallTime)
+            {
+                nextFallTime = Time.time + fallCycle;
+                moveDir = Vector3.down;
+                isRotate = false;
+            }
+
+            if (moveDir != Vector3.zero || isRotate)
+            {
+                MoveTetromino(moveDir, isRotate);
             }
         }
 
-        // 아래로 떨어지는 경우는 강제로 이동시킵니다.
-        if (Time.time > nextFallTime)
-        {
-            nextFallTime = Time.time + fallCycle;
-            moveDir = Vector3.down;
-            isRotate = false;
-        }
-
-        if (moveDir != Vector3.zero || isRotate)
-        {
-            MoveTetromino(moveDir, isRotate);
-        }
-
-
     }
-    void CreatePreview()
-    {
-        // 이미 있는 미리보기 삭제하기
-        foreach (Transform tile in preview)
-        {
-            Destroy(tile.gameObject);
-        }
-        preview.DetachChildren();
 
-        indexVal = UnityEngine.Random.Range(0, 7);
-        arrIndexVal = UnityEngine.Random.Range(0, 24);
-
-        preview.position = new Vector2(halfWidth + 4, halfHeight - 2.5f); // 미리보기 
-
-        int[,] colorArray = new int[24, 4] {
-        {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
-        {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
-        {2, 2, 1, 3}, {2, 2, 1, 4}, {2, 2, 3, 4},
-        {2, 2, 3, 1}, {2, 2, 4, 1}, {2, 2, 4, 3},
-        {3, 3, 1, 2}, {3, 3, 1, 4}, {3, 3, 2, 1},
-        {3, 3, 2, 4}, {3, 3, 4, 1}, {3, 3, 4, 2},
-        {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
-        {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
-        };
-        Color32 color = Color.white;
-        Color32 col1;
-        Color32 col2;
-        Color32 col3;
-        Color32 col4;
-        col1 = GetColor(colorArray[arrIndexVal, 0]);
-        col2 = GetColor(colorArray[arrIndexVal, 1]);
-        col3 = GetColor(colorArray[arrIndexVal, 2]);
-        col4 = GetColor(colorArray[arrIndexVal, 3]);
-
-        switch (indexVal)
-        {
-            case 0: // I
-                color = new Color32(115, 251, 253, 255);
-                CreateTile(preview, new Vector2(0f, 1f), col1);
-                CreateTile(preview, new Vector2(0f, 0f), col2);
-                CreateTile(preview, new Vector2(0f, -1f), col3);
-                CreateTile(preview, new Vector2(0f, -2f), col4);
-                break;
-
-            case 1: // J
-                color = new Color32(0, 33, 245, 255);
-                CreateTile(preview, new Vector2(-1f, 0.0f), col1);
-                CreateTile(preview, new Vector2(0f, 0.0f), col2);
-                CreateTile(preview, new Vector2(1f, 0.0f), col3);
-                CreateTile(preview, new Vector2(-1f, 1.0f), col4);
-                break;
-
-            case 2: // L
-                color = new Color32(243, 168, 59, 255);
-                CreateTile(preview, new Vector2(-1f, 0.0f), col1);
-                CreateTile(preview, new Vector2(0f, 0.0f), col2);
-                CreateTile(preview, new Vector2(1f, 0.0f), col3);
-                CreateTile(preview, new Vector2(1f, 1.0f), col4);
-                break;
-
-            case 3: // O 
-                color = new Color32(255, 253, 84, 255);
-                CreateTile(preview, new Vector2(0f, 0f), col1);
-                CreateTile(preview, new Vector2(1f, 0f), col2);
-                CreateTile(preview, new Vector2(0f, 1f), col3);
-                CreateTile(preview, new Vector2(1f, 1f), col4);
-                break;
-
-            case 4: //  S
-                color = new Color32(117, 250, 76, 255);
-                CreateTile(preview, new Vector2(-1f, -1f), col1);
-                CreateTile(preview, new Vector2(0f, -1f), col2);
-                CreateTile(preview, new Vector2(0f, 0f), col3);
-                CreateTile(preview, new Vector2(1f, 0f), col4);
-                break;
-
-            case 5: //  T
-                color = new Color32(155, 47, 246, 255);
-                CreateTile(preview, new Vector2(-1f, 0f), col1);
-                CreateTile(preview, new Vector2(0f, 0f), col2);
-                CreateTile(preview, new Vector2(1f, 0f), col3);
-                CreateTile(preview, new Vector2(0f, 1f), col4);
-                break;
-
-            case 6: // Z
-                color = new Color32(235, 51, 35, 255);    // 빨간색
-                CreateTile(preview, new Vector2(-1f, 1f), col1);
-                CreateTile(preview, new Vector2(0f, 1f), col2);
-                CreateTile(preview, new Vector2(0f, 0f), col3);
-                CreateTile(preview, new Vector2(1f, 0f), col4);
-                break;
-        }
-    }
     bool MoveTetromino(Vector3 moveDir, bool isRotate)
     {
         Vector3 oldPos = tetrominoNode.transform.position;
@@ -236,13 +128,11 @@ public class Stage : MonoBehaviour
                 AddToBoard(tetrominoNode);
                 CheckBoardColumn();
                 CreateTetromino();
-                CreatePreview();
                 CheckTileGroups();
 
                 if (!CanMoveTo(tetrominoNode))
                 {
-                    //gameoverPanel.SetActive(true);
-                    SceneManager.LoadScene("SampleScene");
+                    gameoverPanel.SetActive(true);
                 }
             }
 
@@ -274,7 +164,7 @@ public class Stage : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-        int lineCount = 0;
+
         foreach (Transform column in boardNode)
         {
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
@@ -286,14 +176,9 @@ public class Stage : MonoBehaviour
 
                 column.DetachChildren();
                 isCleared = true;
-                lineCount++;
             }
         }
-        //if(lineCount != 0)
-        //{
-        //    scoreVal += lineCount * lineWeight;
-        //    score.text = "Score: " + scoreVal;
-        //}
+
 
 
 
@@ -448,18 +333,8 @@ public class Stage : MonoBehaviour
     // 테트로미노 생성
     void CreateTetromino()
     {
-        int index;
-        if (indexVal == -1)
-        {
-            index = UnityEngine.Random.Range(0, 7);
-        }
-        else index = indexVal;
-        int arrIndex;
-        if (arrIndexVal == -1)
-        {
-            arrIndex = UnityEngine.Random.Range(0, 24);
-        }
-        else arrIndex = arrIndexVal;
+        int index = UnityEngine.Random.Range(0, 7);
+        int arrIndex = UnityEngine.Random.Range(0, 24);
 
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2}, //색상을 결정하는 키값
@@ -490,10 +365,10 @@ public class Stage : MonoBehaviour
             // I 
             case 0:
                 color = new Color32(115, 251, 253, 255);
-                CreateTile(tetrominoNode, new Vector2(0f, 1f), col1);
-                CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
-                CreateTile(tetrominoNode, new Vector2(0f, -1f), col3);
-                CreateTile(tetrominoNode, new Vector2(0f, -2f), col4);
+                CreateTile(tetrominoNode, new Vector2(-2f, 0.0f), col1);
+                CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col2);
+                CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col3);
+                CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col4);
                 break;
 
             // J 
@@ -591,9 +466,6 @@ public class Stage : MonoBehaviour
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
                     Destroy(blockTransform.gameObject);
                     UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
-                    scoreVal += colorWeight;
-                    score.text = "Score: " + scoreVal;
-                    PlayerPrefs.SetInt("score", scoreVal);
                     //gravity(blockName, y);
                 }
                 else
@@ -622,7 +494,7 @@ public class Stage : MonoBehaviour
 
 
         // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1; x < boardWidth; x++)
+        for (int x = 1 ; x < boardWidth ; x++)
         {
             // 현재 블록의 색상을 가져옵니다.
             Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
