@@ -998,7 +998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &704011325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   text_time:
   - {fileID: 711206591}
   - {fileID: 1833794440}
-  limitTime: 5
+  limitTime: 120
   gameover: {fileID: 2011521440}
 --- !u!4 &890302459
 Transform:
@@ -3335,11 +3335,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gaugeBar: {fileID: 1888636986}
-  limitTime: 5
+  limitTime: 10
   goal: 1
   pivot: 50
   textTime: {fileID: 1385710487}
-  timeRange: 5
+  timeRange: 3
+  timerLimit: 2
 --- !u!4 &2027363645
 Transform:
   m_ObjectHideFlags: 0

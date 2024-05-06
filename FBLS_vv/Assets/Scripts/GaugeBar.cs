@@ -16,25 +16,33 @@ public class GaugeBar : MonoBehaviour
     public Text textTime;
     private float timer;
     public float timeRange; // 싱글에서 시간마다 줄어드는 게이지 범위
+    public float timerLimit; // 타이머 제한 시간 감소치
 
-    void InitializedGaugeBar(float timer)
+    void InitializedGaugeBar(float time)
     {
-        this.timer = timer;
+        this.timer = time;
     }
-
-    // Start is called before the first frame update
+    IEnumerator GaugeTimer() // 30초마다 게이지 타이머 제한 시간 2초씩 감소
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(30f);
+            limitTime -= timerLimit;
+        }
+    }
     void Start()
     {
-        textTime.gameObject.SetActive(false);
         InitializedGaugeBar(limitTime);
         //싱글
         gaugeBar.value = gaugeBar.maxValue;
+        StartCoroutine(GaugeTimer());
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         myBlock = Stage.blockCount;
+        gaugeBar.value -= Time.deltaTime * timeRange;
 
         //멀티
         /*
@@ -55,36 +63,33 @@ public class GaugeBar : MonoBehaviour
 
         }
         */
-        //싱글
+
+        timer -= Time.deltaTime;
+        textTime.text = ((int)timer).ToString();
+
         if (gaugeBar.value < gaugeBar.maxValue)
         {
             gaugeBar.value += myBlock;
         }
-        
-        textTime.gameObject.SetActive(true);
-        timer -= Time.deltaTime;
-        textTime.text = ((int)timer).ToString();
-        gaugeBar.value -= Time.deltaTime * timeRange;
-        if (timer <= 0 && myBlock >= goal)
+        if (myBlock >= goal)
         {
-            textTime.gameObject.SetActive(false);
+            gaugeBar.value = gaugeBar.maxValue;
             InitializedGaugeBar(limitTime);
             Stage.blockCount = 0;
-            gaugeBar.value = gaugeBar.maxValue; 
-            Debug.Log("성공");
         }
-        else if(timer <= 0)
+        if (timer <= 0)
         {
-            textTime.gameObject.SetActive(false);
             InitializedGaugeBar(limitTime);
             Stage.blockCount = 0;
             gaugeBar.value = gaugeBar.maxValue;
-            Debug.Log("실패");
+            if (myBlock >= goal)
+            {
+                Debug.Log("성공");
+            }
+            else
+            {
+                Debug.Log("실패");
+            }
         }
-        
-        
-        
-       
-       
     }
 }

@@ -38,9 +38,17 @@ public class TimeManager : MonoBehaviour
 
         }
         else {
-            SceneManager.LoadScene("GameOver");
+            Scene currentScene = SceneManager.GetActiveScene();
+            if (currentScene.name == "SampleScene")
+            {
+                SceneManager.LoadScene("SingleGameOver");
+            }
+            else
+            {
+                SceneManager.LoadScene("MultiGameOver");
+            }
         }
-
-    }
+   
+}
     
 }
