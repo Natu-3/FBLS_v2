@@ -6,11 +6,10 @@ using UnityEngine;
 
 
 
-
 public class BlockMap : MonoBehaviour
 {
     private string[,] grid; // 블록의 색상을 저장하는 2차원 배열
-    private Dictionary<DateTime, List<Vector2Int>> addedBlocks;
+    private Dictionary<string, List<(int,int)>> addedBlocks; //한번에 추가된 블럭들
 
     // 생성시 실행
     private void Start()
@@ -24,15 +23,30 @@ public class BlockMap : MonoBehaviour
                 grid[x, y] = "";
             }
         }
-        addedBlocks = new Dictionary<DateTime, List<Vector2Int>>();
+        
     }
-
+    /*
     // 블록을 특정 위치에 배치하는 메서드
-    public void PlaceBlock(int x, int y, string color)
+    public void insertBlock(int x, int y, string color, string key)
     {
         if (x >= 0 && x < 10 && y >= 0 && y < 20)
         {
             grid[x, y] = color;
+
+
+            // 리스트를 호출해서 값이 없으면 그대로 넣고, 아니면 해당 리스트의 끝부분에 x,y값 추가하기
+            List<int> toIns = new List<int>() { (x, y) };
+            List<int> existingList;
+            if (addedBlocks.TryGetValue(key, out existingList))
+            {
+                // 리스트가 있을 경우 내가 추가하려는 원소를 리스트의 끝에 추가
+                existingList.AddRange(tolns);
+            }
+            else
+            {
+                // 리스트가 없을 경우 내가 넣은 리스트로 대체
+                addedBlocks[key] = tolns;
+            }
         }
         else
         {
@@ -40,8 +54,37 @@ public class BlockMap : MonoBehaviour
         }
     }
 
-    // 특정 위치의 블록의 색상을 가져오는 메서드
-    public string GetBlockColorAt(int x, int y)
+    public List<(int, int)> fallReady(string key, int findX, int findY)
+    {
+        List<(int, int)> result = new List<(int, int)>();
+
+        // key에 해당하는 리스트가 있는지 확인
+        if (addedBlocks.ContainsKey(key))
+        {
+            var blockList = addedBlock[key];
+
+            // 리스트에서 원하는 블럭 찾기
+            int indexToRemove = blockList.FindIndex(block => block.Item1 == findX && block.Item2 == findY);
+            if (indexToRemove != -1)
+            {
+                // 찾은 블럭 삭제
+                blockList.RemoveAt(indexToRemove);
+            }
+
+            // 삭제된 블럭을 제외한 나머지 값 반환
+            result.AddRange(blockList);
+
+            // 해당 key에 대한 딕셔너리 값 제거
+            addedBlocks.Remove(key);
+        }
+
+        return result;
+    }
+
+    
+
+// 특정 위치의 블록의 색상을 가져오는 메서드
+public string GetBlockColorAt(int x, int y)
     {
         if (x >= 0 && x < 10 && y >= 0 && y < 20)
         {
@@ -54,8 +97,9 @@ public class BlockMap : MonoBehaviour
         }
     }
 
+
     // 특정 행을 삭제하고 위의 행을 한 칸씩 당기는 메서드
-    public void RemoveRow(int y)
+    public void RowBreak(int y)
     {
         if (y >= 0 && y < 20)
         {
@@ -80,9 +124,11 @@ public class BlockMap : MonoBehaviour
     }
 
 
-    // 특정 열의 값을 추출하여 배열로 반환하는 메서드
-    public string[] GetColumn(int x)
+    // 특정 열의 빈칸이 아닌 연속된 동일 값을 추출하여 그 좌표를 List로 반환하는 메서드
+    public List<(int, int)> ColumnCheck(int x)
     {
+        List<(int, int)> result = new List<(int, int)>();
+
         if (x >= 0 && x < 10)
         {
             string[] column = new string[20];
@@ -90,13 +136,115 @@ public class BlockMap : MonoBehaviour
             {
                 column[y] = grid[x, y];
             }
-            return column;
+
+            // 연속된 동일 값 추출
+            string currentValue = column[0];
+            int startRow = 0;
+
+            for (int y = 1; y < 20; y++)
+            {
+                if (column[y] == currentValue)
+                {
+                    // 현재 값이 연속됨
+                    continue;
+                }
+                else
+                {
+                    // 현재 값과 다른 값이 나옴
+                    if (y - startRow >= 2)
+                    {
+                        // 연속된 동일 값이 3개 이상인 경우 좌표를 결과에 추가
+                        for (int i = startRow; i < y; i++)
+                        {
+                            result.Add((x, i));
+                        }
+                    }
+
+                    // 시작 위치 갱신
+                    currentValue = column[y];
+                    startRow = y;
+                }
+            }
+
+            // 마지막 값이 연속됨
+            if (20 - startRow >= 2)
+            {
+                for (int i = startRow; i < 20; i++)
+                {
+                    result.Add((x, i));
+                }
+            }
         }
         else
         {
             UnityEngine.Debug.LogError("Invalid column index for column extraction!");
-            return null;
         }
+
+        return result;
+    }
+
+
+    public List<(int, int)> RowCheck(int y)
+    {
+        List<(int, int)> result = new List<(int, int)>();
+
+        if (y >= 0 && y < 20)
+        {
+            string[] row = new string[10];
+            for (int x = 0; x < 10; x++)
+            {
+                row[x] = grid[x, y];
+            }
+
+            // 연속된 동일 값 추출
+            string currentValue = row[0];
+            int startColumn = 0;
+
+            for (int x = 1; x < 10; x++)
+            {
+                if (row[x] == currentValue)
+                {
+                    // 현재 값이 연속됨
+                    continue;
+                }
+                else
+                {
+                    // 현재 값과 다른 값이 나옴
+                    if (x - startColumn >= 2)
+                    {
+                        // 연속된 동일 값이 3개 이상인 경우 좌표를 결과에 추가
+                        for (int i = startColumn; i < x; i++)
+                        {
+                            result.Add((i, y));
+                        }
+                    }
+
+                    // 시작 위치 갱신
+                    currentValue = row[x];
+                    startColumn = x;
+                }
+            }
+
+            // 마지막 값이 연속됨
+            if (10 - startColumn >= 2)
+            {
+                for (int i = startColumn; i < 10; i++)
+                {
+                    result.Add((i, y));
+                }
+            }
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Invalid row index for row extraction!");
+        }
+
+        return result;
+    }
+
+    public /*string[][] void fallBlock()
+    {
+
     }
 
     // 특정 열에서 특정 원소를 제거하는 메서드
@@ -205,5 +353,5 @@ public class BlockMap : MonoBehaviour
         return null;
     }
 
-
+*/
 }

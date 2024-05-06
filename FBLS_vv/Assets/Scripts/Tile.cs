@@ -2,6 +2,12 @@
 
 public class Tile : MonoBehaviour
 {
+
+
+
+    public bool isBurned;
+    public bool isIced;
+    public bool isfall;
     public Color color //색상 클래스
     {
         set

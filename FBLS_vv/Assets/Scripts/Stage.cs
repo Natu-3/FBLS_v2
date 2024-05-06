@@ -52,7 +52,7 @@ public class Stage : MonoBehaviour
     }
 
     void Update()
-    {
+    {// 조작부
         if (gameoverPanel.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -329,6 +329,12 @@ public class Stage : MonoBehaviour
         return true;
     }
 
+    void Create7Bag()
+    {
+        List<GameObject> tetrominoes = new List<GameObject> ();
+    }
+
+
     // 타일 생성
     Tile CreateTile(Transform parent, Vector2 position, Color color, int order = 1)
     {
@@ -407,7 +413,6 @@ public class Stage : MonoBehaviour
         {
             // I 
             case 0:
-                color = new Color32(115, 251, 253, 255);
                 CreateTile(tetrominoNode, new Vector2(-2f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col3);
@@ -416,7 +421,6 @@ public class Stage : MonoBehaviour
 
             // J 
             case 1:
-                color = new Color32(0, 33, 245, 255);
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
@@ -425,7 +429,6 @@ public class Stage : MonoBehaviour
 
             // L 
             case 2:
-                color = new Color32(243, 168, 59, 255);
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
@@ -434,7 +437,6 @@ public class Stage : MonoBehaviour
 
             // O 
             case 3:
-                color = new Color32(255, 253, 84, 255);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col1);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col3);
@@ -443,7 +445,6 @@ public class Stage : MonoBehaviour
 
             // S 
             case 4:
-                color = new Color32(117, 250, 76, 255);
                 CreateTile(tetrominoNode, new Vector2(-1f, -1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
@@ -452,7 +453,6 @@ public class Stage : MonoBehaviour
 
             // T 
             case 5:
-                color = new Color32(155, 47, 246, 255);
                 CreateTile(tetrominoNode, new Vector2(-1f, 0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col3);
@@ -461,7 +461,6 @@ public class Stage : MonoBehaviour
 
             // Z 
             case 6:
-                color = new Color32(235, 51, 35, 255);
                 CreateTile(tetrominoNode, new Vector2(-1f, 1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
