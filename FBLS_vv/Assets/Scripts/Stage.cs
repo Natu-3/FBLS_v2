@@ -11,7 +11,18 @@ public class Stage : MonoBehaviour
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판
     public Transform tetrominoNode; //테트리미노
+<<<<<<< Updated upstream
     public GameObject gameoverPanel; //게임오버
+=======
+   // public GameObject gameoverPanel; //게임오버
+    public Text score; // 점수
+    public Text red; // 사라진 블럭
+    public Text green; // 사라진 블럭
+    public Text blue; // 사라진 블럭
+    public Text yellow; // 사라진 블럭
+    public Transform preview; // 다음 블럭
+    private BlockPosition blockPosition;
+>>>>>>> Stashed changes
 
     [Header("Game Settings")]
     [Range(4, 40)]
@@ -19,21 +30,37 @@ public class Stage : MonoBehaviour
     [Range(5, 20)]
     public int boardHeight = 20;
     public float fallCycle = 1.0f;
-    public int testp1 = 5;
     private int halfWidth; // 좌표 (가로)중앙값
     private int halfHeight; //좌표 (세로) 중앙값
 
     private float nextFallTime;
+<<<<<<< Updated upstream
 
 
 
 
+=======
+    private int scoreVal = 0;
+    private int indexVal = -1;
+    private int arrIndexVal = -1;
+    private int redVal = 0; // 사라진 블럭 개수
+    private int greenVal = 0; // 사라진 블럭 개수
+    private int blueVal = 0;   // 사라진 블럭 개수
+    private int yellowVal = 0; // 사라진 블랙 개수
+    public static int blockCount = 0;
+  
+>>>>>>> Stashed changes
 
 
     private void Start()
     {
+<<<<<<< Updated upstream
         gameoverPanel.SetActive(false);
+=======
+>>>>>>> Stashed changes
 
+        //gameoverPanel.SetActive(false);
+        
         halfWidth = Mathf.RoundToInt(boardWidth * 0.5f); //(5)
         halfHeight = Mathf.RoundToInt(boardHeight * 0.5f); //(10)
 
@@ -131,7 +158,12 @@ public class Stage : MonoBehaviour
 
                 if (!CanMoveTo(tetrominoNode))
                 {
+<<<<<<< Updated upstream
                     gameoverPanel.SetActive(true);
+=======
+                    //gameoverPanel.SetActive(true);
+                    SceneManager.LoadScene("GameOver");
+>>>>>>> Stashed changes
                 }
             }
 
@@ -144,16 +176,70 @@ public class Stage : MonoBehaviour
     // 테트로미노를 보드에 추가
     void AddToBoard(Transform root)
     {
+<<<<<<< Updated upstream
+=======
+        String keyTime = DateTime.Now.ToString("HHmmss"); //처음 생성될때 시분초값을 tag값으로 사용 <<<< 못써먹음 개가튼거
+        string colorName = "";
+>>>>>>> Stashed changes
         while (root.childCount > 0)
+
         {
             var node = root.GetChild(0);
 
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+<<<<<<< Updated upstream
 
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_"+y.ToString());
             node.name = "x_"+x.ToString();
+=======
+            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
+
+            node.parent = boardNode.Find("y_" + y.ToString());
+            node.name = "x_" + x.ToString();
+
+            Renderer renderer = node.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                // 렌더러의 material에서 색상 값 가져오기
+                Color nodeColor = renderer.material.color;
+
+                // 가져온 색상 값 출력
+
+
+                if (nodeColor == new Color32(255, 0, 0, 255)) // 빨간색
+                {
+                    colorName = "Red";
+                }
+                else if (nodeColor == new Color32(0, 0, 255, 255)) // 파란색
+                {
+                    colorName = "Blue";
+                }
+                else if (nodeColor == new Color32(255, 255, 0, 255)) // 노란색
+                {
+                    colorName = "Yellow";
+                }
+                else if (nodeColor == new Color32(0, 255, 0, 255)) // 초록색
+                {
+                    colorName = "Green";
+                }
+                else
+                {
+                    colorName = "Unknown"; // 알 수 없는 색상
+                }
+                blockPosition.insertBlock(x, y, colorName, keyTime);
+            }
+            else
+            {
+                
+            }
+
+            
+
+            //node.tag = keyTime; <<< 못써먹음2
+            //UnityEngine.Debug.Log(keyTime + "생성됨");
+>>>>>>> Stashed changes
         }
     }
 
@@ -360,7 +446,11 @@ public class Stage : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
+<<<<<<< Updated upstream
                 CreateTile(backgroundNode, new Vector2(x , y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
+=======
+                CreateTile(backgroundNode, new Vector2(x, y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
+>>>>>>> Stashed changes
             }
         }
 
@@ -369,7 +459,11 @@ public class Stage : MonoBehaviour
         for (int y = halfHeight; y > -halfHeight; --y)
         {
             CreateTile(backgroundNode, new Vector2(-halfWidth - 1, y), color, 0);
+<<<<<<< Updated upstream
             CreateTile(backgroundNode, new Vector2(halfWidth , y), color, 0);
+=======
+            CreateTile(backgroundNode, new Vector2(halfWidth, y), color, 0);
+>>>>>>> Stashed changes
         }
 
         // 아래 테두리
