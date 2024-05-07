@@ -66,6 +66,7 @@ public class Stage : MonoBehaviour
             col.transform.parent = boardNode;
         }
 
+        create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
         score.text = "Score: " + scoreVal; // 점수 출력
@@ -216,6 +217,143 @@ public class Stage : MonoBehaviour
                 break;
         }
     }
+
+    public void create7Bag()
+    {
+        
+        int[,] colorArray = new int[24, 4] {
+        {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
+        {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
+        {2, 2, 1, 3}, {2, 2, 1, 4}, {2, 2, 3, 4},
+        {2, 2, 3, 1}, {2, 2, 4, 1}, {2, 2, 4, 3},
+        {3, 3, 1, 2}, {3, 3, 1, 4}, {3, 3, 2, 1},
+        {3, 3, 2, 4}, {3, 3, 4, 1}, {3, 3, 4, 2},
+        {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
+        {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
+        };
+        Color32 col1;
+        Color32 col2;
+        Color32 col3;
+        Color32 col4;
+        //List<Transform> list7Bag = new List<Transform>();
+       
+        GameObject gameObject0 = new GameObject(); // 새로운 게임 오브젝트 생성
+        GameObject gameObject1 = new GameObject();
+        GameObject gameObject2 = new GameObject();
+        GameObject gameObject3 = new GameObject();
+        GameObject gameObject4 = new GameObject();
+        GameObject gameObject5 = new GameObject();
+        GameObject gameObject6 = new GameObject();
+
+        Transform node0 = gameObject0.transform;
+        node0.transform.name = "node0";
+        node0.transform.position = new Vector2(-20,0);
+
+        Transform node1 = gameObject1.transform;
+        node1.transform.name = "node1";
+        node1.transform.position = new Vector2(-24,0);
+
+        Transform node2 = gameObject2.transform;
+        node2.transform.name = "node2";
+        node2.transform.position = new Vector2(-28,0);
+
+        Transform node3 = gameObject3.transform;
+        node3.transform.name = "node3";
+        node3.transform.position = new Vector2(-32,0);
+
+        Transform node4 = gameObject4.transform;
+        node4.transform.name = "node4";
+        node4.transform.position = new Vector2(-36,0);
+
+        Transform node5 = gameObject5.transform;
+        node5.transform.name = "node5";
+        node5.transform.position = new Vector2(-40,0);
+        
+        Transform node6 = gameObject6.transform;
+        node6.transform.name = "node6";
+        node6.transform.position = new Vector2(-44,0);
+
+        for( int i = 0 ; i < 7 ; i++){
+            arrIndexVal = UnityEngine.Random.Range(0, 24);
+            col1 = GetColor(colorArray[arrIndexVal, 0]);
+            col2 = GetColor(colorArray[arrIndexVal, 1]);
+            col3 = GetColor(colorArray[arrIndexVal, 2]);
+            col4 = GetColor(colorArray[arrIndexVal, 3]);
+
+            switch (i)
+            {
+                case 0: // I
+                   
+                    CreateTile(node0, new Vector2(0f, 1f), col1);
+                    CreateTile(node0, new Vector2(0f, 0f), col2);
+                    CreateTile(node0, new Vector2(0f, -1f), col3);
+                    CreateTile(node0, new Vector2(0f, -2f), col4);
+                    break;
+
+                case 1: // J
+                     
+                    CreateTile(node1, new Vector2(-1f, 0.0f), col1);
+                    CreateTile(node1, new Vector2(0f, 0.0f), col2);
+                    CreateTile(node1, new Vector2(1f, 0.0f), col3);
+                    CreateTile(node1, new Vector2(-1f, 1.0f), col4);
+                    break;
+
+                case 2: // L
+                    
+                    CreateTile(node2, new Vector2(-1f, 0.0f), col1);
+                    CreateTile(node2, new Vector2(0f, 0.0f), col2);
+                    CreateTile(node2, new Vector2(1f, 0.0f), col3);
+                    CreateTile(node2, new Vector2(1f, 1.0f), col4);
+                    break;
+
+                case 3: // O 
+                     
+                    CreateTile(node3, new Vector2(0f, 0f), col1);
+                    CreateTile(node3, new Vector2(1f, 0f), col2);
+                    CreateTile(node3, new Vector2(0f, 1f), col3);
+                    CreateTile(node3, new Vector2(1f, 1f), col4);
+                    break;
+
+                case 4: //  S
+                    
+                    CreateTile(node4, new Vector2(-1f, -1f), col1);
+                    CreateTile(node4, new Vector2(0f, -1f), col2);
+                    CreateTile(node4, new Vector2(0f, 0f), col3);
+                    CreateTile(node4, new Vector2(1f, 0f), col4);
+                    break;
+
+                case 5: //  T
+                   
+                    CreateTile(node5, new Vector2(-1f, 0f), col1);
+                    CreateTile(node5, new Vector2(0f, 0f), col2);
+                    CreateTile(node5, new Vector2(1f, 0f), col3);
+                    CreateTile(node5, new Vector2(0f, 1f), col4);
+                    break;
+
+                case 6: // Z
+                  
+                    CreateTile(node6, new Vector2(-1f, 1f), col1);
+                    CreateTile(node6, new Vector2(0f, 1f), col2);
+                    CreateTile(node6, new Vector2(0f, 0f), col3);
+                    CreateTile(node6, new Vector2(1f, 0f), col4);
+                    break;
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     bool MoveTetromino(Vector3 moveDir, bool isRotate)
     {
         Vector3 oldPos = tetrominoNode.transform.position;
@@ -243,7 +381,7 @@ public class Stage : MonoBehaviour
                 if (!CanMoveTo(tetrominoNode))
                 {
                     //gameoverPanel.SetActive(true);
-                    SceneManager.LoadScene("SampleScene");
+                    SceneManager.LoadScene("GameOver");
                 }
             }
 
@@ -261,7 +399,7 @@ public class Stage : MonoBehaviour
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - 5);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -429,10 +567,10 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth - testp1);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            if (x < -2 * testp1 || x > boardWidth - 1 - 2 * testp1)
+            if (x < 0 || x > boardWidth - 1)
                 return false;
 
             if (y < 0)
@@ -472,7 +610,7 @@ public class Stage : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                CreateTile(backgroundNode, new Vector2(x - testp1, y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
+                CreateTile(backgroundNode, new Vector2(x, y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
             }
         }
 
@@ -480,14 +618,14 @@ public class Stage : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            CreateTile(backgroundNode, new Vector2(-halfWidth - 1 - testp1, y), color, 0);
-            CreateTile(backgroundNode, new Vector2(halfWidth - testp1, y), color, 0);
+            CreateTile(backgroundNode, new Vector2(-halfWidth - 1, y), color, 0);
+            CreateTile(backgroundNode, new Vector2(halfWidth, y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            CreateTile(backgroundNode, new Vector2(x - testp1, -halfHeight), color, 0);
+            CreateTile(backgroundNode, new Vector2(x, -halfHeight), color, 0);
         }
     }
 
@@ -529,7 +667,7 @@ public class Stage : MonoBehaviour
         col4 = GetColor(colorArray[arrIndex, 3]);
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0 - testp1, halfHeight);
+        tetrominoNode.position = new Vector2(0, halfHeight);
 
         switch (index)
         {
