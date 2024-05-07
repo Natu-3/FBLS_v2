@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GaugeBar : MonoBehaviour
 {
@@ -24,71 +25,81 @@ public class GaugeBar : MonoBehaviour
     }
     IEnumerator GaugeTimer() // 30초마다 게이지 타이머 제한 시간 2초씩 감소
     {
+        
         while (true)
         {
             yield return new WaitForSeconds(30f);
             limitTime -= timerLimit;
+            gaugeBar.maxValue -= timerLimit;
         }
     }
     void Start()
     {
-        InitializedGaugeBar(limitTime);
-        //싱글
+
         gaugeBar.value = gaugeBar.maxValue;
         StartCoroutine(GaugeTimer());
+        InitializedGaugeBar(limitTime);
+
     }
 
 
     void Update()
     {
         myBlock = Stage.blockCount;
-        gaugeBar.value -= Time.deltaTime * timeRange;
 
-        //멀티
-        /*
-        difference = myBlock - enemyBlock;
-        gaugeBar.value = difference + pivot;
-        if (difference >= goal) { // 타이머 시작
-            textTime.gameObject.SetActive(true);
 
+        // 멀티
+        if (SceneManager.GetActiveScene().name == "Computer")
+        {
+            difference = myBlock - enemyBlock;
+            gaugeBar.value = difference + pivot;
+            if (difference >= goal)
+            { // 타이머 시작
+                textTime.gameObject.SetActive(true);
+
+                timer -= Time.deltaTime;
+                textTime.text = ((int)timer).ToString();
+            }
+            if (timer <= 0) // 게이지 초기화
+            {
+                Stage.blockCount = 0;
+                enemyBlock = 0;
+                textTime.gameObject.SetActive(false);
+                InitializedGaugeBar(limitTime);
+
+            }
+        }
+        // 싱글
+        else if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            gaugeBar.value -= Time.deltaTime;
             timer -= Time.deltaTime;
             textTime.text = ((int)timer).ToString();
-        }
-        if (timer <= 0) // 게이지 초기화
-        {
-            Stage.blockCount = 0;
-            enemyBlock = 0;
-            textTime.gameObject.SetActive(false);
-            InitializedGaugeBar(limitTime);
 
-        }
-        */
-
-        timer -= Time.deltaTime;
-        textTime.text = ((int)timer).ToString();
-
-        if (gaugeBar.value < gaugeBar.maxValue)
-        {
-            gaugeBar.value += myBlock;
-        }
-        if (myBlock >= goal)
-        {
-            gaugeBar.value = gaugeBar.maxValue;
-            InitializedGaugeBar(limitTime);
-            Stage.blockCount = 0;
-        }
-        if (timer <= 0)
-        {
-            InitializedGaugeBar(limitTime);
-            Stage.blockCount = 0;
-            gaugeBar.value = gaugeBar.maxValue;
+            if (gaugeBar.value < gaugeBar.maxValue)
+            {
+                gaugeBar.value += myBlock;
+            }
             if (myBlock >= goal)
             {
-                Debug.Log("성공");
+                gaugeBar.value = gaugeBar.maxValue;
+                InitializedGaugeBar(limitTime);
+                Stage.blockCount = 0;
             }
-            else
+            if (gaugeBar.value <= 0)
             {
-                Debug.Log("실패");
+                InitializedGaugeBar(limitTime);
+                Stage.blockCount = 0;
+                gaugeBar.value = gaugeBar.maxValue;
+                if (myBlock >= goal)
+                {
+                    Debug.Log("성공");
+                }
+                else
+                {
+                    Debug.Log("실패");
+                    // 천장 제거
+                }
             }
         }
     }

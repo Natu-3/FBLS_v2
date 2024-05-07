@@ -6,10 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
+    public Text textToBlink;
+    public float blinkTime = 0.5f;
+    
+    public static char currentScene;
    // public Transform preview;
-    public void change()
+    public void changeSingle()
     {
+        
         SceneManager.LoadScene("SampleScene");
+    }
+    public void changeComputer()
+    {
+        SceneManager.LoadScene("ComputerScene");
     }
     public void GameExit()
     {
@@ -19,8 +28,9 @@ public class ChangeScene : MonoBehaviour
     public void goMain()
     {
         SceneManager.LoadScene("Main");
-    }
-    // Start is called before the first frame update
+        
+    }    
+ 
     void Start()
     {
         
@@ -29,6 +39,6 @@ public class ChangeScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 }

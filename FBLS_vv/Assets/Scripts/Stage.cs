@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class Stage : MonoBehaviour
     public Text blue; // 사라진 블럭
     public Text yellow; // 사라진 블럭
     public Transform preview; // 다음 블럭
-    
+    public GameObject start;
 
     [Header("Game Settings")]
     [Range(4, 40)]
@@ -65,7 +66,6 @@ public class Stage : MonoBehaviour
             col.transform.position = new Vector3(0, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
-
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
@@ -75,11 +75,17 @@ public class Stage : MonoBehaviour
         green.text = greenVal.ToString(); // 블럭 개수 출력
         blue.text = blueVal.ToString(); // 블럭 개수 출력
         yellow.text = yellowVal.ToString(); // 블럭 개수 출력
+
+        Time.timeScale = 0f;
     }
 
     void Update()
     {
- 
+        if (Input.anyKeyDown)
+        {
+            Time.timeScale = 1f;
+            start.SetActive(false);
+        }
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
@@ -136,7 +142,7 @@ public class Stage : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
         
-        preview.position = new Vector2(halfWidth + 4, halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 2.5f, halfHeight - 2.5f); // 미리보기 
         
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -381,7 +387,7 @@ public class Stage : MonoBehaviour
                 if (!CanMoveTo(tetrominoNode))
                 {
                     //gameoverPanel.SetActive(true);
-                    SceneManager.LoadScene("GameOver");
+                    SceneManager.LoadScene("SingleGameOver");
                 }
             }
 
@@ -413,7 +419,7 @@ public class Stage : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-        int lineCount = 0;
+      
         foreach (Transform column in boardNode)
         {
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
@@ -425,15 +431,12 @@ public class Stage : MonoBehaviour
 
                 column.DetachChildren();
                 isCleared = true;
-                lineCount++;
-                blockCount++;
+                scoreVal += 10 * lineWeight;
+                score.text = "Score: " + scoreVal;
+                PlayerPrefs.SetInt("score", scoreVal);
+                blockCount += 10;
             }
         }
-        //if(lineCount != 0)
-        //{
-        //    scoreVal += lineCount * lineWeight;
-        //    score.text = "Score: " + scoreVal;
-        //}
 
 
 

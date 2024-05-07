@@ -309,7 +309,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2134127864}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: change
+        m_MethodName: changeSingle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -975,7 +975,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2134127864}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: change
+        m_MethodName: changeComputer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1185,6 +1185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f03fb53049b64f8d89fe4bf58ca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textToBlink: {fileID: 0}
+  blinkTime: 0.5
 --- !u!4 &2134127865
 Transform:
   m_ObjectHideFlags: 0
