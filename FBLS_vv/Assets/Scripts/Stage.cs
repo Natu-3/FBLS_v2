@@ -14,6 +14,8 @@ public class Stage : MonoBehaviour
     public GameObject tilePrefab; //타일프리펩 불러옴
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
+    
+
     public Transform tetrominoNode; //테트리미노
    // public GameObject gameoverPanel; //게임오버
     public Text score; // 점수
@@ -23,6 +25,8 @@ public class Stage : MonoBehaviour
     public Text yellow; // 사라진 블럭
     public Transform preview; // 다음 블럭
     public GameObject start;
+    
+
 
     [Header("Game Settings")]
     [Range(4, 40)]
@@ -35,7 +39,9 @@ public class Stage : MonoBehaviour
     private int halfHeight; //좌표 (세로) 중앙값
     public int lineWeight; // 지워진 줄 점수
     public int colorWeight; // 지워진 색 점수
-    
+    public int panalty = 0; // 패널티시 생기는 가중치
+    public int indexback = 0;
+
     private float nextFallTime;
     private int scoreVal = 0;
     private int indexVal = -1;
@@ -45,7 +51,8 @@ public class Stage : MonoBehaviour
     private int blueVal = 0;   // 사라진 블럭 개수
     private int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
-
+    public GameObject[] backs = new GameObject[200];
+    public GameObject[] backgrid = new GameObject[40];
 
 
     private void Start()
@@ -66,6 +73,8 @@ public class Stage : MonoBehaviour
             col.transform.position = new Vector3(0, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
+
+       
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
@@ -598,9 +607,26 @@ public class Stage : MonoBehaviour
         var tile = go.GetComponent<Tile>();
         tile.color = color;
         tile.sortingOrder = order;
-
+       // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
         return tile;
     }
+
+    Tile Createback(Transform parent, Vector2 position, Color color, int order = 1)
+    {
+        
+
+    var go = Instantiate(tilePrefab);
+        go.transform.parent = parent;
+        go.transform.localPosition = position;
+
+        var tile = go.GetComponent<Tile>();
+        tile.color = color;
+        tile.sortingOrder = order;
+       // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
+       backs[indexback] = tile.gameObject;
+        return tile;
+    }
+
 
     // 배경 타일을 생성
     void CreateBackground()
@@ -613,7 +639,9 @@ public class Stage : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                CreateTile(backgroundNode, new Vector2(x, y), color, 0);// 배경 타일 생성하는 노드, 여기에 x,y 절편 먹이는걸로 위치 조정 가능?
+                Createback(backgroundNode, new Vector2(x, y), color, 0);//
+                
+
             }
         }
 
@@ -670,7 +698,7 @@ public class Stage : MonoBehaviour
         col4 = GetColor(colorArray[arrIndex, 3]);
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0, halfHeight);
+        tetrominoNode.position = new Vector2(0, halfHeight - panalty);
 
         switch (index)
         {
@@ -979,7 +1007,14 @@ public class Stage : MonoBehaviour
        
 
     }*/
-
+    public void doPanalty(){
+        for(int i = 0; i < 10; i++){
+            Destroy(backs[indexback - i]);
+            indexback--;
+        }
+         panalty++;
+        
+    }
 }
 
 

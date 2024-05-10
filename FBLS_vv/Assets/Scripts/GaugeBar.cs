@@ -19,6 +19,7 @@ public class GaugeBar : MonoBehaviour
     public float timeRange; // 싱글에서 시간마다 줄어드는 게이지 범위
     public float timerLimit; // 타이머 제한 시간 감소치
 
+    public GameObject stage;
     void InitializedGaugeBar(float time)
     {
         this.timer = time;
@@ -39,10 +40,14 @@ public class GaugeBar : MonoBehaviour
         gaugeBar.value = gaugeBar.maxValue;
         StartCoroutine(GaugeTimer());
         InitializedGaugeBar(limitTime);
-
+        
+    
     }
 
-
+    void pan(){
+        stage = GameObject.Find("Stage");
+        stage.GetComponent<Stage>().doPanalty();
+    }
     void Update()
     {
         myBlock = Stage.blockCount;
@@ -98,6 +103,7 @@ public class GaugeBar : MonoBehaviour
                 else
                 {
                     Debug.Log("실패");
+                    pan();
                     // 천장 제거
                 }
             }
