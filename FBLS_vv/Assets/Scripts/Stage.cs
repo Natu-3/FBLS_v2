@@ -45,7 +45,7 @@ public class Stage : MonoBehaviour
     private int blueVal = 0;   // 사라진 블럭 개수
     private int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
-
+    private bool isPaused = true;
 
 
     private void Start()
@@ -81,11 +81,19 @@ public class Stage : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (isPaused)
         {
-            Time.timeScale = 1f;
-            start.SetActive(false);
+            if (Input.anyKeyDown)
+            {
+                Time.timeScale = 1f;
+                start.SetActive(false);
+                isPaused = false;
+                return;
+            }
         }
+        else
+        {
+
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
@@ -127,7 +135,7 @@ public class Stage : MonoBehaviour
             {
                 MoveTetromino(moveDir, isRotate);
             }
-        
+        }
         
     }
     void CreatePreview()
