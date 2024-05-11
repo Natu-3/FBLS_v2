@@ -23,7 +23,7 @@ public class GameOver : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("Main");
             }
         }
         else if(SceneManager.GetActiveScene().name == "Computer")

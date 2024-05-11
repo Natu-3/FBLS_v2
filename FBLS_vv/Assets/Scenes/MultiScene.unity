@@ -781,23 +781,22 @@ MonoBehaviour:
   boardNode: {fileID: 2113198163}
   tetrominoNode: {fileID: 1903596415}
   score: {fileID: 1946463617}
-  red: {fileID: 825455896}
-  green: {fileID: 1147715263}
-  blue: {fileID: 1584933261}
-  yellow: {fileID: 1631526695}
+  red: {fileID: 1147715263}
+  green: {fileID: 1584933261}
+  blue: {fileID: 1631526695}
+  yellow: {fileID: 2112764339}
   preview: {fileID: 1179826943}
-  start: {fileID: 0}
+  start: {fileID: 321081896}
   boardWidth: 10
   boardHeight: 20
   fallCycle: 1
-  testp1: 5
+  offset_x: 0
+  offset_y: 0
+  offset2p: 14
   lineWeight: 0
   colorWeight: 0
   panalty: 0
   indexback: 0
-  offsetX: 0
-  offsetY: 0
-  offset2p: 14
   backs:
   - {fileID: 0}
   - {fileID: 0}
@@ -1049,7 +1048,7 @@ Transform:
   m_GameObject: {fileID: 452944801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1176,7 +1175,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 7, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2795,7 +2794,7 @@ Transform:
   m_GameObject: {fileID: 1486060435}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38, y: 1.42, z: -10}
+  m_LocalPosition: {x: 10, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3888,6 +3887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2029631709}
   - component: {fileID: 2029631710}
+  - component: {fileID: 2029631711}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Player
@@ -4188,6 +4188,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &2029631711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029631708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f984855db599da74186750cf4c6c00e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2042505316
 GameObject:
   m_ObjectHideFlags: 0

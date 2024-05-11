@@ -441,7 +441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '''Esc'' for restart'
+  m_Text: '''Esc'' for Main(fix soon)'
 --- !u!222 &1388207138
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -784,6 +784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f03fb53049b64f8d89fe4bf58ca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textToBlink: {fileID: 0}
+  blinkTime: 0.5
 --- !u!4 &2018061053
 Transform:
   m_ObjectHideFlags: 0
@@ -812,6 +814,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 1993542891}
+  draw: {fileID: 0}
+  win: {fileID: 0}
+  lose: {fileID: 0}
 --- !u!1 &2056740584
 GameObject:
   m_ObjectHideFlags: 0
