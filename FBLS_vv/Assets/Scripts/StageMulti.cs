@@ -39,13 +39,11 @@ public class StageMulti : MonoBehaviour
     public Transform tetrominoNode; //테트리미노
                                     // public GameObject gameoverPanel; //게임오버
     public Text score; // 점수
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
+    
     public Transform preview; // 다음 블럭
     public GameObject start;
-
+    private Skill skill;
+    private SkillManager skillManager;
 
     public BlockPosition blockPos; // 블럭 구조체
 
@@ -78,7 +76,7 @@ public class StageMulti : MonoBehaviour
     private int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    private int redVal = 0; // 사라진 블럭 개수
+    public int redVal = 0; // 사라진 블럭 개수
     private int greenVal = 0; // 사라진 블럭 개수
     private int blueVal = 0;   // 사라진 블럭 개수
     private int yellowVal = 0; // 사라진 블랙 개수
@@ -86,10 +84,9 @@ public class StageMulti : MonoBehaviour
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
 
-
     private void Start()
     {
-
+        
         //gameoverPanel.SetActive(false);
         blockPos = new BlockPosition();
         halfWidth = Mathf.RoundToInt(boardWidth * 0.5f); //(5)
@@ -132,10 +129,7 @@ public class StageMulti : MonoBehaviour
         CreatePreview(); // 미리보기
         score.text = "Score: " + scoreVal; // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
-        red.text = redVal.ToString(); //블럭 개수 출력
-        green.text = greenVal.ToString(); // 블럭 개수 출력
-        blue.text = blueVal.ToString(); // 블럭 개수 출력
-        yellow.text = yellowVal.ToString(); // 블럭 개수 출력
+
 
         Time.timeScale = 0f;
     }
@@ -523,23 +517,56 @@ public class StageMulti : MonoBehaviour
 
         foreach (Transform column in boardNode)
         {
+            List<Transform> tilesToRemove = new List<Transform>(); // 제거할 타일 리스트
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
             {
                 foreach (Transform tile in column)
                 {
+                    int x = (int)tile.position.x;
+                    int y = (int)tile.position.y;
+
+                    if (skill.checkBlue[x, y])
+                    {
+                        skill.checkBlue[x, y] = false;
+                    }
+                    else
+                    {
+                        tilesToRemove.Add(tile);
+                    }
+                }
+                foreach (var tile in tilesToRemove)
+                {
+                    int x = (int)tile.position.x;
+                    int y = (int)tile.position.y;
+                    switch (blockPos.grid[x, boardHeight - y])
+                    {
+                        case "1.000, 0.000, 0.000, 1.000":
+                            redVal++;
+                            break;
+                        case "0.000, 0.000, 1.000, 1.000":
+                            blueVal++;
+                            break;
+                        case "1.000, 1.000, 0.000, 1.000":
+                            yellowVal++;
+                            break;
+                        case "0.000, 1.000, 0.000, 1.000":
+                            greenVal++;
+                            break;
+                    }
+                    skillManager.updateBlock();
                     Destroy(tile.gameObject);
                 }
-
-                column.DetachChildren();
-                isCleared = true;
-                scoreVal += 10 * lineWeight;
-                score.text = "Score: " + scoreVal;
-                PlayerPrefs.SetInt("score", scoreVal);
-                blockCount += 10;
+                if (tilesToRemove.Count > 0)
+                {
+                    column.DetachChildren();
+                    isCleared = true;
+                    scoreVal += tilesToRemove.Count * lineWeight;
+                    score.text = "Score: " + scoreVal;
+                    PlayerPrefs.SetInt("score", scoreVal);
+                    blockCount += tilesToRemove.Count;
+                }
             }
         }
-
-
 
 
         // 비어 있는 행이 존재하면 아래로 당기기
@@ -913,11 +940,40 @@ public class StageMulti : MonoBehaviour
                 {
                     int ygrav = y;
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
-                    Destroy(blockTransform.gameObject);
-                    UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
-                    List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
-                    allFall.Add(fallList);
-
+                    if (!skill.checkBlue[xgrav, boardHeight - ygrav]) // 얼지 않았을 때
+                    {
+                        switch (blockPos.grid[xgrav, boardHeight - ygrav])
+                        {
+                            case "RGBA(1.000, 0.000, 0.000, 1.000)":
+                                redVal++;
+                                PlayerPrefs.SetInt("red", redVal);
+                                break;
+                            case "RGBA(0.000, 0.000, 1.000, 1.000)":
+                                blueVal++;
+                                PlayerPrefs.SetInt("blue", blueVal);
+                                break;
+                            case "RGBA(1.000, 1.000, 0.000, 1.000)":
+                                yellowVal++;
+                                PlayerPrefs.SetInt("yellow", yellowVal);
+                                break;
+                            case "RGBA(0.000, 1.000, 0.000, 1.000)":
+                                greenVal++;
+                                PlayerPrefs.SetInt("green", greenVal);
+                                break;
+                            default:
+                                continue;
+                                
+                        }
+                        Destroy(blockTransform.gameObject);
+                        skillManager.updateBlock();
+                        UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
+                        List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
+                        allFall.Add(fallList);
+                    }
+                    else
+                    {
+                        skill.checkBlue[xgrav, ygrav] = false;
+                    }
                     CheckBoardColumn();
 
                     scoreVal += colorWeight;

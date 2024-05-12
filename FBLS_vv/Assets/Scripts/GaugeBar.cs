@@ -19,7 +19,7 @@ public class GaugeBar : MonoBehaviour
     public float timeRange; // 싱글에서 시간마다 줄어드는 게이지 범위
     public float timerLimit; // 타이머 제한 시간 감소치
 
-    public GameObject stage;
+    private GameObject stage;
     void InitializedGaugeBar(float time)
     {
         this.timer = time;

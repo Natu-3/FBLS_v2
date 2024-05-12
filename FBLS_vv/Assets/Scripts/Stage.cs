@@ -49,8 +49,8 @@ public class Stage : MonoBehaviour
 
 
     public BlockPosition blockPos; // 블럭 구조체
-
-
+    
+    
 
     [Header("Game Settings")]
     [Range(4, 40)]
@@ -490,8 +490,8 @@ public class Stage : MonoBehaviour
     }
 
     // ++ RGB 문자로 변환용
-//    string Color32ToRGBString(Color color)
-  //  {
+    //    string Color32ToRGBString(Color color)
+    //  {
     //    return string.Format("{0} {1} {2}", color.r*255, color.g*255, color.b*255);
     //}
 
@@ -511,7 +511,7 @@ public class Stage : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-      
+
         foreach (Transform column in boardNode)
         {
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
@@ -611,7 +611,7 @@ public class Stage : MonoBehaviour
             targetNode.SetParent(boardNode.Find("y_" + (yBuffer - 1).ToString()));
         }
     }*/
-    
+
     void gravity(int startX, int startY)
     {
         for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
@@ -885,7 +885,7 @@ public class Stage : MonoBehaviour
 
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
-        List<List<(int, int)>> allFall = new List<List<(int,int)>>();
+        List<List<(int, int)>> allFall = new List<List<(int, int)>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
         {
@@ -915,7 +915,7 @@ public class Stage : MonoBehaviour
                     blockCount++;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
-                  
+
                 }
                 else
                 {
@@ -923,7 +923,7 @@ public class Stage : MonoBehaviour
                     UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
                 }
             }
-            
+
 
         }
 
@@ -1145,6 +1145,7 @@ public class Stage : MonoBehaviour
             Color32 left;
             do
             {
+               
                 left = GetTileColorAtPosition(new Vector2Int(remember.x - 1 * n, row + 1));
                 if (left.Equals(previousColor))
                 {
@@ -1152,9 +1153,10 @@ public class Stage : MonoBehaviour
                 }
                 n++;
             } while (left.Equals(previousColor));
-
+            n = 1;
             do
             {
+                
                 right = GetTileColorAtPosition(new Vector2Int(remember.x + 1 * n, row + 1));
                 if (right.Equals(previousColor))
                 {
