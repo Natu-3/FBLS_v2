@@ -50,12 +50,15 @@ public class GaugeBar : MonoBehaviour
     }
     void Update()
     {
-        myBlock = Stage.blockCount;
-
 
         // 멀티
-        if (SceneManager.GetActiveScene().name == "Computer")
+        if (SceneManager.GetActiveScene().name == "MultiScene")
         {
+            myBlock = StageMulti.blockCount;
+            if(myBlock > 0)
+            {
+                Debug.Log("count");
+            }
             difference = myBlock - enemyBlock;
             gaugeBar.value = difference + pivot;
             if (difference >= goal)
@@ -67,7 +70,7 @@ public class GaugeBar : MonoBehaviour
             }
             if (timer <= 0) // 게이지 초기화
             {
-                Stage.blockCount = 0;
+                StageMulti.blockCount = 0;
                 enemyBlock = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
@@ -77,6 +80,7 @@ public class GaugeBar : MonoBehaviour
         // 싱글
         else if (SceneManager.GetActiveScene().name == "SampleScene")
         {
+            myBlock = Stage.blockCount;
             gaugeBar.value -= Time.deltaTime;
             timer -= Time.deltaTime;
             textTime.text = ((int)timer).ToString();

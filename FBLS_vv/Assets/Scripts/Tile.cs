@@ -27,9 +27,42 @@ public class Tile : MonoBehaviour
             return spriteRenderer.sortingOrder;
         }
     }
-
+    public bool isFired
+    {
+        set
+        {
+            isFire = value;
+        }
+        get
+        {
+            return isFire;
+        }
+    }
+    public bool isIced
+    {
+        set
+        {
+            isIce = value;
+        }
+        get
+        {
+            return isIce;
+        }
+    }
+    public Color preColor
+    {
+        set
+        {
+            spriteRenderer.color = value;
+        }
+        get
+        {
+            return spriteRenderer.color;
+        }
+    }
     SpriteRenderer spriteRenderer;  //스프라이트 렌더러 선언
-
+    bool isFire = false;
+    bool isIce = false;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

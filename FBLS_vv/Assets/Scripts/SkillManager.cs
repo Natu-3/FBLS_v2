@@ -24,15 +24,15 @@ public class SkillManager : MonoBehaviour
     }
     public void updateBlock()
     {
-        red.text = $"{"block.redVal"}/{maxBlock}"; //블럭 개수 출력
-        green.text = $"{"block.greenVal"}/{maxBlock}"; // 블럭 개수 출력
-        blue.text = $"{"block.blueVal"}/{maxBlock}"; // 블럭 개수 출력
-        yellow.text = $"{"block.yellowVal"}/{maxBlock}"; // 블럭 개수 출력
+        red.text = $"{block.redVal}/{maxBlock}"; //블럭 개수 출력
+        green.text = $"{block.greenVal}/{maxBlock}"; // 블럭 개수 출력
+        blue.text = $"{block.blueVal}/{maxBlock}"; // 블럭 개수 출력
+        yellow.text = $"{block.yellowVal}/{maxBlock}"; // 블럭 개수 출력
     }
     // Start is called before the first frame update
     void Start()
     {
-        updateBlock();
+        //updateBlock();
     }
 
     // Update is called once per frame

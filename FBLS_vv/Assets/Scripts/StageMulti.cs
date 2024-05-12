@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using System.ComponentModel.Design;
-using System.Net.Mime;
 
 using System.Security;
 using System.Net.Sockets;
@@ -76,14 +75,14 @@ public class StageMulti : MonoBehaviour
     private int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    public int redVal = 0; // 사라진 블럭 개수
-    private int greenVal = 0; // 사라진 블럭 개수
-    private int blueVal = 0;   // 사라진 블럭 개수
-    private int yellowVal = 0; // 사라진 블랙 개수
+    [HideInInspector] public int redVal = 0; // 사라진 블럭 개수
+    [HideInInspector] public int greenVal = 0; // 사라진 블럭 개수
+    [HideInInspector] public int blueVal = 0;   // 사라진 블럭 개수
+    [HideInInspector] public int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
-
+    private bool isPaused = true;
     private void Start()
     {
         
@@ -136,53 +135,60 @@ public class StageMulti : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (isPaused)
         {
-            Time.timeScale = 1f;
-            start.SetActive(false);
-        }
-        Vector3 moveDir = Vector3.zero;
-        bool isRotate = false;
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            moveDir.x = -1;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            moveDir.x = 1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            isRotate = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            moveDir.y = -1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            while (MoveTetromino(Vector3.down, false))
+            if (Input.anyKeyDown)
             {
+                isPaused = false;
+                Time.timeScale = 1f;
+                start.SetActive(false);
+                return;
             }
         }
-
-        // 아래로 떨어지는 경우는 강제로 이동시킵니다.
-        if (Time.time > nextFallTime)
+        else
         {
-            nextFallTime = Time.time + fallCycle;
-            moveDir = Vector3.down;
-            isRotate = false;
-        }
+            Vector3 moveDir = Vector3.zero;
+            bool isRotate = false;
 
-        if (moveDir != Vector3.zero || isRotate)
-        {
-            MoveTetromino(moveDir, isRotate);
-        }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                moveDir.x = -1;
 
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                moveDir.x = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                isRotate = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                moveDir.y = -1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                while (MoveTetromino(Vector3.down, false))
+                {
+                }
+            }
+
+            // 아래로 떨어지는 경우는 강제로 이동시킵니다.
+            if (Time.time > nextFallTime)
+            {
+                nextFallTime = Time.time + fallCycle;
+                moveDir = Vector3.down;
+                isRotate = false;
+            }
+
+            if (moveDir != Vector3.zero || isRotate)
+            {
+                MoveTetromino(moveDir, isRotate);
+            }
+        }
 
     }
     void CreatePreview()
@@ -517,54 +523,55 @@ public class StageMulti : MonoBehaviour
 
         foreach (Transform column in boardNode)
         {
-            List<Transform> tilesToRemove = new List<Transform>(); // 제거할 타일 리스트
+            List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
             {
                 foreach (Transform tile in column)
                 {
                     int x = (int)tile.position.x;
-                    int y = (int)tile.position.y;
+                    var xnode = tile.Find("x_" + x.ToString());
+                    Tile currentTile = xnode.GetComponent<Tile>();
 
-                    if (skill.checkBlue[x, y])
+                    if (currentTile.isIced) // 얼었을 때
                     {
-                        skill.checkBlue[x, y] = false;
+                        currentTile.isIced = false; // 풀기
+                        currentTile.color = currentTile.preColor;
                     }
                     else
                     {
-                        tilesToRemove.Add(tile);
+                        tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
                     }
                 }
                 foreach (var tile in tilesToRemove)
                 {
-                    int x = (int)tile.position.x;
-                    int y = (int)tile.position.y;
-                    switch (blockPos.grid[x, boardHeight - y])
+                    if (tile.color == Color.red)
                     {
-                        case "1.000, 0.000, 0.000, 1.000":
-                            redVal++;
-                            break;
-                        case "0.000, 0.000, 1.000, 1.000":
-                            blueVal++;
-                            break;
-                        case "1.000, 1.000, 0.000, 1.000":
-                            yellowVal++;
-                            break;
-                        case "0.000, 1.000, 0.000, 1.000":
-                            greenVal++;
-                            break;
+                        redVal++;
                     }
-                    skillManager.updateBlock();
-                    Destroy(tile.gameObject);
+                    else if (tile.color == Color.blue)
+                    {
+                        blueVal++;
+                    }
+                    else if (tile.color == Color.green)
+                    {
+                        greenVal++;
+                    }
+                    else if (tile.color == Color.yellow)
+                    {
+                        yellowVal++;
+                    }
+                    skillManager.updateBlock(); // 개수 업데이트
+                    Destroy(tile);
                 }
-                if (tilesToRemove.Count > 0)
-                {
+
                     column.DetachChildren();
                     isCleared = true;
                     scoreVal += tilesToRemove.Count * lineWeight;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
                     blockCount += tilesToRemove.Count;
-                }
+                    UnityEngine.Debug.Log("count");
+                
             }
         }
 
@@ -935,34 +942,29 @@ public class StageMulti : MonoBehaviour
                 int xgrav = blockPosition.x;
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
+                Tile tile = blockTransform.GetComponent<Tile>();
                 //UnityEngine.Debug.Log(blockPosition.x.ToString());
                 if (blockTransform != null && blockPosition.x < 10)
                 {
                     int ygrav = y;
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
-                    if (!skill.checkBlue[xgrav, boardHeight - ygrav]) // 얼지 않았을 때
-                    {
-                        switch (blockPos.grid[xgrav, boardHeight - ygrav])
+                    if (!tile.isIced) { // 안 얼었을 때
+
+                        if(tile.color == Color.red)
                         {
-                            case "RGBA(1.000, 0.000, 0.000, 1.000)":
-                                redVal++;
-                                PlayerPrefs.SetInt("red", redVal);
-                                break;
-                            case "RGBA(0.000, 0.000, 1.000, 1.000)":
-                                blueVal++;
-                                PlayerPrefs.SetInt("blue", blueVal);
-                                break;
-                            case "RGBA(1.000, 1.000, 0.000, 1.000)":
-                                yellowVal++;
-                                PlayerPrefs.SetInt("yellow", yellowVal);
-                                break;
-                            case "RGBA(0.000, 1.000, 0.000, 1.000)":
-                                greenVal++;
-                                PlayerPrefs.SetInt("green", greenVal);
-                                break;
-                            default:
-                                continue;
-                                
+                            redVal++;
+                        }
+                        else if (tile.color == Color.blue)
+                        {
+                            blueVal++;
+                        }
+                        else if (tile.color == Color.green)
+                        {
+                            greenVal++;
+                        }
+                        else if (tile.color == Color.yellow)
+                        {
+                            yellowVal++;
                         }
                         Destroy(blockTransform.gameObject);
                         skillManager.updateBlock();
@@ -972,11 +974,12 @@ public class StageMulti : MonoBehaviour
                     }
                     else
                     {
-                        skill.checkBlue[xgrav, ygrav] = false;
+                        tile.isIced = false;
                     }
                     CheckBoardColumn();
 
                     scoreVal += colorWeight;
+                    UnityEngine.Debug.Log("Count");
                     blockCount++;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
@@ -1218,7 +1221,7 @@ public class StageMulti : MonoBehaviour
                 }
                 n++;
             } while (left.Equals(previousColor));
-
+            n = 1;
             do
             {
                 right = GetTileColorAtPosition(new Vector2Int(remember.x + 1 * n, row + 1));
@@ -1359,7 +1362,94 @@ public class StageMulti : MonoBehaviour
         panalty++;
 
     }
+
+    //스킬 구현
+
+    public int redSkillNum; // 적용시킬 블럭 개수
+    public int yellowSkillNum; // 적용시킬 블럭 개수
+    public int blueSkillNum; // 적용시킬 블럭 개수
+    private Color fire = Color.black;
+    private Color ice = Color.white;
+    public UnityEngine.UI.Image lightening;
+    public float fadeInImage = 0.1f; // 이미지 나타나는 시간
+    public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
+
+    public Tile randomTile()
+    {
+        int y = UnityEngine.Random.Range(0, 20);
+        var ynode = boardNode.Find("y_" + y.ToString());
+        int x = UnityEngine.Random.Range(0, ynode.childCount);
+        var xnode = ynode.GetChild(x);
+        Tile tile = xnode.GetComponent<Tile>();
+        return tile;
+    }
+    public void redSkill() // 빨강이
+    {
+        Tile tile = randomTile();
+        int i = 0;
+        while(i < redSkillNum)
+        {
+            if (!tile.isFired)
+            {
+                tile.isFired = true;
+                tile.color = fire;
+                i++;
+            }
+        }
+    }
+    public void yellowSkill() // 노랑이
+    {
+        StartCoroutine(yellowSkillActive());
+    }
+    IEnumerator yellowSkillActive()
+    {
+        float timer = 0;
+        while (timer <= fadeInImage) // fade in
+        {
+            float alpha = Mathf.Lerp(0, 1, timer / fadeInImage);
+            lightening.color = new Color(1, 1, 1, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        lightening.color = Color.white;
+        int i = 0;
+        while (i < yellowSkillNum) // 랜덤 블럭 삭제
+        {
+            Tile tile = randomTile();
+            if(tile != null)
+            {
+                Destroy(tile);
+            }
+        }
+        timer = 0;
+        while (timer <= fadeOutImage) // fade out
+        {
+            float alpha = Mathf.Lerp(1, 0, timer / fadeOutImage);
+            lightening.color = new Color(1, 1, 1, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        lightening.color = new Color(1, 1, 1, 0); // 화면 사라짐
+
+    }
+    public void blueSkill() // 파랑이
+    {
+        int i = 0;
+        while (i < blueSkillNum)
+        {
+            Tile tile = randomTile();
+            tile.preColor = tile.color; // 현재 색 저장
+            if (!tile.isIced)
+            {
+                tile.isIced = true;
+                tile.color = ice;
+                i++;
+            }
+        }
+    }
 }
+
 
 
 

@@ -77,11 +77,10 @@ public class Stage : MonoBehaviour
     public static int blockCount = 0;
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
-
+    private bool isPaused = true;
 
     private void Start()
     {
-
         //gameoverPanel.SetActive(false);
         blockPos = new BlockPosition();
         halfWidth = Mathf.RoundToInt(boardWidth * 0.5f); //(5)
@@ -134,11 +133,18 @@ public class Stage : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (isPaused)
         {
-            Time.timeScale = 1f;
-            start.SetActive(false);
+            if (Input.anyKeyDown)
+            {
+                isPaused = false;
+                Time.timeScale = 1f;
+                start.SetActive(false);
+                return;
+            }
         }
+        else
+        {
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
@@ -180,8 +186,8 @@ public class Stage : MonoBehaviour
             {
                 MoveTetromino(moveDir, isRotate);
             }
-        
-        
+
+        }
     }
     void CreatePreview()
     {
