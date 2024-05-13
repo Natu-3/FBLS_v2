@@ -517,6 +517,7 @@ public class StageMulti : MonoBehaviour
 
 
     // 보드에 완성된 행이 있으면 삭제
+    
     void CheckBoardColumn()
     {
         bool isCleared = false;
@@ -528,9 +529,8 @@ public class StageMulti : MonoBehaviour
             {
                 foreach (Transform tile in column)
                 {
-                    int x = (int)tile.position.x;
-                    var xnode = tile.Find("x_" + x.ToString());
-                    Tile currentTile = xnode.GetComponent<Tile>();
+                    
+                    Tile currentTile = tile.GetComponent<Tile>();
 
                     if (currentTile.isIced) // 얼었을 때
                     {
@@ -560,7 +560,7 @@ public class StageMulti : MonoBehaviour
                     {
                         yellowVal++;
                     }
-                    skillManager.updateBlock(); // 개수 업데이트
+                    //skillManager.updateBlock(); // 개수 업데이트
                     Destroy(tile);
                 }
 
@@ -613,7 +613,71 @@ public class StageMulti : MonoBehaviour
             }
         }
     }
+    /*
+    void CheckBoardColumn()
+    {
+        bool isCleared = false;
 
+        foreach (Transform column in boardNode)
+        {
+            if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
+            {
+                foreach (Transform tile in column)
+                {
+                    Destroy(tile.gameObject);
+
+                }
+
+                column.DetachChildren();
+                isCleared = true;
+                scoreVal += 10 * lineWeight;
+                score.text = "Score: " + scoreVal;
+                PlayerPrefs.SetInt("score", scoreVal);
+                blockCount += 10;
+            }
+        }
+
+
+
+
+        // 비어 있는 행이 존재하면 아래로 당기기
+        if (isCleared)
+        {
+            for (int i = 1; i < boardNode.childCount; ++i)
+            {
+                var column = boardNode.Find("y_" + i.ToString());
+
+                // 이미 비어 있는 행은 무시
+                if (column.childCount == 0)
+                    continue;
+
+                int emptyCol = 0;
+                int j = i - 1;
+                while (j >= 0)
+                {
+                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
+                    {
+                        emptyCol++;
+                    }
+                    j--;
+                }
+
+                if (emptyCol > 0)
+                {
+                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
+
+                    while (column.childCount > 0)
+                    {
+                        Transform tile = column.GetChild(0);
+                        tile.parent = targetColumn;
+                        tile.transform.position += new Vector3(0, -emptyCol, 0);
+                    }
+                    column.DetachChildren();
+                }
+            }
+        }
+    }
+    */
     /*
     void gravity(string blockname, int y)
     {
@@ -925,7 +989,7 @@ public class StageMulti : MonoBehaviour
 
 
 
-
+    /*
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
         List<List<(int, int)>> allFall = new List<List<(int, int)>>();
@@ -979,7 +1043,6 @@ public class StageMulti : MonoBehaviour
                     CheckBoardColumn();
 
                     scoreVal += colorWeight;
-                    UnityEngine.Debug.Log("Count");
                     blockCount++;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
@@ -994,7 +1057,50 @@ public class StageMulti : MonoBehaviour
 
 
         }
+    */
+    private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
+    {
+        List<List<(int, int)>> allFall = new List<List<(int, int)>>();
+        // 게임 보드의 모든 행을 순회합니다.
+        for (int y = 0; y < boardHeight; y++)
+        {
+            // 해당 행에서 연속된 블록 그룹을 탐색합니다.
+            List<Vector2Int> continuousBlocks = FindContinuousBlocksInRow(y);
 
+
+            foreach (Vector2Int blockPosition in continuousBlocks)
+            {
+                GameObject rowObject = GameObject.Find("y_" + blockPosition.y.ToString());
+                int xgrav = blockPosition.x;
+                string blockName = "x_" + blockPosition.x.ToString();
+                Transform blockTransform = rowObject.transform.Find(blockName);
+                //UnityEngine.Debug.Log(blockPosition.x.ToString());
+                if (blockTransform != null && blockPosition.x < 10)
+                {
+                    int ygrav = y;
+                    // 게임 오브젝트를 찾았으므로 삭제합니다.
+                    Destroy(blockTransform.gameObject);
+                    UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
+                    List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
+                    allFall.Add(fallList);
+
+                    CheckBoardColumn();
+
+                    scoreVal += colorWeight;
+                    blockCount++;
+                    score.text = "Score: " + scoreVal;
+                    PlayerPrefs.SetInt("score", scoreVal);
+
+                }
+                else
+                {
+                    // 게임 오브젝트를 찾지 못했음을 알립니다.
+                    UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
+                }
+            }
+
+
+        }
 
         List<(int, int)> allTuples = new List<(int, int)>(); //y 축이 낮은거부터 낙하할수 있게 정렬했음,
         foreach (List<(int, int)> fall in allFall)

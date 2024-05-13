@@ -32,6 +32,8 @@ public class Tile : MonoBehaviour
         set
         {
             isFire = value;
+            Color fire = Color.black;
+            spriteRenderer.color = fire;
         }
         get
         {
@@ -43,6 +45,9 @@ public class Tile : MonoBehaviour
         set
         {
             isIce = value;
+            Color ice = Color.white;
+            spriteRenderer.color = ice;
+            UnityEngine.Debug.Log("ice");
         }
         get
         {

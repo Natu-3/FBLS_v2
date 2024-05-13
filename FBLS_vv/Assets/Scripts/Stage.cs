@@ -525,6 +525,7 @@ public class Stage : MonoBehaviour
                 foreach (Transform tile in column)
                 {
                     Destroy(tile.gameObject);
+                    
                 }
 
                 column.DetachChildren();
