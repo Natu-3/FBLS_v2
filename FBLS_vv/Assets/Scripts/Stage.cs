@@ -132,6 +132,238 @@ public class Stage : MonoBehaviour
         }
         
     }
+<<<<<<< Updated upstream
+=======
+    void CreatePreview()
+    {
+        // 이미 있는 미리보기 삭제하기
+        foreach (Transform tile in preview)
+        {
+            Destroy(tile.gameObject);
+        }
+        preview.DetachChildren();
+
+        indexVal = UnityEngine.Random.Range(0, 7);
+        arrIndexVal = UnityEngine.Random.Range(0, 24);
+        
+        preview.position = new Vector2(halfWidth + 2.5f, halfHeight - 2.5f); // 미리보기 
+        
+        int[,] colorArray = new int[24, 4] {
+        {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
+        {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
+        {2, 2, 1, 3}, {2, 2, 1, 4}, {2, 2, 3, 4},
+        {2, 2, 3, 1}, {2, 2, 4, 1}, {2, 2, 4, 3},
+        {3, 3, 1, 2}, {3, 3, 1, 4}, {3, 3, 2, 1},
+        {3, 3, 2, 4}, {3, 3, 4, 1}, {3, 3, 4, 2},
+        {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
+        {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
+        };
+        Color32 color = Color.white;
+        Color32 col1;
+        Color32 col2;
+        Color32 col3;
+        Color32 col4;
+        col1 = GetColor(colorArray[arrIndexVal, 0]);
+        col2 = GetColor(colorArray[arrIndexVal, 1]);
+        col3 = GetColor(colorArray[arrIndexVal, 2]);
+        col4 = GetColor(colorArray[arrIndexVal, 3]);
+
+        switch (indexVal)
+        {
+            case 0: // I
+                color = new Color32(115, 251, 253, 255); 
+                CreateTile(preview, new Vector2(0f, 1f), col1);
+                CreateTile(preview, new Vector2(0f, 0f), col2);
+                CreateTile(preview, new Vector2(0f, -1f), col3);
+                CreateTile(preview, new Vector2(0f, -2f), col4);
+                break;
+
+            case 1: // J
+                color = new Color32(0, 33, 245, 255);   
+                CreateTile(preview, new Vector2(-1f, 0.0f), col1);
+                CreateTile(preview, new Vector2(0f, 0.0f), col2);
+                CreateTile(preview, new Vector2(1f, 0.0f), col3);
+                CreateTile(preview, new Vector2(-1f, 1.0f), col4);
+                break;
+
+            case 2: // L
+                color = new Color32(243, 168, 59, 255);   
+                CreateTile(preview, new Vector2(-1f, 0.0f), col1);
+                CreateTile(preview, new Vector2(0f, 0.0f), col2);
+                CreateTile(preview, new Vector2(1f, 0.0f), col3);
+                CreateTile(preview, new Vector2(1f, 1.0f), col4);
+                break;
+
+            case 3: // O 
+                color = new Color32(255, 253, 84, 255);   
+                CreateTile(preview, new Vector2(0f, 0f), col1);
+                CreateTile(preview, new Vector2(1f, 0f), col2);
+                CreateTile(preview, new Vector2(0f, 1f), col3);
+                CreateTile(preview, new Vector2(1f, 1f), col4);
+                break;
+
+            case 4: //  S
+                color = new Color32(117, 250, 76, 255);   
+                CreateTile(preview, new Vector2(-1f, -1f), col1);
+                CreateTile(preview, new Vector2(0f, -1f), col2);
+                CreateTile(preview, new Vector2(0f, 0f), col3);
+                CreateTile(preview, new Vector2(1f, 0f), col4);
+                break;
+
+            case 5: //  T
+                color = new Color32(155, 47, 246, 255); 
+                CreateTile(preview, new Vector2(-1f, 0f), col1);
+                CreateTile(preview, new Vector2(0f, 0f), col2);
+                CreateTile(preview, new Vector2(1f, 0f), col3);
+                CreateTile(preview, new Vector2(0f, 1f), col4);
+                break;
+
+            case 6: // Z
+                color = new Color32(235, 51, 35, 255);    // 빨간색
+                CreateTile(preview, new Vector2(-1f, 1f), col1);
+                CreateTile(preview, new Vector2(0f, 1f), col2);
+                CreateTile(preview, new Vector2(0f, 0f), col3);
+                CreateTile(preview, new Vector2(1f, 0f), col4);
+                break;
+        }
+    }
+
+    public void create7Bag()
+    {
+        
+        int[,] colorArray = new int[24, 4] {
+        {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
+        {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
+        {2, 2, 1, 3}, {2, 2, 1, 4}, {2, 2, 3, 4},
+        {2, 2, 3, 1}, {2, 2, 4, 1}, {2, 2, 4, 3},
+        {3, 3, 1, 2}, {3, 3, 1, 4}, {3, 3, 2, 1},
+        {3, 3, 2, 4}, {3, 3, 4, 1}, {3, 3, 4, 2},
+        {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
+        {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
+        };
+        Color32 col1;
+        Color32 col2;
+        Color32 col3;
+        Color32 col4;
+        //List<Transform> list7Bag = new List<Transform>();
+       
+        GameObject gameObject0 = new GameObject(); // 새로운 게임 오브젝트 생성
+        GameObject gameObject1 = new GameObject();
+        GameObject gameObject2 = new GameObject();
+        GameObject gameObject3 = new GameObject();
+        GameObject gameObject4 = new GameObject();
+        GameObject gameObject5 = new GameObject();
+        GameObject gameObject6 = new GameObject();
+
+        Transform node0 = gameObject0.transform;
+        node0.transform.name = "node0";
+        node0.transform.position = new Vector2(-20,-100);
+
+        Transform node1 = gameObject1.transform;
+        node1.transform.name = "node1";
+        node1.transform.position = new Vector2(-24,-100);
+
+        Transform node2 = gameObject2.transform;
+        node2.transform.name = "node2";
+        node2.transform.position = new Vector2(-28,-100);
+
+        Transform node3 = gameObject3.transform;
+        node3.transform.name = "node3";
+        node3.transform.position = new Vector2(-32,-100);
+
+        Transform node4 = gameObject4.transform;
+        node4.transform.name = "node4";
+        node4.transform.position = new Vector2(-36,-100);
+
+        Transform node5 = gameObject5.transform;
+        node5.transform.name = "node5";
+        node5.transform.position = new Vector2(-40,-100);
+        
+        Transform node6 = gameObject6.transform;
+        node6.transform.name = "node6";
+        node6.transform.position = new Vector2(-44,-100);
+
+        for( int i = 0 ; i < 7 ; i++){
+            arrIndexVal = UnityEngine.Random.Range(0, 24);
+            col1 = GetColor(colorArray[arrIndexVal, 0]);
+            col2 = GetColor(colorArray[arrIndexVal, 1]);
+            col3 = GetColor(colorArray[arrIndexVal, 2]);
+            col4 = GetColor(colorArray[arrIndexVal, 3]);
+
+            switch (i)
+            {
+                case 0: // I
+                   
+                    CreateTile(node0, new Vector2(0f, 1f), col1);
+                    CreateTile(node0, new Vector2(0f, 0f), col2);
+                    CreateTile(node0, new Vector2(0f, -1f), col3);
+                    CreateTile(node0, new Vector2(0f, -2f), col4);
+                    break;
+
+                case 1: // J
+                     
+                    CreateTile(node1, new Vector2(-1f, 0.0f), col1);
+                    CreateTile(node1, new Vector2(0f, 0.0f), col2);
+                    CreateTile(node1, new Vector2(1f, 0.0f), col3);
+                    CreateTile(node1, new Vector2(-1f, 1.0f), col4);
+                    break;
+
+                case 2: // L
+                    
+                    CreateTile(node2, new Vector2(-1f, 0.0f), col1);
+                    CreateTile(node2, new Vector2(0f, 0.0f), col2);
+                    CreateTile(node2, new Vector2(1f, 0.0f), col3);
+                    CreateTile(node2, new Vector2(1f, 1.0f), col4);
+                    break;
+
+                case 3: // O 
+                     
+                    CreateTile(node3, new Vector2(0f, 0f), col1);
+                    CreateTile(node3, new Vector2(1f, 0f), col2);
+                    CreateTile(node3, new Vector2(0f, 1f), col3);
+                    CreateTile(node3, new Vector2(1f, 1f), col4);
+                    break;
+
+                case 4: //  S
+                    
+                    CreateTile(node4, new Vector2(-1f, -1f), col1);
+                    CreateTile(node4, new Vector2(0f, -1f), col2);
+                    CreateTile(node4, new Vector2(0f, 0f), col3);
+                    CreateTile(node4, new Vector2(1f, 0f), col4);
+                    break;
+
+                case 5: //  T
+                   
+                    CreateTile(node5, new Vector2(-1f, 0f), col1);
+                    CreateTile(node5, new Vector2(0f, 0f), col2);
+                    CreateTile(node5, new Vector2(1f, 0f), col3);
+                    CreateTile(node5, new Vector2(0f, 1f), col4);
+                    break;
+
+                case 6: // Z
+                  
+                    CreateTile(node6, new Vector2(-1f, 1f), col1);
+                    CreateTile(node6, new Vector2(0f, 1f), col2);
+                    CreateTile(node6, new Vector2(0f, 0f), col3);
+                    CreateTile(node6, new Vector2(1f, 0f), col4);
+                    break;
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
 
     bool MoveTetromino(Vector3 moveDir, bool isRotate)
     {
@@ -728,6 +960,86 @@ public class Stage : MonoBehaviour
         return continuousBlocks;
     } 
 
+<<<<<<< Updated upstream
+=======
+    List<Vector2Int> upStair(int row,List<Vector2Int> downStair)
+    {
+        Vector2Int remember = new Vector2Int(-100,-100);
+
+        Color32 previousColor = GetTileColorAtPosition(downStair[0]);
+        foreach (var block in downStair) {
+            Color32 currentColor = GetTileColorAtPosition(new Vector2Int(block.x, row + 1));
+            if (currentColor.Equals(previousColor) && currentColor != Color.clear && !downStair.Contains(new Vector2Int(block.x, row + 1)))
+            {
+                remember = new Vector2Int(block.x, row+1);
+                downStair.Add(remember);
+                break;
+            }
+        }
+
+        
+        if (remember.x != -100)
+        {
+            int middle = remember.x;
+            int n = 1;
+            Color32 right;
+            Color32 left;
+            do
+            {
+                left = GetTileColorAtPosition(new Vector2Int(remember.x - 1 * n, row + 1));
+                if (left.Equals(previousColor))
+                {
+                    downStair.Add(new Vector2Int(remember.x - 1 * n, row + 1));
+                }
+                n++;
+            } while (left.Equals(previousColor));
+            n = 1; 
+            do
+            {
+                right = GetTileColorAtPosition(new Vector2Int(remember.x + 1 * n, row + 1));
+                if (right.Equals(previousColor))
+                {
+                    downStair.Add(new Vector2Int(remember.x + 1 * n, row + 1));
+                }
+                n++;
+            } while (right.Equals(previousColor));
+
+
+            downStair = upStair(row + 1, downStair);
+        }
+
+
+        
+
+
+        return downStair;
+    } 
+
+
+
+
+
+
+
+
+    // List<Vector2Int> onlyUp
+
+
+    //   onlyDown
+
+
+
+    //컬러32 값, 
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
     //연속에 대한 가중치에 수직을 추가하기 위함
     void vertWeight(int x, int y, Color32 col, List<Vector2Int> contBlocks, List<Color32> colorGroup)
     {
