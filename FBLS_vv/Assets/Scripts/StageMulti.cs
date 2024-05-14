@@ -188,6 +188,10 @@ public class StageMulti : MonoBehaviour
             {
                 MoveTetromino(moveDir, isRotate);
             }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                yellowSkill();
+            }
         }
 
     }
@@ -203,7 +207,7 @@ public class StageMulti : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
 
-        preview.position = new Vector2(halfWidth + 2.5f + offset2p, halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 2.5f + 2f*offset2p, halfHeight - 2.5f); // 미리보기 
 
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -474,7 +478,7 @@ public class StageMulti : MonoBehaviour
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth) - offset2p;
+            int x = Mathf.RoundToInt(node.transform.position.x + offset2p+ halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -503,18 +507,6 @@ public class StageMulti : MonoBehaviour
     //  {
     //    return string.Format("{0} {1} {2}", color.r*255, color.g*255, color.b*255);
     //}
-
-
-
-
-
-
-
-
-
-
-
-
 
     // 보드에 완성된 행이 있으면 삭제
     
@@ -560,7 +552,7 @@ public class StageMulti : MonoBehaviour
                     {
                         yellowVal++;
                     }
-                    //skillManager.updateBlock(); // 개수 업데이트
+                    updateBlock(); // 개수 업데이트
                     Destroy(tile);
                 }
 
@@ -770,10 +762,10 @@ public class StageMulti : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth)-offset2p;
+            int x = Mathf.RoundToInt(node.transform.position.x + 3/2*offset2p+ halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            if (x < 0 || x > boardWidth - 1) // x좌표가 보드 이내
+            if (x < 3*offset2p|| x > boardWidth - 1 +3*offset2p) // x좌표가 보드 이내
                 return false;
 
             if (y < 0) //y가 음수
@@ -841,7 +833,7 @@ public class StageMulti : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                Createback(backgroundNode, new Vector2(x+offset2p/2, y), color, 0);//
+                Createback(backgroundNode, new Vector2(x+3/2f*offset2p, y), color, 0);//
 
 
 
@@ -852,14 +844,14 @@ public class StageMulti : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            Createback(backgroundNode, new Vector2(-halfWidth - 1 + offset2p/2, y), color, 0);
-            Createback(backgroundNode, new Vector2(halfWidth + offset2p/2, y), color, 0);
+            Createback(backgroundNode, new Vector2(-halfWidth - 1 + 3/2f*offset2p, y), color, 0);
+            Createback(backgroundNode, new Vector2(halfWidth + 3/2f*offset2p, y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            CreateTile(backgroundNode, new Vector2(x + offset2p/2, -halfHeight), color, 0);
+            CreateTile(backgroundNode, new Vector2(x + 3/2f*offset2p, -halfHeight), color, 0);
         }
     }
 
@@ -901,7 +893,7 @@ public class StageMulti : MonoBehaviour
         col4 = GetColor(colorArray[arrIndex, 3]);
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(offset_x + offset2p , halfHeight - panalty + offset_y);
+        tetrominoNode.position = new Vector2(offset_x + 2*offset2p , halfHeight - panalty + offset_y); // 블럭 생성 위치
 
         switch (index)
         {
@@ -989,7 +981,7 @@ public class StageMulti : MonoBehaviour
 
 
 
-    /*
+    
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
         List<List<(int, int)>> allFall = new List<List<(int, int)>>();
@@ -1007,6 +999,11 @@ public class StageMulti : MonoBehaviour
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
                 Tile tile = blockTransform.GetComponent<Tile>();
+                if(tile == null)
+                {
+                    UnityEngine.Debug.Log("null");
+                    break;
+                }
                 //UnityEngine.Debug.Log(blockPosition.x.ToString());
                 if (blockTransform != null && blockPosition.x < 10)
                 {
@@ -1031,7 +1028,7 @@ public class StageMulti : MonoBehaviour
                             yellowVal++;
                         }
                         Destroy(blockTransform.gameObject);
-                        skillManager.updateBlock();
+                        updateBlock();
                         UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
                         List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
                         allFall.Add(fallList);
@@ -1057,7 +1054,7 @@ public class StageMulti : MonoBehaviour
 
 
         }
-    */
+    /*
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
         List<List<(int, int)>> allFall = new List<List<(int, int)>>();
@@ -1101,7 +1098,7 @@ public class StageMulti : MonoBehaviour
 
 
         }
-
+    */
         List<(int, int)> allTuples = new List<(int, int)>(); //y 축이 낮은거부터 낙하할수 있게 정렬했음,
         foreach (List<(int, int)> fall in allFall)
         {
@@ -1470,18 +1467,23 @@ public class StageMulti : MonoBehaviour
     }
 
     //스킬 구현
-
+    [Header("Skill")]
     public int redSkillNum; // 적용시킬 블럭 개수
     public int yellowSkillNum; // 적용시킬 블럭 개수
     public int blueSkillNum; // 적용시킬 블럭 개수
+    public int maxBlock;
     private Color fire = Color.black;
     private Color ice = Color.white;
     public UnityEngine.UI.Image lightening;
     public float fadeInImage = 0.1f; // 이미지 나타나는 시간
     public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
-
+    public Text red; // 사라진 블럭
+    public Text green; // 사라진 블럭
+    public Text blue; // 사라진 블럭
+    public Text yellow; // 사라진 블럭
     public Tile randomTile()
     {
+        
         int y = UnityEngine.Random.Range(0, 20);
         var ynode = boardNode.Find("y_" + y.ToString());
         int x = UnityEngine.Random.Range(0, ynode.childCount);
@@ -1507,8 +1509,10 @@ public class StageMulti : MonoBehaviour
     {
         StartCoroutine(yellowSkillActive());
     }
+    public GameObject image;
     IEnumerator yellowSkillActive()
     {
+        image.SetActive(true);
         float timer = 0;
         while (timer <= fadeInImage) // fade in
         {
@@ -1518,6 +1522,8 @@ public class StageMulti : MonoBehaviour
             yield return null;
         }
         lightening.color = Color.white;
+        
+        /*
         int i = 0;
         while (i < yellowSkillNum) // 랜덤 블럭 삭제
         {
@@ -1527,6 +1533,7 @@ public class StageMulti : MonoBehaviour
                 Destroy(tile);
             }
         }
+        */
         timer = 0;
         while (timer <= fadeOutImage) // fade out
         {
@@ -1553,6 +1560,13 @@ public class StageMulti : MonoBehaviour
                 i++;
             }
         }
+    }
+    public void updateBlock()
+    {
+        red.text = $"{redVal}/{maxBlock}"; //블럭 개수 출력
+        green.text = $"{greenVal}/{maxBlock}"; // 블럭 개수 출력
+        blue.text = $"{blueVal}/{maxBlock}"; // 블럭 개수 출력
+        yellow.text = $"{yellowVal}/{maxBlock}"; // 블럭 개수 출력
     }
 }
 

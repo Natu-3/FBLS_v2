@@ -55,10 +55,6 @@ public class GaugeBar : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MultiScene")
         {
             myBlock = StageMulti.blockCount;
-            if(myBlock > 0)
-            {
-                Debug.Log("count");
-            }
             difference = myBlock - enemyBlock;
             gaugeBar.value = difference + pivot;
             if (difference >= goal)
@@ -74,7 +70,6 @@ public class GaugeBar : MonoBehaviour
                 enemyBlock = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
-
             }
         }
         // ½Ì±Û

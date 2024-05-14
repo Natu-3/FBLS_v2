@@ -520,14 +520,54 @@ public class Stage : MonoBehaviour
 
         foreach (Transform column in boardNode)
         {
+            List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
             {
                 foreach (Transform tile in column)
                 {
-                    Destroy(tile.gameObject);
-                    
-                }
+                    if (SceneManager.GetActiveScene().name != "MultiScene")
+                    {
+                        Destroy(tile.gameObject);
+                    }
+                    else
+                    {
+                        Tile currentTile = tile.GetComponent<Tile>();
 
+                        if (currentTile.isIced) // 얼었을 때
+                        {
+                            currentTile.isIced = false; // 풀기
+                            currentTile.color = currentTile.preColor;
+                        }
+                        else
+                        {
+                            tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
+                        }
+                    }
+                }
+                if (SceneManager.GetActiveScene().name == "MultiScene")
+                {
+                    foreach (var tile in tilesToRemove)
+                    {
+                        if (tile.color == Color.red)
+                        {
+                            redVal++;
+                        }
+                        else if (tile.color == Color.blue)
+                        {
+                            blueVal++;
+                        }
+                        else if (tile.color == Color.green)
+                        {
+                            greenVal++;
+                        }
+                        else if (tile.color == Color.yellow)
+                        {
+                            yellowVal++;
+                        }
+                        updateBlock(); // 개수 업데이트
+                        Destroy(tile);
+                    }
+                }
                 column.DetachChildren();
                 isCleared = true;
                 scoreVal += 10 * lineWeight;
@@ -1299,6 +1339,14 @@ public class Stage : MonoBehaviour
         }
          panalty++;
         
+    }
+    public int maxBlock;
+    public void updateBlock()
+    {
+        red.text = $"{redVal}/{maxBlock}"; //블럭 개수 출력
+        green.text = $"{greenVal}/{maxBlock}"; // 블럭 개수 출력
+        blue.text = $"{blueVal}/{maxBlock}"; // 블럭 개수 출력
+        yellow.text = $"{yellowVal}/{maxBlock}"; // 블럭 개수 출력
     }
 }
 

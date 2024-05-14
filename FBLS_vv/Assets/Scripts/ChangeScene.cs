@@ -5,10 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
-{
-    public Text textToBlink;
-    public float blinkTime = 0.5f;
-    
+{ 
     public static char currentScene;
    // public Transform preview;
     public void changeSingle()
