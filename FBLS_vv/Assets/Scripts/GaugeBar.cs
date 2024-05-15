@@ -18,7 +18,8 @@ public class GaugeBar : MonoBehaviour
     private float timer;
     public float timeRange; // 싱글에서 시간마다 줄어드는 게이지 범위
     public float timerLimit; // 타이머 제한 시간 감소치
-
+    public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
+    public Image penaltyZone; // 패널티 존
     private GameObject stage;
     void InitializedGaugeBar(float time)
     {
@@ -36,12 +37,10 @@ public class GaugeBar : MonoBehaviour
     }
     void Start()
     {
-
+        textTime.gameObject.SetActive(false);
         gaugeBar.value = gaugeBar.maxValue;
         StartCoroutine(GaugeTimer());
         InitializedGaugeBar(limitTime);
-        
-    
     }
 
     void pan(){
@@ -54,23 +53,38 @@ public class GaugeBar : MonoBehaviour
         // 멀티
         if (SceneManager.GetActiveScene().name == "MultiScene")
         {
-            myBlock = StageMulti.blockCount;
-            difference = myBlock - enemyBlock;
-            gaugeBar.value = difference + pivot;
-            if (difference >= goal)
-            { // 타이머 시작
-                textTime.gameObject.SetActive(true);
 
+            //2p기준
+            myBlock = StageMulti.blockCount;
+            enemyBlock = Stage.blockCount;
+            difference = enemyBlock - myBlock;
+            gaugeBar.value = -difference + pivot;
+
+            if (difference >= penaltyBlock) // 타이머 시작
+            {
+                textTime.gameObject.SetActive(true);
+                penaltyZone.color = Color.green;
+                penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
+
             }
-            if (timer <= 0) // 게이지 초기화
+
+            if (timer <= 0) // 타이머 종료 후 패널티
             {
                 StageMulti.blockCount = 0;
                 enemyBlock = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+                pan();
             }
+            if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
+            {
+                penaltyZone.color = Color.blue;
+                textTime.gameObject.SetActive(false);
+                InitializedGaugeBar(limitTime);
+            }
+
         }
         // 싱글
         else if (SceneManager.GetActiveScene().name == "SampleScene")

@@ -207,7 +207,7 @@ public class StageMulti : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
 
-        preview.position = new Vector2(halfWidth + 2.5f + 2f*offset2p, halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 2.5f + 2f*offset2p, halfHeight - 2.5f + offset_y); // 미리보기 
 
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -763,12 +763,12 @@ public class StageMulti : MonoBehaviour
         {
             var node = root.GetChild(i);
             int x = Mathf.RoundToInt(node.transform.position.x + 3/2*offset2p+ halfWidth);
-            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
+            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1 + offset_y);
 
             if (x < 3*offset2p|| x > boardWidth - 1 +3*offset2p) // x좌표가 보드 이내
                 return false;
 
-            if (y < 0) //y가 음수
+            if (y < 0 + offset_y) //y가 음수
                 return false;
 
             var column = boardNode.Find("y_" + y.ToString()); //y스트링 찾기
@@ -833,7 +833,7 @@ public class StageMulti : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                Createback(backgroundNode, new Vector2(x+3/2f*offset2p, y), color, 0);//
+                Createback(backgroundNode, new Vector2(x+3/2f*offset2p, y + offset_y), color, 0);//
 
 
 
@@ -844,14 +844,14 @@ public class StageMulti : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            Createback(backgroundNode, new Vector2(-halfWidth - 1 + 3/2f*offset2p, y), color, 0);
-            Createback(backgroundNode, new Vector2(halfWidth + 3/2f*offset2p, y), color, 0);
+            Createback(backgroundNode, new Vector2(-halfWidth - 1 + 3/2f*offset2p, y + offset_y), color, 0);
+            Createback(backgroundNode, new Vector2(halfWidth + 3/2f*offset2p, y + offset_y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            CreateTile(backgroundNode, new Vector2(x + 3/2f*offset2p, -halfHeight), color, 0);
+            CreateTile(backgroundNode, new Vector2(x + 3/2f*offset2p, -halfHeight + offset_y), color, 0);
         }
     }
 
