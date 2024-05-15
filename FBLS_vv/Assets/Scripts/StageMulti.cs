@@ -29,6 +29,8 @@ using Text = UnityEngine.UI.Text;
 
 public class StageMulti : MonoBehaviour
 {
+    public GameObject Effect;
+
     [Header("Editor Objects")]
     public GameObject tilePrefab; //타일프리펩 불러옴
     public Transform backgroundNode; // 백그라운드 
@@ -60,7 +62,6 @@ public class StageMulti : MonoBehaviour
     public float offset_y = 0f;
 
     public int offset2p = 14;
-
 
 
     private int halfWidth; // 좌표 (가로)중앙값
@@ -512,10 +513,6 @@ public class StageMulti : MonoBehaviour
 
 
 
-
-
-
-
     // 보드에 완성된 행이 있으면 삭제
     
     void CheckBoardColumn()
@@ -562,6 +559,9 @@ public class StageMulti : MonoBehaviour
                     }
                     //skillManager.updateBlock(); // 개수 업데이트
                     Destroy(tile);
+
+                    //사라지는 이펙트 추가
+                    //Effect_Star(tile.transform);
                 }
 
                     column.DetachChildren();
@@ -1090,7 +1090,7 @@ public class StageMulti : MonoBehaviour
                     blockCount++;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
-
+                    //Effect_Star(); //이펙트
                 }
                 else
                 {

@@ -26,11 +26,15 @@ using System.Net.Mime;
 using System.Security;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
+using System.Threading;
 
 
 
 public class Stage : MonoBehaviour
 {
+    public GameObject effect_Destroy;
+    public GameObject effect_Space;
+
     [Header("Editor Objects")]
     public GameObject tilePrefab; //타일프리펩 불러옴
     public Transform backgroundNode; // 백그라운드 
@@ -169,8 +173,12 @@ public class Stage : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
+
                 while (MoveTetromino(Vector3.down, false))
                 {
+                    //잔상 이펙트
+                    Effect(tetrominoNode.gameObject, effect_Space);
                 }
             }
 
@@ -502,22 +510,20 @@ public class Stage : MonoBehaviour
     //}
 
 
+    void Effect(GameObject tile, GameObject effect) //이펙트
+    {
+        GameObject priticle = Instantiate(effect);
+        ParticleSystem ParticleSys = priticle.GetComponent<ParticleSystem>();
 
-
-
-
-
-
-
-
-
+        ParticleSys.transform.position = tile.transform.position; //이펙트 생성 위치
+        ParticleSys.Play();
+        Destroy(priticle, 2f);
+    }
 
 
     // 보드에 완성된 행이 있으면 삭제
     void CheckBoardColumn()
     {
-        bool isCleared = false;
-
         foreach (Transform column in boardNode)
         {
             if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
@@ -525,24 +531,22 @@ public class Stage : MonoBehaviour
                 foreach (Transform tile in column)
                 {
                     Destroy(tile.gameObject);
-                    
+                    Effect(tile.gameObject, effect_Destroy);
                 }
 
                 column.DetachChildren();
-                isCleared = true;
+                Invoke("BlockDown", 0.3f);
                 scoreVal += 10 * lineWeight;
                 score.text = "Score: " + scoreVal;
                 PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
         }
+    }
 
-
-
-
+    void BlockDown()
+    {
         // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
-        {
             for (int i = 1; i < boardNode.childCount; ++i)
             {
                 var column = boardNode.Find("y_" + i.ToString());
@@ -575,7 +579,6 @@ public class Stage : MonoBehaviour
                     column.DetachChildren();
                 }
             }
-        }
     }
 
     /*
@@ -1175,10 +1178,6 @@ public class Stage : MonoBehaviour
 
             downStair = upStair(row + 1, downStair);
         }
-
-
-        
-
 
         return downStair;
     } 
