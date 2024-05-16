@@ -478,7 +478,7 @@ public class StageMulti : MonoBehaviour
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + offset2p+ halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + -2*offset2p+ halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -762,10 +762,10 @@ public class StageMulti : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + 3/2*offset2p+ halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x -2*offset2p+ halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1 + offset_y);
-
-            if (x < 3*offset2p|| x > boardWidth - 1 +3*offset2p) // x좌표가 보드 이내
+            //UnityEngine.Debug.Log("x 노드:" + x);
+            if (x < 0|| x > boardWidth - 1) // x좌표가 보드 이내
                 return false;
 
             if (y < 0 + offset_y) //y가 음수
@@ -998,15 +998,16 @@ public class StageMulti : MonoBehaviour
                 int xgrav = blockPosition.x;
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
-                Tile tile = blockTransform.GetComponent<Tile>();
-                if(tile == null)
-                {
+                
+                 if(blockTransform == null){
                     UnityEngine.Debug.Log("null");
-                    break;
+                    
                 }
+               
                 //UnityEngine.Debug.Log(blockPosition.x.ToString());
                 if (blockTransform != null && blockPosition.x < 10)
                 {
+                    Tile tile = blockTransform.GetComponent<Tile>();
                     int ygrav = y;
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
                     if (!tile.isIced) { // 안 얼었을 때
@@ -1288,7 +1289,7 @@ public class StageMulti : MonoBehaviour
 
 
         }
-
+        UnityEngine.Debug.Log("연속계산중..");
         return continuousBlocks;
     }
 
@@ -1430,7 +1431,8 @@ public class StageMulti : MonoBehaviour
                 }
                 else
                 {
-                    // 해당 x 좌표를 가진 블록이 없습니다.
+                 UnityEngine.Debug.Log("해당 좌표 블럭 못찾음!!:" +blockName );       
+                // 해당 x 좌표를 가진 블록이 없습니다.
                 }
             }
             else
