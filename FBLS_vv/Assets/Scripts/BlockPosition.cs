@@ -12,21 +12,12 @@ public class BlockPosition
 {
     public string[,] grid; // 블록의 색상을 저장하는 2차원 배열
     private Dictionary<string, List<(int, int)>> addedBlocks; //한번에 추가된 블럭들
-    private StageMulti stage;
-
-    public int redVal = 0; // 사라진 블럭 개수
-    public int greenVal = 0; // 사라진 블럭 개수
-    public int blueVal = 0;   // 사라진 블럭 개수
-    public int yellowVal = 0; // 사라진 블랙 개수
 
     private bool beforeR;
     private bool beforeL;
     private bool beforeU;
     private bool beforeD;
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
+
     void Start()
     {
     }

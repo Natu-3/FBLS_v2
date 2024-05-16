@@ -73,7 +73,7 @@ public class GaugeBar : MonoBehaviour
             if (timer <= 0) // 타이머 종료 후 패널티
             {
                 StageMulti.blockCount = 0;
-                enemyBlock = 0;
+                Stage.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
                 pan();

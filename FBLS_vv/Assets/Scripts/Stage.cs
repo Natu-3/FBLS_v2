@@ -70,10 +70,10 @@ public class Stage : MonoBehaviour
     private int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    private int redVal = 0; // 사라진 블럭 개수
-    private int greenVal = 0; // 사라진 블럭 개수
-    private int blueVal = 0;   // 사라진 블럭 개수
-    private int yellowVal = 0; // 사라진 블랙 개수
+    private int redVal; // 사라진 블럭 개수
+    private int greenVal; // 사라진 블럭 개수
+    private int blueVal;   // 사라진 블럭 개수
+    private int yellowVal; // 사라진 블랙 개수
     public static int blockCount = 0;
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
@@ -123,10 +123,6 @@ public class Stage : MonoBehaviour
         CreatePreview(); // 미리보기
         score.text = "Score: " + scoreVal; // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
-        red.text = redVal.ToString(); //블럭 개수 출력
-        green.text = greenVal.ToString(); // 블럭 개수 출력
-        blue.text = blueVal.ToString(); // 블럭 개수 출력
-        yellow.text = yellowVal.ToString(); // 블럭 개수 출력
 
         Time.timeScale = 0f;
     }
@@ -560,7 +556,7 @@ public class Stage : MonoBehaviour
                         {
                             greenVal++;
                         }
-                        else if (tile.color == Color.yellow)
+                        else if (tile.color.ToString() == "RGBA(1.000, 1.000, 0.000, 1.000)") // Color.yellow
                         {
                             yellowVal++;
                         }

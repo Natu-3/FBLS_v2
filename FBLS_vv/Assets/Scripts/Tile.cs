@@ -68,6 +68,7 @@ public class Tile : MonoBehaviour
     SpriteRenderer spriteRenderer;  //스프라이트 렌더러 선언
     bool isFire = false;
     bool isIce = false;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

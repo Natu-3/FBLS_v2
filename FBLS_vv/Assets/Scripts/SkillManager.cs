@@ -22,6 +22,7 @@ public class SkillManager : MonoBehaviour
         isAttackCanceled = false;
         attackTime = Time.time;
     }
+    /*
     public void updateBlock()
     {
         red.text = $"{block.redVal}/{maxBlock}"; //블럭 개수 출력
@@ -29,6 +30,7 @@ public class SkillManager : MonoBehaviour
         blue.text = $"{block.blueVal}/{maxBlock}"; // 블럭 개수 출력
         yellow.text = $"{block.yellowVal}/{maxBlock}"; // 블럭 개수 출력
     }
+    */
     // Start is called before the first frame update
     void Start()
     {

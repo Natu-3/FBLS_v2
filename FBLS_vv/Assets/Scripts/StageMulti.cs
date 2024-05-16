@@ -479,7 +479,7 @@ public class StageMulti : MonoBehaviour
             var node = root.GetChild(0);
 
             int x = Mathf.RoundToInt(node.transform.position.x + offset2p+ halfWidth);
-            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
+            int y = Mathf.RoundToInt(node.transform.position.y + offset_y +halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
             node.name = "x_" + x.ToString();
@@ -536,9 +536,16 @@ public class StageMulti : MonoBehaviour
                 }
                 foreach (var tile in tilesToRemove)
                 {
+                    UnityEngine.Debug.Log(tile.color.ToString());
                     if (tile.color == Color.red)
                     {
                         redVal++;
+                    }
+                    else if (tile.color.ToString() == "RGBA(1.000, 1.000, 0.000, 1.000)") // Color.yellow로 안돼서 바꿈...
+                    {
+                        yellowVal++;
+                        UnityEngine.Debug.Log("count");
+
                     }
                     else if (tile.color == Color.blue)
                     {
@@ -548,10 +555,7 @@ public class StageMulti : MonoBehaviour
                     {
                         greenVal++;
                     }
-                    else if (tile.color == Color.yellow)
-                    {
-                        yellowVal++;
-                    }
+
                     updateBlock(); // 개수 업데이트
                     Destroy(tile);
                 }
@@ -562,7 +566,7 @@ public class StageMulti : MonoBehaviour
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
                     blockCount += tilesToRemove.Count;
-                    UnityEngine.Debug.Log("count");
+                   
                 
             }
         }
@@ -605,71 +609,6 @@ public class StageMulti : MonoBehaviour
             }
         }
     }
-    /*
-    void CheckBoardColumn()
-    {
-        bool isCleared = false;
-
-        foreach (Transform column in boardNode)
-        {
-            if (column.childCount == boardWidth)// 완성된 행 == 행의 자식 갯수가 가로 크기
-            {
-                foreach (Transform tile in column)
-                {
-                    Destroy(tile.gameObject);
-
-                }
-
-                column.DetachChildren();
-                isCleared = true;
-                scoreVal += 10 * lineWeight;
-                score.text = "Score: " + scoreVal;
-                PlayerPrefs.SetInt("score", scoreVal);
-                blockCount += 10;
-            }
-        }
-
-
-
-
-        // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
-        {
-            for (int i = 1; i < boardNode.childCount; ++i)
-            {
-                var column = boardNode.Find("y_" + i.ToString());
-
-                // 이미 비어 있는 행은 무시
-                if (column.childCount == 0)
-                    continue;
-
-                int emptyCol = 0;
-                int j = i - 1;
-                while (j >= 0)
-                {
-                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
-                    {
-                        emptyCol++;
-                    }
-                    j--;
-                }
-
-                if (emptyCol > 0)
-                {
-                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
-
-                    while (column.childCount > 0)
-                    {
-                        Transform tile = column.GetChild(0);
-                        tile.parent = targetColumn;
-                        tile.transform.position += new Vector3(0, -emptyCol, 0);
-                    }
-                    column.DetachChildren();
-                }
-            }
-        }
-    }
-    */
     /*
     void gravity(string blockname, int y)
     {
@@ -763,12 +702,12 @@ public class StageMulti : MonoBehaviour
         {
             var node = root.GetChild(i);
             int x = Mathf.RoundToInt(node.transform.position.x + 3/2*offset2p+ halfWidth);
-            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1 + offset_y);
+            int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1 - offset_y);
 
             if (x < 3*offset2p|| x > boardWidth - 1 +3*offset2p) // x좌표가 보드 이내
                 return false;
 
-            if (y < 0 + offset_y) //y가 음수
+            if (y < 0) //y가 음수
                 return false;
 
             var column = boardNode.Find("y_" + y.ToString()); //y스트링 찾기
@@ -1004,6 +943,7 @@ public class StageMulti : MonoBehaviour
                     UnityEngine.Debug.Log("null");
                     break;
                 }
+
                 //UnityEngine.Debug.Log(blockPosition.x.ToString());
                 if (blockTransform != null && blockPosition.x < 10)
                 {
