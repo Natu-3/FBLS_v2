@@ -33,9 +33,14 @@ public class Stage : MonoBehaviour
 {
     [Header("Editor Objects")]
     public GameObject tilePrefab; //타일프리펩 불러옴
+    public GameObject tileRed;
+    public GameObject tileBlue;
+    public GameObject tileGreen;
+    public GameObject tileYellow;
+
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
-    
+ 
 
     public Transform tetrominoNode; //테트리미노
    // public GameObject gameoverPanel; //게임오버
@@ -213,20 +218,20 @@ public class Stage : MonoBehaviour
         {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
         {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
         };
-        Color32 color = Color.white;
-        Color32 col1;
-        Color32 col2;
-        Color32 col3;
-        Color32 col4;
-        col1 = GetColor(colorArray[arrIndexVal, 0]);
-        col2 = GetColor(colorArray[arrIndexVal, 1]);
-        col3 = GetColor(colorArray[arrIndexVal, 2]);
-        col4 = GetColor(colorArray[arrIndexVal, 3]);
+        
+        int col1;
+        int col2;
+        int col3;
+        int col4;
+        col1 = colorArray[arrIndexVal, 0];
+        col2 = colorArray[arrIndexVal, 1];
+        col3 = colorArray[arrIndexVal, 2];
+        col4 = colorArray[arrIndexVal, 3];
 
         switch (indexVal)
         {
             case 0: // I
-                color = new Color32(115, 251, 253, 255); 
+                
                 CreateTile(preview, new Vector2(0f, 1f), col1);
                 CreateTile(preview, new Vector2(0f, 0f), col2);
                 CreateTile(preview, new Vector2(0f, -1f), col3);
@@ -234,7 +239,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 1: // J
-                color = new Color32(0, 33, 245, 255);   
+                
                 CreateTile(preview, new Vector2(-1f, 0.0f), col1);
                 CreateTile(preview, new Vector2(0f, 0.0f), col2);
                 CreateTile(preview, new Vector2(1f, 0.0f), col3);
@@ -242,7 +247,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 2: // L
-                color = new Color32(243, 168, 59, 255);   
+                  
                 CreateTile(preview, new Vector2(-1f, 0.0f), col1);
                 CreateTile(preview, new Vector2(0f, 0.0f), col2);
                 CreateTile(preview, new Vector2(1f, 0.0f), col3);
@@ -250,7 +255,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 3: // O 
-                color = new Color32(255, 253, 84, 255);   
+               
                 CreateTile(preview, new Vector2(0f, 0f), col1);
                 CreateTile(preview, new Vector2(1f, 0f), col2);
                 CreateTile(preview, new Vector2(0f, 1f), col3);
@@ -258,7 +263,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 4: //  S
-                color = new Color32(117, 250, 76, 255);   
+              
                 CreateTile(preview, new Vector2(-1f, -1f), col1);
                 CreateTile(preview, new Vector2(0f, -1f), col2);
                 CreateTile(preview, new Vector2(0f, 0f), col3);
@@ -266,7 +271,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 5: //  T
-                color = new Color32(155, 47, 246, 255); 
+            
                 CreateTile(preview, new Vector2(-1f, 0f), col1);
                 CreateTile(preview, new Vector2(0f, 0f), col2);
                 CreateTile(preview, new Vector2(1f, 0f), col3);
@@ -274,7 +279,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 6: // Z
-                color = new Color32(235, 51, 35, 255);    // 빨간색
+            
                 CreateTile(preview, new Vector2(-1f, 1f), col1);
                 CreateTile(preview, new Vector2(0f, 1f), col2);
                 CreateTile(preview, new Vector2(0f, 0f), col3);
@@ -296,10 +301,10 @@ public class Stage : MonoBehaviour
         {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
         {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
         };
-        Color32 col1;
-        Color32 col2;
-        Color32 col3;
-        Color32 col4;
+        int col1;
+        int col2;
+        int col3;
+        int col4;
         //List<Transform> list7Bag = new List<Transform>();
        
         GameObject gameObject0 = new GameObject(); // 새로운 게임 오브젝트 생성
@@ -340,10 +345,10 @@ public class Stage : MonoBehaviour
 
         for( int i = 0 ; i < 7 ; i++){
             arrIndexVal = UnityEngine.Random.Range(0, 24);
-            col1 = GetColor(colorArray[arrIndexVal, 0]);
-            col2 = GetColor(colorArray[arrIndexVal, 1]);
-            col3 = GetColor(colorArray[arrIndexVal, 2]);
-            col4 = GetColor(colorArray[arrIndexVal, 3]);
+            col1 = colorArray[arrIndexVal, 0];
+            col2 = colorArray[arrIndexVal, 1];
+            col3 = colorArray[arrIndexVal, 2];
+            col4 = colorArray[arrIndexVal, 3];
 
             switch (i)
             {
@@ -536,7 +541,7 @@ public class Stage : MonoBehaviour
                         if (currentTile.isIced) // 얼었을 때
                         {
                             currentTile.isIced = false; // 풀기
-                            currentTile.color = currentTile.preColor;
+                            currentTile.color = Color.gray;
                         }
                         else
                         {
@@ -618,46 +623,7 @@ public class Stage : MonoBehaviour
         }
     }
 
-    /*
-    void gravity(string blockname, int y)
-    {
-        //int x, y; //확인함
-        List<string> blocksConnect = new List<string>();
-        int xBuffer = int.Parse(blockname);
-        int yBuffer = y;
 
-        for (int i = 0; i < blocksConnect.Count; i++)
-        {
-            yBuffer = blocksConnect[i][1];
-            GameObject row = GameObject.Find("y_" + yBuffer.ToString());
-            if (row != null)
-            {
-                Transform target = boardNode.Find("x_" + blocksConnect[i][0]);
-                if (target != null)
-                {
-                    xBuffer = blocksConnect[i][0];
-                }
-
-            }
-            bool floor = false;
-            while (!floor)
-            {
-                GameObject rowNode = GameObject.Find("y_" + yBuffer.ToString());
-
-                if (rowNode != null)
-                {
-                    Transform rowNodeTransfrom = rowNode.transform.Find("x_" + xBuffer.ToString());
-                    if (rowNodeTransfrom == null)
-                    {
-                        yBuffer--;
-                    }
-                    else floor = true; // 아래가 바닥
-                }
-            }
-            Transform targetNode = boardNode.Find("x_" + blocksConnect[i][0]);
-            targetNode.SetParent(boardNode.Find("y_" + (yBuffer - 1).ToString()));
-        }
-    }*/
 
     void gravity(int startX, int startY)
     {
@@ -732,20 +698,67 @@ public class Stage : MonoBehaviour
 
 
     // 타일 생성
-    Tile CreateTile(Transform parent, Vector2 position, Color color, int order = 1)
+    Tile CreateTile(Transform parent, Vector2 position, int color, int order = 1)
     {
-        var go = Instantiate(tilePrefab);
-        go.transform.parent = parent;
-        go.transform.localPosition = position;
+
 
         //여기서 var go 를 기억해둬야 사용가능함
 
+        GameObject go;
+        
+        switch (color)
+        {
+            case 1:
+                go = Instantiate(tileRed);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tiler = go.GetComponent<Tile>();
+                tiler.sortingOrder = order;
+                tiler.setRed();
+                return tiler;
+          
+            case 2:
+                go = Instantiate(tileGreen);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tileg = go.GetComponent<Tile>();
+                tileg.sortingOrder = order;
+                tileg.setGreen();
+                return tileg;
+              
+            case 3:
+                go = Instantiate(tileBlue);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tileb = go.GetComponent<Tile>();
+                tileb.sortingOrder = order;
+                tileb.setBlue();
+                return tileb;
+              
+            case 4:
+                go = Instantiate(tileYellow);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tiley = go.GetComponent<Tile>();
+                tiley.sortingOrder = order;
+                tiley.setYellow();
+                return tiley;
+         
+            default:
+                go = Instantiate(tilePrefab);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tile = go.GetComponent<Tile>();
+                tile.sortingOrder = order;
+                return tile;
+             
+        }
 
-        var tile = go.GetComponent<Tile>();
-        tile.color = color;
-        tile.sortingOrder = order;
+
+
+        
        // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
-        return tile;
+        
     }
 
 
@@ -799,7 +812,7 @@ public class Stage : MonoBehaviour
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            CreateTile(backgroundNode, new Vector2(x, -halfHeight), color, 0);
+            Createback(backgroundNode, new Vector2(x, -halfHeight), color, 0);
         }
     }
 
@@ -830,15 +843,15 @@ public class Stage : MonoBehaviour
         {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
         };
 
-        Color32 color = Color.white;
-        Color32 col1;
-        Color32 col2;
-        Color32 col3;
-        Color32 col4;
-        col1 = GetColor(colorArray[arrIndex, 0]);
-        col2 = GetColor(colorArray[arrIndex, 1]);
-        col3 = GetColor(colorArray[arrIndex, 2]);
-        col4 = GetColor(colorArray[arrIndex, 3]);
+        
+        int col1;
+        int col2;
+        int col3;
+        int col4;
+        col1 = colorArray[arrIndex, 0];
+        col2 = colorArray[arrIndex, 1];
+        col3 = colorArray[arrIndex, 2];
+        col4 = colorArray[arrIndex, 3];
 
         tetrominoNode.rotation = Quaternion.identity;
         tetrominoNode.position = new Vector2(0, halfHeight - panalty);
@@ -847,7 +860,7 @@ public class Stage : MonoBehaviour
         {
             // I 
             case 0:
-                color = new Color32(115, 251, 253, 255);
+         
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col3);
@@ -856,7 +869,7 @@ public class Stage : MonoBehaviour
 
             // J 
             case 1:
-                color = new Color32(0, 33, 245, 255);
+          
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
@@ -865,7 +878,7 @@ public class Stage : MonoBehaviour
 
             // L 
             case 2:
-                color = new Color32(243, 168, 59, 255);
+             
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
@@ -874,7 +887,7 @@ public class Stage : MonoBehaviour
 
             // O 
             case 3:
-                color = new Color32(255, 253, 84, 255);
+            
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col1);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col3);
@@ -883,7 +896,7 @@ public class Stage : MonoBehaviour
 
             // S 
             case 4:
-                color = new Color32(117, 250, 76, 255);
+               
                 CreateTile(tetrominoNode, new Vector2(-1f, -1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
@@ -892,7 +905,7 @@ public class Stage : MonoBehaviour
 
             // T 
             case 5:
-                color = new Color32(155, 47, 246, 255);
+              
                 CreateTile(tetrominoNode, new Vector2(-1f, 0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col3);
@@ -901,7 +914,7 @@ public class Stage : MonoBehaviour
 
             // Z 
             case 6:
-                color = new Color32(235, 51, 35, 255);
+               
                 CreateTile(tetrominoNode, new Vector2(-1f, 1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
@@ -910,22 +923,7 @@ public class Stage : MonoBehaviour
         }
     }
 
-    Color32 GetColor(int colorNum)
-    {
-        switch (colorNum)
-        {
-            case 1: // 빨간색
-                return new Color32(255, 0, 0, 255);
-            case 2: // 파란색
-                return new Color32(0, 0, 255, 255);
-            case 3: // 노란색
-                return new Color32(255, 255, 0, 255);
-            case 4: // 초록색
-                return new Color32(0, 255, 0, 255);
-            default:
-                return Color.white;
-        }
-    }
+   
 
 
 
@@ -956,7 +954,7 @@ public class Stage : MonoBehaviour
                     List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
                     allFall.Add(fallList);
 
-                    CheckBoardColumn();
+                    
 
                     scoreVal += colorWeight;
                     blockCount++;
@@ -988,126 +986,20 @@ public class Stage : MonoBehaviour
             //이미 한번 낙하한 블럭들은 이후로도 계속 낙하해야함, prefab의 인수에 isitFall - bool값 구현해놓고, 낮은곳부터 전면순회해서 isitfall 있는애들 먼저 낙하시킨다음,
             // list에 있는(블럭형태를 잃은, 애들 낙하 + 프리펩의 낙하여부 설정해주기
         }
-        /*
-        List<(int, int)> arrayToDelete = new List<(int, int)>();
-        arrayToDelete.Clear();
-        arrayToDelete = blockPos.ContinousBlock();
+
         
-        foreach (var tuple in arrayToDelete)
-        {
-            UnityEngine.Debug.Log("test:"+tuple);
-        }
-        if (arrayToDelete.Count >= 4)
-        {
-           
-            foreach (var tuple in arrayToDelete)
-            {
-                int x = tuple.Item1;
-                int y = tuple.Item2;
-
-                
-                GameObject rowObject = GameObject.Find("y_" + y.ToString());
-                string blockName = "x_" + x.ToString();
-                Transform blockTransform = rowObject.transform.Find(blockName);
-                if (blockTransform != null) { 
-                   // Destroy(blockTransform.gameObject);
-                UnityEngine.Debug.Log("x 좌표: " + x + ", y 좌표: " + y + "부숴짐!!");
-                    }
-            }
-        }
-
-
-        */
 
     }
-    /*
-
-    List<Vector2Int> FindContinuousBlocksInRow(int row) //연속되는 블록 탐색 메소드
-    {
-        List<Vector2Int> continuousBlocks = new List<Vector2Int>();
-
-
-        List<Vector2Int> currentGroup = new List<Vector2Int>(); //연속 블럭그룹
-                                                               // 첫 번째 블록의 색상을 가져옵니다.
-        UnityEngine.Debug.Log(" 첫 블록 색상 ");
-        Color32 previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
-
-        // 현재 연속된 블록의 가중치를 초기화합니다.
-        //int currentWeight = weight;
-
-
-        // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1 ; x < boardWidth ; x++)
-        {
-            // 현재 블록의 색상을 가져옵니다.
-            Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
-
-            // currentWeight += vertWeight(x, row, currentColor
-            List<Vector2Int> verticalLine = onlyUp(x, row, currentColor);
-
-
-
-
-            // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
-            if (currentColor.Equals(previousColor))
-            {
-               // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
-                
-                currentWeight++;
-                UnityEngine.Debug.Log(" 연속임! \n ");
-            }
-            else
-            {
-                // 이전 블록과 현재 블록의 색상이 다르면 연속된 블록 그룹이 끝났습니다.
-                // 현재 연속된 블록 그룹의 가중치를 확인하고, 3 이상인 경우에만 리스트에 추가합니다.
-                if (currentWeight >= 4)
-                {
-                    for (int i = x - currentWeight; i < x; i++)
-                    {
-                        continuousBlocks.Add(new Vector2Int(i, row));
-                        UnityEngine.Debug.Log(" 블럭 추가!! \n ");
-                    }
-                }
-
-                // 가중치를 초기화합니다.
-                currentWeight = 1;
-            }
-
-            // 현재 블록의 색상을 이전 색상으로 설정합니다.
-            previousColor = currentColor;
-        }
-
-        return continuousBlocks;
-    }
-    
-
-    List<Vector2Int> onlyUp(int x, int row, Color32 previouisColor)
-    {
-        List<Vector2Int> semi = new List<Vector2Int>();
-        Color32 curColor = GetTileColorAtPosition(new Vector2Int(x, row+1));
-
-        if(curColor.Equals(previouisColor))
-        {
-            semi.Add(new Vector2Int(x, row + 1));
-            List<Vector2Int> buf = FindContinuousBlocksInRow(row + 1);
-        }
-
-        return semi;
-    }
-    
-
-    */
+   
     
     List<Vector2Int> FindContinuousBlocksInRow(int row)
     {
         List<Vector2Int> continuousBlocks = new List<Vector2Int>(); //연속된 블록 그 자체를 저장하는 리스트
 
-        List<Color32> currentGroupColors = new List<Color32>(); // 연속된 블록 그룹의 색상을 저장하는 리스트
-
         // 첫 번째 블록의 색상을 가져옵니다.
         
-        UnityEngine.Debug.Log("첫 블록 색상");
-        Color32 previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
+        
+        string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
 
         int currentStart = 0; // 지금의 시작 좌표
 
@@ -1118,22 +1010,13 @@ public class Stage : MonoBehaviour
         {
             
             // 현재 블록의 색상을 가져옵니다.
-            Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
-            //vertWeight(x, row, currentColor, continuousBlocks, currentGroupColors/*,continuousBlocks);
-            // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
-
-            /*
-            List<Vector2Int> buf = onlyUp(x, row + 1, previousColor);
-            List<Vector2Int> merg = new List<Vector2Int>();
-            merg.AddRange(continuousBlocks);
-            merg.AddRange(buf);
-            continuousBlocks = merg;
-            */
+            string currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
+  
 
             continuousBlocks = upStair(row, continuousBlocks);
 
 
-            if (currentColor.Equals(previousColor) && currentColor != Color.clear)
+            if (currentColor.Equals(previousColor) && currentColor != "null")
             {
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 //currentGroupColors.Add(currentColor);
@@ -1172,10 +1055,10 @@ public class Stage : MonoBehaviour
     {
         Vector2Int remember = new Vector2Int(-100,-100);
 
-        Color32 previousColor = GetTileColorAtPosition(downStair[0]);
+        string previousColor = GetTileColorAtPosition(downStair[0]);
         foreach (var block in downStair) {
-            Color32 currentColor = GetTileColorAtPosition(new Vector2Int(block.x, row + 1));
-            if (currentColor.Equals(previousColor) && currentColor != Color.clear && !downStair.Contains(new Vector2Int(block.x, row + 1)))
+            string currentColor = GetTileColorAtPosition(new Vector2Int(block.x, row + 1));
+            if (currentColor.Equals(previousColor) && currentColor != "null" && !downStair.Contains(new Vector2Int(block.x, row + 1)))
             {
                 remember = new Vector2Int(block.x, row+1);
                 downStair.Add(remember);
@@ -1188,8 +1071,8 @@ public class Stage : MonoBehaviour
         {
             int middle = remember.x;
             int n = 1;
-            Color32 right;
-            Color32 left;
+            string right;
+            string left;
             do
             {
                
@@ -1216,34 +1099,8 @@ public class Stage : MonoBehaviour
             downStair = upStair(row + 1, downStair);
         }
 
-
-        
-
-
         return downStair;
     } 
-
-
-
-
-
-
-
-
-    // List<Vector2Int> onlyUp
-
-
-    //   onlyDown
-
-
-
-    //컬러32 값, 
-
-
-
-
-
-
 
 
 
@@ -1279,7 +1136,7 @@ public class Stage : MonoBehaviour
 
 
 
-    Color32 GetTileColorAtPosition(Vector2Int position)
+    string GetTileColorAtPosition(Vector2Int position)
     {
         // 유효한 위치인지 확인합니다.
         if (position.x >= 0 && position.x < boardWidth &&
@@ -1299,9 +1156,9 @@ public class Stage : MonoBehaviour
                 if (blockTransform != null)
                 {
                     // 블록을 찾았습니다
-                    SpriteRenderer spriteRenderer = blockTransform.GetComponent<SpriteRenderer>();
-
-                    Color32 coll = spriteRenderer.color;
+                    Tile tile = blockTransform.GetComponent<Tile>();
+                    string coll = tile.getColor();
+                    
 
                     return coll;
                 }
@@ -1320,15 +1177,10 @@ public class Stage : MonoBehaviour
         }
 
         // 위치가 유효하지 않거나 해당 위치에 블럭이 없는 경우 기본값으로 투명색을 반환합니다.
-        return Color.clear;
+        string a = "null";
+        return a;
     }
 
-    /*void StructureBlock()
-    {
-       public Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-       
-
-    }*/
     public void doPanalty(){ // 패널티부여 + 줄 줄어듦
         int buff = 19 - panalty;
         for(int i = 0; i < 12; i++){

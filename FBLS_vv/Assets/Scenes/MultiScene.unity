@@ -1065,7 +1065,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754e5f94aec85b248ba779a11b90dcde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodePrefab: {fileID: 7757264099925149636, guid: fafb4efd0e16f5a4690da4bee38f92d7,
+    type: 3}
   tilePrefab: {fileID: 8898468410266244867, guid: f465b7d8698584fa7a723a810626b908,
+    type: 3}
+  tileRed: {fileID: 3051960973977493141, guid: 43d023cc87b81a2418a4151e4fd50c82, type: 3}
+  tileBlue: {fileID: 5276173553057549590, guid: 81324099e42c3654c95349ddae88234b,
+    type: 3}
+  tileGreen: {fileID: 958405079297367975, guid: 0386e55b853887e42951cdc427d6f97d,
+    type: 3}
+  tileYellow: {fileID: 8834664170719743819, guid: 0cd7aa7a26cc25e4eb8ae958ba6f2f55,
     type: 3}
   backgroundNode: {fileID: 485969447}
   boardNode: {fileID: 2113198163}
@@ -1076,13 +1085,13 @@ MonoBehaviour:
   boardWidth: 10
   boardHeight: 20
   fallCycle: 1
-  offset_x: 0
-  offset_y: 0
-  offset2p: 14
   lineWeight: 0
   colorWeight: 0
   panalty: 0
   indexback: 0
+  offset_x: 0
+  offset_y: 0
+  offset2p: 14
   redVal: 0
   greenVal: 0
   blueVal: 0
@@ -3171,6 +3180,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202176854}
   m_CullTransparentMesh: 1
+--- !u!1 &1308303737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308303739}
+  - component: {fileID: 1308303740}
+  m_Layer: 0
+  m_Name: MultiManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1308303739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308303737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.232544, y: -5.3406124, z: -0.23813793}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1308303740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308303737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c56c3e7689ffd6438958c3069fd0bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 2029631708}
+  player2: {fileID: 452944801}
+  limitTime: 5
+  skillStatus: None
+  green1p: 0
+  green2p: 0
+  atkPlayer: 0
 --- !u!1 &1349571411
 GameObject:
   m_ObjectHideFlags: 0
@@ -5386,6 +5446,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 8898468410266244867, guid: f465b7d8698584fa7a723a810626b908,
     type: 3}
+  tileRed: {fileID: 3051960973977493141, guid: 43d023cc87b81a2418a4151e4fd50c82, type: 3}
+  tileBlue: {fileID: 5276173553057549590, guid: 81324099e42c3654c95349ddae88234b,
+    type: 3}
+  tileGreen: {fileID: 958405079297367975, guid: 0386e55b853887e42951cdc427d6f97d,
+    type: 3}
+  tileYellow: {fileID: 8834664170719743819, guid: 0cd7aa7a26cc25e4eb8ae958ba6f2f55,
+    type: 3}
   backgroundNode: {fileID: 1738714475}
   boardNode: {fileID: 1077089380}
   tetrominoNode: {fileID: 336610174}
@@ -6086,3 +6153,4 @@ SceneRoots:
   - {fileID: 2027363645}
   - {fileID: 1608024895}
   - {fileID: 135388365}
+  - {fileID: 1308303739}
