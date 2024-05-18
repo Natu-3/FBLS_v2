@@ -555,23 +555,27 @@ public class StageMulti : MonoBehaviour
                 }
                 foreach (var tile in tilesToRemove)
                 {
-                    if (tile.color == Color.red)
+                    if (!tile.isred())
                     {
-                        redVal++;
+                        if (tile.getColor() == "Red")
+                        {
+                            redVal++;
+                        }
+                        else if (tile.getColor() == "Blue")
+                        {
+                            blueVal++;
+                        }
+                        else if (tile.getColor() == "Green")
+                        {
+                            greenVal++;
+                        }
+                        else if (tile.getColor() == "Yellow")
+                        {
+                            yellowVal++;
+                        }
+                        updateBlock(); // 개수 업데이트
+                       
                     }
-                    else if (tile.color == Color.blue)
-                    {
-                        blueVal++;
-                    }
-                    else if (tile.color == Color.green)
-                    {
-                        greenVal++;
-                    }
-                    else if (tile.color == Color.yellow)
-                    {
-                        yellowVal++;
-                    }
-                    updateBlock(); // 개수 업데이트
                     Destroy(tile.gameObject);
                 }
 
@@ -971,7 +975,7 @@ public class StageMulti : MonoBehaviour
                     Tile tile = blockTransform.GetComponent<Tile>();
                     int ygrav = y;
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
-                    if (!tile.isIced) { // 안 얼었을 때
+                    if (!tile.isIced && !tile.isred()) { // 안 얼었을 때
 
                         if(tile.getColor() == "Red")
                         {
@@ -989,7 +993,10 @@ public class StageMulti : MonoBehaviour
                         {
                             yellowVal++;
                         }
-                        Destroy(blockTransform.gameObject);
+                        if (!tile.isred())
+                        {
+                            Destroy(blockTransform.gameObject);
+                        }
                         updateBlock();
                         UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
                         List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
@@ -1301,8 +1308,10 @@ public class StageMulti : MonoBehaviour
                     // 블록을 찾았습니다
                     Tile tile = blockTransform.GetComponent<Tile>();
                     string coll = tile.getColor();
-
-                    return coll;
+                    if (!tile.isred())
+                    {
+                        return coll;
+                    }
                 }
                 else
                 {
@@ -1422,6 +1431,7 @@ public class StageMulti : MonoBehaviour
         {
             if (!tile.isred())
             {
+                UnityEngine.Debug.Log("블럭 색 잃음!");
                 tile.isFired = true;
                 tile.color = fire;
             }
