@@ -31,6 +31,10 @@ using System.Security.Principal;
 
 public class StageMulti : MonoBehaviour
 {
+    [Header("Skill Objects")]
+    public GameObject effect_Destroy;
+    public GameObject rain;
+
     [Header("Editor Objects")]
     public GameObject nodePrefab; //노드(가로줄) 프리펩
     public GameObject tilePrefab; //타일프리펩 불러옴
@@ -92,6 +96,9 @@ public class StageMulti : MonoBehaviour
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
     private bool isPaused = true;
+
+    public Renderer BackGroundRender;
+
     private void Start()
     {
        
@@ -196,7 +203,8 @@ public class StageMulti : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha1)){
                 MultiManager.Instance.AtkRed2();
-        
+                BackGroundRender.material.color = Color.red;
+                StartCoroutine(SkillBackGround.Instance.Transparency(BackGroundRender));
                 UnityEngine.Debug.Log("Red skill!");
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -207,6 +215,7 @@ public class StageMulti : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 MultiManager.Instance.AtkYellow2();
+                StartCoroutine(EffectManager.instance.WeatherEffect(rain));
                 UnityEngine.Debug.Log("Yellow skill!");
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -528,7 +537,6 @@ public class StageMulti : MonoBehaviour
     
     void CheckBoardColumn()
     {
-        bool isCleared = false;
 
         foreach (Transform column in boardNode)
         {
@@ -577,10 +585,11 @@ public class StageMulti : MonoBehaviour
                        
                     }
                     Destroy(tile.gameObject);
+                    EffectManager.instance.Effect(tile.gameObject, effect_Destroy);
                 }
 
                     column.DetachChildren();
-                    isCleared = true;
+                    Invoke("BlockDown", 1f);
                     scoreVal += tilesToRemove.Count * lineWeight;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
@@ -589,11 +598,11 @@ public class StageMulti : MonoBehaviour
                 
             }
         }
+    }
 
-
+    void BlockDown()
+    {
         // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
-        {
             for (int i = 1; i < boardNode.childCount; ++i)
             {
                 var column = boardNode.Find("y_" + i.ToString());
@@ -626,9 +635,7 @@ public class StageMulti : MonoBehaviour
                     column.DetachChildren();
                 }
             }
-        }
     }
-    
 
     void gravity(int startX, int startY)
     {

@@ -31,6 +31,8 @@ using System.Collections.Concurrent;
 
 public class Stage : MonoBehaviour
 {
+    public GameObject effect_Destroy;
+
     [Header("Editor Objects")]
     public GameObject tilePrefab; //타일프리펩 불러옴
     public GameObject tileRed;
@@ -508,21 +510,20 @@ public class Stage : MonoBehaviour
 
 
 
+    //void Effect(GameObject tile, GameObject effect) //이펙트
+    //{
+    //    GameObject priticle = Instantiate(effect);
+    //    ParticleSystem ParticleSys = priticle.GetComponent<ParticleSystem>();
 
-
-
-
-
-
-
-
+    //    ParticleSys.transform.position = tile.transform.position; //이펙트 생성 위치
+    //    ParticleSys.Play();
+    //    Destroy(priticle, 2f);
+    //}
 
 
     // 보드에 완성된 행이 있으면 삭제
     void CheckBoardColumn()
     {
-        bool isCleared = false;
-
         foreach (Transform column in boardNode)
         {
             List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
@@ -533,6 +534,7 @@ public class Stage : MonoBehaviour
                     if (SceneManager.GetActiveScene().name != "MultiScene")
                     {
                         Destroy(tile.gameObject);
+                        //Effect(tile.gameObject, effect_Destroy);
                     }
                     else
                     {
@@ -574,7 +576,6 @@ public class Stage : MonoBehaviour
                     }
                 }
                 column.DetachChildren();
-                isCleared = true;
                 scoreVal += 10 * lineWeight;
                 score.text = "Score: " + scoreVal;
                 PlayerPrefs.SetInt("score", scoreVal);
@@ -582,47 +583,43 @@ public class Stage : MonoBehaviour
             }
         }
 
+    }
 
-
-
-        // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
+    void BlockDown() // 행을 아래로 내리는 
+    {
+        for (int i = 1; i < boardNode.childCount; ++i)
         {
-            for (int i = 1; i < boardNode.childCount; ++i)
+            var column = boardNode.Find("y_" + i.ToString());
+
+            // 이미 비어 있는 행은 무시
+            if (column.childCount == 0)
+                continue;
+
+            int emptyCol = 0;
+            int j = i - 1;
+            while (j >= 0)
             {
-                var column = boardNode.Find("y_" + i.ToString());
-
-                // 이미 비어 있는 행은 무시
-                if (column.childCount == 0)
-                    continue;
-
-                int emptyCol = 0;
-                int j = i - 1;
-                while (j >= 0)
+                if (boardNode.Find("y_" + j.ToString()).childCount == 0)
                 {
-                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
-                    {
-                        emptyCol++;
-                    }
-                    j--;
+                    emptyCol++;
                 }
+                j--;
+            }
 
-                if (emptyCol > 0)
+            if (emptyCol > 0)
+            {
+                var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
+
+                while (column.childCount > 0)
                 {
-                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
-
-                    while (column.childCount > 0)
-                    {
-                        Transform tile = column.GetChild(0);
-                        tile.parent = targetColumn;
-                        tile.transform.position += new Vector3(0, -emptyCol, 0);
-                    }
-                    column.DetachChildren();
+                    Transform tile = column.GetChild(0);
+                    tile.parent = targetColumn;
+                    tile.transform.position += new Vector3(0, -emptyCol, 0);
                 }
+                column.DetachChildren();
             }
         }
     }
-
 
 
     void gravity(int startX, int startY)

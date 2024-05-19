@@ -20,6 +20,7 @@ public class Skill : MonoBehaviour
     private SkillManager manager;
     public float warningTime = 2f; // 경고 제한 시간
     private static BlockPosition block;
+
     private void checkBlock()
     {
         grid = block.grid;
