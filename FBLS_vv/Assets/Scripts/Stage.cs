@@ -70,7 +70,7 @@ public class Stage : MonoBehaviour
     public int colorWeight; // 지워진 색 점수
     public int panalty = 0; // 패널티시 생기는 가중치
     public int indexback = 0;
-
+    public int offset1p;
     private float nextFallTime;
     private int scoreVal = 0;
     private int indexVal = -1;
@@ -98,7 +98,7 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
             var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
-            col.transform.position = new Vector3(0, halfHeight - i, 0);
+            col.transform.position = new Vector3(offset1p, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
 
@@ -128,11 +128,7 @@ public class Stage : MonoBehaviour
         CreatePreview(); // 미리보기
         score.text = "Score: " + scoreVal; // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
-        red.text = redVal.ToString(); //블럭 개수 출력
-        green.text = greenVal.ToString(); // 블럭 개수 출력
-        blue.text = blueVal.ToString(); // 블럭 개수 출력
-        yellow.text = yellowVal.ToString(); // 블럭 개수 출력
-
+ 
         Time.timeScale = 0f;
     }
 
@@ -206,7 +202,7 @@ public class Stage : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
         
-        preview.position = new Vector2(halfWidth + 2.5f, halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 2.5f + 1.5f*offset1p, halfHeight - 2.5f); // 미리보기 
         
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -476,7 +472,7 @@ public class Stage : MonoBehaviour
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x -2*offset1p + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -675,8 +671,8 @@ public class Stage : MonoBehaviour
     {
         for (int i = 0; i < root.childCount; ++i)
         {
-            var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            var node = root.GetChild(i); 
+            int x = Mathf.RoundToInt(node.transform.position.x -offset1p +1 + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             if (x < 0 || x > boardWidth - 1) // x좌표가 보드 이내
@@ -794,7 +790,7 @@ public class Stage : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                Createback(backgroundNode, new Vector2(x, y), color, 0);//
+                Createback(backgroundNode, new Vector2(x+3/2f*offset1p, y), color, 0);//
                 
 
 
@@ -805,14 +801,14 @@ public class Stage : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            Createback(backgroundNode, new Vector2(-halfWidth - 1, y), color, 0);
-            Createback(backgroundNode, new Vector2(halfWidth, y), color, 0);
+            Createback(backgroundNode, new Vector2(-halfWidth - 1 + 3/2f*offset1p, y), color, 0);
+            Createback(backgroundNode, new Vector2(halfWidth + 3/2f*offset1p, y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            Createback(backgroundNode, new Vector2(x, -halfHeight), color, 0);
+            Createback(backgroundNode, new Vector2(x + 3/2f*offset1p, -halfHeight), color, 0);
         }
     }
 
@@ -854,7 +850,7 @@ public class Stage : MonoBehaviour
         col4 = colorArray[arrIndex, 3];
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0, halfHeight - panalty);
+        tetrominoNode.position = new Vector2(2*offset1p, halfHeight - panalty);
 
         switch (index)
         {
