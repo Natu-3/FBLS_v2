@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &442470670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -384,12 +384,12 @@ GameObject:
   - component: {fileID: 1021621992}
   - component: {fileID: 1021621991}
   m_Layer: 5
-  m_Name: Win
+  m_Name: 1p_win
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1021621990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Win
+  m_Text: 1P Win
 --- !u!222 &1021621992
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -634,12 +634,12 @@ GameObject:
   - component: {fileID: 1554500959}
   - component: {fileID: 1554500958}
   m_Layer: 5
-  m_Name: Lose
+  m_Name: 2p_win
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1554500957
 RectTransform:
   m_ObjectHideFlags: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Lose
+  m_Text: 2P Win
 --- !u!222 &1554500959
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -864,8 +864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f03fb53049b64f8d89fe4bf58ca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToBlink: {fileID: 0}
-  blinkTime: 0.5
 --- !u!4 &2018061053
 Transform:
   m_ObjectHideFlags: 0
@@ -895,8 +893,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 0}
   draw: {fileID: 442470669}
-  win: {fileID: 1021621989}
-  lose: {fileID: 1554500956}
+  win1p: {fileID: 1021621989}
+  win2p: {fileID: 1554500956}
 --- !u!1 &2056740584
 GameObject:
   m_ObjectHideFlags: 0

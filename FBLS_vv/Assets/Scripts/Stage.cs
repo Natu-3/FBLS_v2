@@ -51,7 +51,7 @@ public class Stage : MonoBehaviour
     public Text yellow; // 사라진 블럭
     public Transform preview; // 다음 블럭
     public GameObject start;
-
+ 
 
     public BlockPosition blockPos; // 블럭 구조체
     
@@ -98,7 +98,7 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
             var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
-            col.transform.position = new Vector3(offset1p, halfHeight - i, 0);
+            col.transform.position = new Vector3(2*offset1p, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
 
@@ -560,6 +560,7 @@ public class Stage : MonoBehaviour
                         else if (tile.color == Color.green)
                         {
                             greenVal++;
+
                         }
                         else if (tile.color == Color.yellow)
                         {
@@ -672,10 +673,10 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i); 
-            int x = Mathf.RoundToInt(node.transform.position.x -offset1p +1 + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x -2*offset1p  + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            if (x < 0 || x > boardWidth - 1) // x좌표가 보드 이내
+            if (x + offset1p/2< 0 || x + offset1p/2> boardWidth - 1) // x좌표가 보드 이내
                 return false;
 
             if (y < 0) //y가 음수

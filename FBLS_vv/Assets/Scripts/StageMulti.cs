@@ -53,7 +53,7 @@ public class StageMulti : MonoBehaviour
     private SkillManager skillManager;
 
     public BlockPosition blockPos; // 블럭 구조체
-
+    public static bool lose = false; //천장에 닿았는지
 
 
     [Header("Game Settings")]
@@ -69,6 +69,7 @@ public class StageMulti : MonoBehaviour
     public int colorWeight; // 지워진 색 점수
     public int panalty = 0; // 패널티시 생기는 가중치
     public int indexback = 0;
+    public static int panaltyVal = 0;
 
 
 
@@ -81,7 +82,7 @@ public class StageMulti : MonoBehaviour
 
 
     private float nextFallTime;
-    private int scoreVal = 0;
+    public static int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
     [HideInInspector] public int redVal = 0; // 사라진 블럭 개수
@@ -475,7 +476,8 @@ public class StageMulti : MonoBehaviour
                 if (!CanMoveTo(tetrominoNode))
                 {
                     //gameoverPanel.SetActive(true);
-                    SceneManager.LoadScene("SingleGameOver");
+                    lose = true;
+                    SceneManager.LoadScene("MultiGameOver");
                 }
             }
 
@@ -566,6 +568,7 @@ public class StageMulti : MonoBehaviour
                     else if (tile.color == Color.green)
                     {
                         greenVal++;
+                        UnityEngine.Debug.Log("countGreen");
                     }
                     else if (tile.color == Color.yellow)
                     {
@@ -1341,6 +1344,7 @@ public class StageMulti : MonoBehaviour
             Destroy(backRow);
         }
         panalty++;
+        panaltyVal++;
 
     }
 
