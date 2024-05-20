@@ -49,6 +49,14 @@ public class StageMulti : MonoBehaviour
 
     public Transform preview; // 다음 블럭
     public GameObject start;
+     public Text score; // 점수
+    public Text red; // 사라진 블럭
+    public Text green; // 사라진 블럭
+    public Text blue; // 사라진 블럭
+    public Text yellow; // 사라진 블럭
+
+
+
     private Skill skill;
     private SkillManager skillManager;
 

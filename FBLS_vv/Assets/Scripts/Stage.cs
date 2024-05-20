@@ -32,6 +32,7 @@ using System.Collections.Concurrent;
 public class Stage : MonoBehaviour
 {
     [Header("Editor Objects")]
+    public GameObject nodePrefab; //노드(가로줄) 프리펩
     public GameObject tilePrefab; //타일프리펩 불러옴
     public GameObject tileRed;
     public GameObject tileBlue;
@@ -51,7 +52,8 @@ public class Stage : MonoBehaviour
     public Text yellow; // 사라진 블럭
     public Transform preview; // 다음 블럭
     public GameObject start;
-
+    private Skill skill;
+    private SkillManager skillManager;
 
     public BlockPosition blockPos; // 블럭 구조체
     
