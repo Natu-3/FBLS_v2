@@ -38,9 +38,11 @@ public class StageMulti : MonoBehaviour
     public GameObject tileBlue;
     public GameObject tileGreen;
     public GameObject tileYellow;
+
+
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
-    
+   
 
     public Transform tetrominoNode; //테트리미노
                                     // public GameObject gameoverPanel; //게임오버
@@ -1131,7 +1133,7 @@ public class StageMulti : MonoBehaviour
         continuousBlocks.Add(new Vector2Int(currentStart, row));
 
         // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1; x < 11; x++)
+        for (int x = 1; x < 10; x++)
         {
 
             // 현재 블록의 색상을 가져옵니다.

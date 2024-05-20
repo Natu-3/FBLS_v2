@@ -32,6 +32,7 @@ using System.Collections.Concurrent;
 public class Stage1 : MonoBehaviour
 {
     [Header("Editor Objects")]
+    public GameObject nodePrefab; //노드(가로줄) 프리펩
     public GameObject tilePrefab; //타일프리펩 불러옴
     public GameObject tileRed;
     public GameObject tileBlue;
@@ -673,7 +674,13 @@ public class Stage1 : MonoBehaviour
     }
 
 
+    private void findgrav(){
+        //for
+    }
 
+
+    
+    
     void gravity(int startX, int startY)
     {
         for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
@@ -1153,40 +1160,11 @@ public class Stage1 : MonoBehaviour
 
 
 
-    //연속에 대한 가중치에 수직을 추가하기 위함
-    void vertWeight(int x, int y, Color32 col, List<Vector2Int> contBlocks, List<Color32> colorGroup)
-    {
-        int yy = y + 1;
-        GameObject rowObject = GameObject.Find("y_" + yy.ToString());
-        if (rowObject != null)
-        {
-            string block = "x_" + x.ToString();
-            Transform blockUp = rowObject.transform.Find(block);
-            if (blockUp != null)
-            {
-                // 블록을 찾았습니다
-                SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    Color32 col2 = spriteRenderer.color;
-                    if (col2.Equals(col) && col2 != Color.clear)
-                    {
-                        // 같은 색상의 블록을 찾았으므로 continuousBlocks와 colorGroup 리스트에 정보를 추가합니다.
-                        contBlocks.Add(new Vector2Int(x, yy));
-                        colorGroup.Add(col2);
-
-                        // 재귀 호출을 통해 위쪽 방향의 블록을 탐색합니다.
-                        vertWeight(x, yy, col, contBlocks, colorGroup);
-                    }
-                }
-            }
-        }
-    }
-
 
 
     string GetTileColorAtPosition(Vector2Int position)
     {
+        
         // 유효한 위치인지 확인합니다.
         if (position.x >= 0 && position.x < boardWidth &&
             position.y >= 0 && position.y < boardHeight)
@@ -1207,12 +1185,12 @@ public class Stage1 : MonoBehaviour
                     // 블록을 찾았습니다
                     Tile tile = blockTransform.GetComponent<Tile>();
                     string coll = tile.getColor();
-                    
-
+                    UnityEngine.Debug.Log(coll);
                     return coll;
                 }
                 else
                 {
+                    // 해당 x 좌표를 가진 블록이 없습니다.
                     // 해당 x 좌표를 가진 블록이 없습니다.
                 }
             }
@@ -1220,8 +1198,6 @@ public class Stage1 : MonoBehaviour
             {
                 // 해당 y 좌표를 가진 행이 없습니다.
             }
-
-
 
         }
 

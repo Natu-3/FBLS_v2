@@ -14,6 +14,15 @@ public class Tile : MonoBehaviour
     protected bool enableCollisionWithSubTiles = false;
     private Rigidbody rb;
 
+    public bool fall = false;// 낙하 구현용 변수
+
+    public void fallReady(){
+        fall = true;
+    }
+
+    public bool isItfall(){
+        return fall;
+    }
 
     protected virtual void Start()
     {
