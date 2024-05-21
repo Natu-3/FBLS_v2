@@ -522,6 +522,10 @@ public class StageMulti : MonoBehaviour
                 //UnityEngine.Debug.Log("x: " + x + ", y: " + y + ", key: " + keyTime);
                 blockPos.insertBlock(x, y, sendcolor, keyTime);
             }
+            else
+            {
+                UnityEngine.Debug.Log("오브젝트가 null!");
+            }
             //blockPos.insertBlock(x , y, )
             //node.tag = keyTime; <<< 못써먹음2
             //UnityEngine.Debug.Log(keyTime + "생성됨");
