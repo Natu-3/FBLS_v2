@@ -38,7 +38,7 @@ public class Stage1 : MonoBehaviour
     public GameObject tileBlue;
     public GameObject tileGreen;
     public GameObject tileYellow;
-
+    public GameObject stageObject;
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
     public static bool lose = false;
@@ -498,10 +498,11 @@ public class Stage1 : MonoBehaviour
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
                 AddToBoard(tetrominoNode);
+                CheckTileGroups();
                 CheckBoardColumn();
                 CreateTetromino();
                 CreatePreview();
-                CheckTileGroups();
+                
 
                 if (!CanMoveTo(tetrominoNode))
                 {
@@ -687,8 +688,8 @@ public class Stage1 : MonoBehaviour
     {
         for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
         {
-            var rowNode = GameObject.Find("y_" + y.ToString());
-            var nextRowNode = GameObject.Find("y_" + (y - 1).ToString());
+            var rowNode = boardNode.transform.Find("y_" + y.ToString());
+            var nextRowNode = boardNode.transform.Find("y_" + (y - 1).ToString());
 
             if (rowNode != null && nextRowNode != null)
             {
@@ -707,7 +708,7 @@ public class Stage1 : MonoBehaviour
                                                                          // 이동된 위치에 다른 블록이 있는지 확인
                             for (int i = y - 1; i >= 0; i--)
                             {
-                                var tempRowNode = GameObject.Find("y_" + i.ToString());
+                                var tempRowNode = boardNode.transform.Find("y_" + i.ToString());
                                 var tempBlock = tempRowNode.transform.Find("x_" + x.ToString());
                                 if (tempBlock != null)
                                 {
@@ -998,7 +999,7 @@ public class Stage1 : MonoBehaviour
 
             foreach (Vector2Int blockPosition in continuousBlocks)
             {
-                GameObject rowObject = GameObject.Find("y_" + blockPosition.y.ToString());
+                Transform rowObject = boardNode.Find("y_" + blockPosition.y.ToString());
                 int xgrav = blockPosition.x;
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
@@ -1087,7 +1088,7 @@ public class Stage1 : MonoBehaviour
 
         // 첫 번째 블록의 색상을 가져옵니다.
 
-        UnityEngine.Debug.Log("첫 블록 색상");
+        //UnityEngine.Debug.Log("첫 블록 색상");
         string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
         UnityEngine.Debug.Log(previousColor);
         int currentStart = 0; // 지금의 시작 좌표
@@ -1100,7 +1101,7 @@ public class Stage1 : MonoBehaviour
 
             // 현재 블록의 색상을 가져옵니다.
             string currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
-           
+            UnityEngine.Debug.Log(row +"열 색상" +currentColor);
 
             /*
             List<Vector2Int> buf = onlyUp(x, row + 1, previousColor);
@@ -1110,7 +1111,7 @@ public class Stage1 : MonoBehaviour
             continuousBlocks = merg;
             */
 
-            continuousBlocks = upStair(row, continuousBlocks);
+           continuousBlocks = upStair(row, continuousBlocks);
 
 
             if (currentColor.Equals(previousColor) && currentColor != "null")
@@ -1124,9 +1125,10 @@ public class Stage1 : MonoBehaviour
             }
             else
             {
+                 
                 // 이전 블록과 현재 블록의 색상이 다르면 연속된 블록 그룹이 끝났습니다.
                 // 현재 연속된 블록 그룹의 가중치를 확인하고, 4 이상인 경우에만 리스트에 추가합니다.
-                UnityEngine.Debug.Log(previousColor + " = / = " + currentColor);
+                //UnityEngine.Debug.Log(previousColor + " = / = " + currentColor);
                 if (continuousBlocks.Count >= 4)
                 {
                     for (int i = x - continuousBlocks.Count; i < x; i++)
@@ -1147,7 +1149,7 @@ public class Stage1 : MonoBehaviour
 
 
         }
-        UnityEngine.Debug.Log("연속계산중..");
+        //UnityEngine.Debug.Log("연속계산중..");
         return continuousBlocks;
     }
 
@@ -1214,19 +1216,20 @@ public class Stage1 : MonoBehaviour
             position.y >= 0 && position.y < boardHeight)
         {
             // 해당 행의 게임 오브젝트를 가져옵니다.
-            GameObject rowObject = GameObject.Find("y_" + position.y.ToString());
-
+           Transform rowObject = boardNode.transform.Find("y_" + position.y.ToString());
+            
+     
             // 해당 행에 있는 모든 블럭을 가져옵니다.
 
             if (rowObject != null)
             {
                 // 행 오브젝트가 발견되면 해당 행의 자식 오브젝트 중에서 x 좌표와 같은 이름을 가진 블록을 찾습니다.
                 string blockName = "x_" + position.x.ToString();
-                Transform blockTransform = rowObject.transform.Find(blockName);
+                var blockTransform = rowObject.transform.Find(blockName);
 
                 if (blockTransform != null)
                 {
-                    // 블록을 찾았습니다
+                    UnityEngine.Debug.Log("블록을 찾았습니다, x_"+ position.x.ToString());
                     Tile tile = blockTransform.GetComponent<Tile>();
                     string coll = tile.getColor();
 
@@ -1234,12 +1237,13 @@ public class Stage1 : MonoBehaviour
                 }
                 else
                 {
-                    // 해당 x 좌표를 가진 블록이 없습니다.
+                    UnityEngine.Debug.Log("해당 x 좌표를 가진 블록이 없습니다.");
                     // 해당 x 좌표를 가진 블록이 없습니다.
                 }
             }
             else
             {
+                UnityEngine.Debug.Log("해당 y 좌표를 가진 행이 없습니다.");
                 // 해당 y 좌표를 가진 행이 없습니다.
             }
 
@@ -1253,7 +1257,7 @@ public class Stage1 : MonoBehaviour
     public void doPanalty(){ // 패널티부여 + 줄 줄어듦
         int buff = 19 - panalty;
         for(int i = 0; i < 12; i++){
-            GameObject backRow = GameObject.Find("back" + buff.ToString());
+            Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
            // backRow.transform.position = new Vector3Int(-50, 0,0);
             backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
             Destroy(backRow);

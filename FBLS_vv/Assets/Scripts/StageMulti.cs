@@ -639,8 +639,8 @@ public class StageMulti : MonoBehaviour
     {
         for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
         {
-            var rowNode = GameObject.Find("y_" + y.ToString());
-            var nextRowNode = GameObject.Find("y_" + (y - 1).ToString());
+            var rowNode = boardNode.transform.Find("y_" + y.ToString());
+            var nextRowNode = rowNode.transform.Find("y_" + (y - 1).ToString());
 
             if (rowNode != null && nextRowNode != null)
             {
@@ -659,7 +659,7 @@ public class StageMulti : MonoBehaviour
                                                                          // 이동된 위치에 다른 블록이 있는지 확인
                             for (int i = y - 1; i >= 0; i--)
                             {
-                                var tempRowNode = GameObject.Find("y_" + i.ToString());
+                                var tempRowNode = boardNode.transform.Find("y_" + i.ToString());
                                 var tempBlock = tempRowNode.transform.Find("x_" + x.ToString());
                                 if (tempBlock != null)
                                 {
@@ -964,7 +964,7 @@ public class StageMulti : MonoBehaviour
             
             foreach (Vector2Int blockPosition in continuousBlocks)
             {
-                GameObject rowObject = GameObject.Find("y_" + blockPosition.y.ToString());
+                Transform rowObject = boardNode.transform.Find("y_" + blockPosition.y.ToString());
                 int xgrav = blockPosition.x;
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
@@ -1256,37 +1256,6 @@ public class StageMulti : MonoBehaviour
 
 
 
-    //연속에 대한 가중치에 수직을 추가하기 위함
-    void vertWeight(int x, int y, Color32 col, List<Vector2Int> contBlocks, List<Color32> colorGroup)
-    {
-        int yy = y + 1;
-        GameObject rowObject = GameObject.Find("y_" + yy.ToString());
-        if (rowObject != null)
-        {
-            string block = "x_" + x.ToString();
-            Transform blockUp = rowObject.transform.Find(block);
-            if (blockUp != null)
-            {
-                // 블록을 찾았습니다
-                SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    Color32 col2 = spriteRenderer.color;
-                    if (col2.Equals(col) && col2 != Color.clear)
-                    {
-                        // 같은 색상의 블록을 찾았으므로 continuousBlocks와 colorGroup 리스트에 정보를 추가합니다.
-                        contBlocks.Add(new Vector2Int(x, yy));
-                        colorGroup.Add(col2);
-
-                        // 재귀 호출을 통해 위쪽 방향의 블록을 탐색합니다.
-                        vertWeight(x, yy, col, contBlocks, colorGroup);
-                    }
-                }
-            }
-        }
-    }
-
-
 
     string GetTileColorAtPosition(Vector2Int position)
     {
@@ -1295,7 +1264,7 @@ public class StageMulti : MonoBehaviour
             position.y >= 0 && position.y < boardHeight)
         {
             // 해당 행의 게임 오브젝트를 가져옵니다.
-            GameObject rowObject = GameObject.Find("y_" + position.y.ToString());
+            Transform rowObject = boardNode.transform.Find("y_" + position.y.ToString());
 
             // 해당 행에 있는 모든 블럭을 가져옵니다.
 
@@ -1344,7 +1313,7 @@ public class StageMulti : MonoBehaviour
         int buff = 19 - panalty;
         for (int i = 0; i < 12; i++)
         {
-            GameObject backRow = GameObject.Find("back" + buff.ToString());
+            Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
             // backRow.transform.position = new Vector3Int(-50, 0,0);
             backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
             Destroy(backRow);
