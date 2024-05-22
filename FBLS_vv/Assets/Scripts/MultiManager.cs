@@ -14,9 +14,24 @@ public class MultiManager : MonoBehaviour
     public bool green1p = false;
     public bool green2p = false;
     public int atkPlayer;
-
+    
+    [Header("1p")]
+    public GameObject warningPanel1; // 경고판
+    public GameObject warningRed1; //텍스트
+    public GameObject warningBlue1;
+    public GameObject warningYellow1;
+    public GameObject cancelSkill1;
+    public GameObject warningImage1;
+    [Header("2p")]
+    public GameObject warningPanel2; // 경고판
+    public GameObject warningRed2; //텍스트
+    public GameObject warningBlue2;
+    public GameObject warningYellow2;
+    public GameObject cancelSkill2;
+    public GameObject warningImage2;
     private float skillTimer;
     private bool isSkillActive = false;
+ 
 
     void Awake()
     {
@@ -47,40 +62,48 @@ public class MultiManager : MonoBehaviour
     public void AtkRed1()
     {
         SetAttack(1, "R");
+        ActivePanel(warningRed2);
     }
 
     public void AtkRed2()
     {
         SetAttack(2, "R");
         UnityEngine.Debug.Log("Red skill on");
+        ActivePanel(warningRed1);
     }
 
     public void AtkBlue1()
     {
         SetAttack(1, "B");
+        ActivePanel(warningBlue2);
     }
 
     public void AtkBlue2()
     {
         UnityEngine.Debug.Log("Blue skill on");
         SetAttack(2, "B");
+        ActivePanel(warningBlue1);
     }
 
     public void AtkYellow1()
     {
         SetAttack(1, "Y");
+        ActivePanel(warningYellow2);
     }
 
     public void AtkYellow2()
     {
         SetAttack(2, "Y");
         UnityEngine.Debug.Log("Yellow skill on");
+        ActivePanel(warningYellow1);
     }
 
     public void Green1()
     {
         green1p = true;
         CancelCurrentSkill();
+        ActivePanel(cancelSkill2);
+        warningImage2.SetActive(false);
     }
 
     public void Green2()
@@ -88,6 +111,8 @@ public class MultiManager : MonoBehaviour
         green2p = true;
         CancelCurrentSkill();
         UnityEngine.Debug.Log("green skill on");
+        ActivePanel(cancelSkill1);
+        warningImage1.SetActive(false);
     }
 
     private void SetAttack(int player, string skill)
@@ -135,5 +160,20 @@ public class MultiManager : MonoBehaviour
     {
         isSkillActive = false;
         UnityEngine.Debug.Log("Current skill action canceled due to green state.");
+
+        currentSkill.SetActive(false); // 막은 스킬 경고패널 비활성화
+    }
+    public void ActivePanel(GameObject skillText)
+    {
+        warningPanel1.SetActive(true);
+        skillText.SetActive(true);
+        currentSkill = skillText;
+        Invoke("HidePanel", 5f);
+    }
+    private GameObject currentSkill;
+    public void HidePanel()
+    {
+        warningPanel1.SetActive(false);
+        currentSkill.SetActive(false);
     }
 }
