@@ -159,26 +159,26 @@ public class StageMulti : MonoBehaviour
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 moveDir.x = -1;
 
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 moveDir.x = 1;
             }
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 isRotate = true;
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 moveDir.y = -1;
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 while (MoveTetromino(Vector3.down, false))
                 {
@@ -1137,7 +1137,7 @@ public class StageMulti : MonoBehaviour
         continuousBlocks.Add(new Vector2Int(currentStart, row));
 
         // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1; x < 10; x++)
+        for (int x = 1; x < 11; x++)
         {
 
             // 현재 블록의 색상을 가져옵니다.

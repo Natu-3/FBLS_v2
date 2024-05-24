@@ -39,6 +39,7 @@ public class Stage1 : MonoBehaviour
     public GameObject tileGreen;
     public GameObject tileYellow;
     public GameObject stageObject;
+    public GameObject sevenBag;
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
     public static bool lose = false;
@@ -179,26 +180,26 @@ public class Stage1 : MonoBehaviour
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 moveDir.x = -1;
 
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.D))
             {
                 moveDir.x = 1;
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 isRotate = true;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.S))
             {
                 moveDir.y = -1;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 while (MoveTetromino(Vector3.down, false))
                 {
@@ -251,12 +252,20 @@ public class Stage1 : MonoBehaviour
     }
     void CreatePreview()
     {
+        
         // 이미 있는 미리보기 삭제하기
         foreach (Transform tile in preview)
         {
             Destroy(tile.gameObject);
         }
+        
+        
+
+
         preview.DetachChildren();
+        
+
+        //preview.Add()
 
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
@@ -343,6 +352,15 @@ public class Stage1 : MonoBehaviour
         }
     }
 
+
+    public void use7Bag(){
+        //세븐백 다썼으면 새로 생성
+
+        //아니면 그냥진행
+
+        //
+     }
+
     public void create7Bag()
     {
         
@@ -373,30 +391,40 @@ public class Stage1 : MonoBehaviour
         Transform node0 = gameObject0.transform;
         node0.transform.name = "node0";
         node0.transform.position = new Vector2(-20,0);
+        node0.parent = sevenBag.transform;
 
         Transform node1 = gameObject1.transform;
         node1.transform.name = "node1";
         node1.transform.position = new Vector2(-24,0);
+        node1.parent = sevenBag.transform;
+
 
         Transform node2 = gameObject2.transform;
         node2.transform.name = "node2";
         node2.transform.position = new Vector2(-28,0);
+        node2.parent = sevenBag.transform;
+
 
         Transform node3 = gameObject3.transform;
         node3.transform.name = "node3";
         node3.transform.position = new Vector2(-32,0);
+        node3.parent = sevenBag.transform;
+
 
         Transform node4 = gameObject4.transform;
         node4.transform.name = "node4";
         node4.transform.position = new Vector2(-36,0);
+        node4.parent = sevenBag.transform;
 
         Transform node5 = gameObject5.transform;
         node5.transform.name = "node5";
         node5.transform.position = new Vector2(-40,0);
-        
+        node5.parent = sevenBag.transform;;
+
         Transform node6 = gameObject6.transform;
         node6.transform.name = "node6";
         node6.transform.position = new Vector2(-44,0);
+        node6.parent = sevenBag.transform;
 
         for( int i = 0 ; i < 7 ; i++){
             arrIndexVal = UnityEngine.Random.Range(0, 24);
@@ -1096,7 +1124,7 @@ public class Stage1 : MonoBehaviour
         continuousBlocks.Add(new Vector2Int(currentStart, row));
 
         // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1; x < 10; x++)
+        for (int x = 1; x < 11; x++)
         {
 
             // 현재 블록의 색상을 가져옵니다.
