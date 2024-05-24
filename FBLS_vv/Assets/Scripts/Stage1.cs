@@ -76,15 +76,15 @@ public class Stage1 : MonoBehaviour
     public static int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    private int redVal = 0; // 사라진 블럭 개수
-    private int greenVal = 0; // 사라진 블럭 개수
-    private int blueVal = 0;   // 사라진 블럭 개수
-    private int yellowVal = 0; // 사라진 블랙 개수
+    public static int redVal = 0; // 사라진 블럭 개수
+    public static int greenVal = 0; // 사라진 블럭 개수
+    public static int blueVal = 0;   // 사라진 블럭 개수
+    public static int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
     private bool isPaused = true;
-
+    public int offset1p;
     [Header("Gauge")]
     private static GaugeBar gauge;
     public Slider gaugeBar; // 게이지
@@ -99,7 +99,7 @@ public class Stage1 : MonoBehaviour
     public float timerLimit; // 타이머 제한 시간 감소치
     public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
     public Image penaltyZone; // 패널티 존
-
+    
     private GameObject stage;
     private void Start()
     {
@@ -146,13 +146,6 @@ public class Stage1 : MonoBehaviour
         score.text = "Score: " + scoreVal; // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
 
-        red.text = redVal.ToString(); //블럭 개수 출력
-        green.text = greenVal.ToString(); // 블럭 개수 출력
-        blue.text = blueVal.ToString(); // 블럭 개수 출력
-        yellow.text = yellowVal.ToString(); // 블럭 개수 출력
-
-
-
 
         textTime.gameObject.SetActive(false);
         gaugeBar.value = gaugeBar.maxValue;
@@ -164,6 +157,7 @@ public class Stage1 : MonoBehaviour
 
     void Update()
     {
+        gaugeBar.value = -difference + pivot;
         if (isPaused)
         {
             if (Input.anyKeyDown)
@@ -224,7 +218,7 @@ public class Stage1 : MonoBehaviour
 
             if (difference >= penaltyBlock) // 타이머 시작
             {
-                gaugeBar.value = -difference + pivot;
+
                 textTime.gameObject.SetActive(true);
                 penaltyZone.color = Color.green;
                 penaltyZone.gameObject.SetActive(true);
@@ -247,6 +241,7 @@ public class Stage1 : MonoBehaviour
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
             }
+           
         }
     }
     void CreatePreview()
@@ -261,7 +256,7 @@ public class Stage1 : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
         
-        preview.position = new Vector2(halfWidth + 2.5f , halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 2.5f + offset1p, halfHeight - 2.5f); // 미리보기 
         
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -534,7 +529,7 @@ public class Stage1 : MonoBehaviour
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth + offset1p);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -735,10 +730,10 @@ public class Stage1 : MonoBehaviour
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i); 
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth + offset1p);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            if (x < 0 || x >boardWidth - 1) // x좌표가 보드 이내
+            if (x < 0 + 2*offset1p|| x >boardWidth - 1 + 2*offset1p) // x좌표가 보드 이내
                 return false;
 
             if (y < 0) //y가 음수
@@ -853,7 +848,7 @@ public class Stage1 : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                Createback(backgroundNode, new Vector2(x, y), color, 0);//
+                Createback(backgroundNode, new Vector2(x + offset1p, y), color, 0);//
                 
 
 
@@ -864,14 +859,14 @@ public class Stage1 : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            Createback(backgroundNode, new Vector2(-halfWidth - 1 , y), color, 0);
-            Createback(backgroundNode, new Vector2(halfWidth , y), color, 0);
+            Createback(backgroundNode, new Vector2(-halfWidth - 1 + offset1p, y), color, 0);
+            Createback(backgroundNode, new Vector2(halfWidth + offset1p, y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            Createback(backgroundNode, new Vector2(x , -halfHeight), color, 0);
+            Createback(backgroundNode, new Vector2(x + offset1p , -halfHeight), color, 0);
         }
     }
 
@@ -913,7 +908,7 @@ public class Stage1 : MonoBehaviour
         col4 = colorArray[arrIndex, 3];
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0, halfHeight - panalty);
+        tetrominoNode.position = new Vector2(0 + offset1p, halfHeight - panalty);
 
         switch (index)
         {
@@ -1295,6 +1290,8 @@ public class Stage1 : MonoBehaviour
         stage = GameObject.Find("Stage1");
         //stage.GetComponent<Stage>().doPanalty();
     }
+
+
 }
 
 

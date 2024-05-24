@@ -22,6 +22,12 @@ public class MultiManager : MonoBehaviour
     public GameObject warningYellow1;
     public GameObject cancelSkill1;
     public GameObject warningImage1;
+    public GameObject redButton1; //버튼
+    public GameObject blueButton1;
+    public GameObject yellowButton1;
+    public GameObject greenButton1;
+
+
     [Header("2p")]
     public GameObject warningPanel2; // 경고판
     public GameObject warningRed2; //텍스트
@@ -29,6 +35,10 @@ public class MultiManager : MonoBehaviour
     public GameObject warningYellow2;
     public GameObject cancelSkill2;
     public GameObject warningImage2;
+    public GameObject redButton2; //버튼
+    public GameObject blueButton2;
+    public GameObject yellowButton2;
+    public GameObject greenButton2;
     private float skillTimer;
     private bool isSkillActive = false;
  
@@ -57,12 +67,14 @@ public class MultiManager : MonoBehaviour
                 isSkillActive = false;
             }
         }
+        ActiveButton();
     }
 
     public void AtkRed1()
     {
         SetAttack(1, "R");
         ActivePanel(warningRed2);
+        redButton1.SetActive(false);
     }
 
     public void AtkRed2()
@@ -70,12 +82,14 @@ public class MultiManager : MonoBehaviour
         SetAttack(2, "R");
         UnityEngine.Debug.Log("Red skill on");
         ActivePanel(warningRed1);
+        redButton2.SetActive(false);
     }
 
     public void AtkBlue1()
     {
         SetAttack(1, "B");
         ActivePanel(warningBlue2);
+        blueButton1.SetActive(false);
     }
 
     public void AtkBlue2()
@@ -83,12 +97,14 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Blue skill on");
         SetAttack(2, "B");
         ActivePanel(warningBlue1);
+        blueButton2.SetActive(false);
     }
 
     public void AtkYellow1()
     {
         SetAttack(1, "Y");
         ActivePanel(warningYellow2);
+        yellowButton1.SetActive(false);
     }
 
     public void AtkYellow2()
@@ -96,6 +112,7 @@ public class MultiManager : MonoBehaviour
         SetAttack(2, "Y");
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
+        yellowButton2.SetActive(false);
     }
 
     public void Green1()
@@ -104,6 +121,7 @@ public class MultiManager : MonoBehaviour
         CancelCurrentSkill();
         ActivePanel(cancelSkill2);
         warningImage2.SetActive(false);
+        greenButton1.SetActive(false);
     }
 
     public void Green2()
@@ -113,6 +131,7 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("green skill on");
         ActivePanel(cancelSkill1);
         warningImage1.SetActive(false);
+        greenButton2.SetActive(false);
     }
 
     private void SetAttack(int player, string skill)
@@ -163,6 +182,8 @@ public class MultiManager : MonoBehaviour
 
         currentSkill.SetActive(false); // 막은 스킬 경고패널 비활성화
     }
+
+    //경고판
     public void ActivePanel(GameObject skillText)
     {
         warningPanel1.SetActive(true);
@@ -175,5 +196,56 @@ public class MultiManager : MonoBehaviour
     {
         warningPanel1.SetActive(false);
         currentSkill.SetActive(false);
+    }
+
+    //버튼
+    public void ActiveButton()
+    {
+        //1p
+        if (Stage1.redVal >= 10 && !redButton1.activeSelf)
+        {
+            redButton1.SetActive(true);
+            Stage1.redVal = 0;
+        }
+        if (Stage1.blueVal >= 10 && !blueButton1.activeSelf)
+        {
+            blueButton1.SetActive(true);
+            Stage1.blueVal = 0;
+        }
+        if (Stage1.yellowVal >= 10 && !yellowButton1.activeSelf)
+        {
+            yellowButton1.SetActive(true);
+            Stage1.yellowVal = 0;
+        }
+        if (Stage1.greenVal >= 10 && !greenButton1.activeSelf)
+        {
+            greenButton1.SetActive(true);
+            Stage1.greenVal = 0;
+        }
+        //2p
+        if (StageMulti.redVal >= 10 && !redButton2.activeSelf)
+        {
+            redButton2.SetActive(true);
+            StageMulti.redVal = 0;
+            UnityEngine.Debug.Log(StageMulti.redVal.ToString());
+        }
+        if (StageMulti.blueVal >= 10 && !blueButton2.activeSelf)
+        {
+            blueButton2.SetActive(true);
+            StageMulti.blueVal = 0;
+            UnityEngine.Debug.Log(StageMulti.blueVal.ToString());
+        }
+        if (StageMulti.yellowVal >= 10 && !yellowButton2.activeSelf)
+        {
+            yellowButton2.SetActive(true);
+            StageMulti.yellowVal = 0;
+            UnityEngine.Debug.Log(StageMulti.yellowVal.ToString());
+        }
+        if (StageMulti.greenVal >= 10 && !greenButton2.activeSelf)
+        {
+            greenButton2.SetActive(true);
+            StageMulti.greenVal = 0;
+            UnityEngine.Debug.Log(StageMulti.greenVal.ToString());
+        }
     }
 }

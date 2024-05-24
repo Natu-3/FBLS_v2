@@ -87,10 +87,10 @@ public class StageMulti : MonoBehaviour
     public static int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    [HideInInspector] public int redVal = 0; // 사라진 블럭 개수
-    [HideInInspector] public int greenVal = 0; // 사라진 블럭 개수
-    [HideInInspector] public int blueVal = 0;   // 사라진 블럭 개수
-    [HideInInspector] public int yellowVal = 0; // 사라진 블랙 개수
+    public static int redVal = 0; // 사라진 블럭 개수
+    public static int greenVal = 0; // 사라진 블럭 개수
+    public static int blueVal = 0;   // 사라진 블럭 개수
+    public static int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
@@ -197,25 +197,30 @@ public class StageMulti : MonoBehaviour
             {
                 MoveTetromino(moveDir, isRotate);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha1)){
+            
+            if (Input.GetKeyDown(KeyCode.Alpha1) && MultiManager.Instance.redButton2.activeSelf){
                 MultiManager.Instance.AtkRed2();
+                updateBlock();
         
                 UnityEngine.Debug.Log("Red skill!");
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && MultiManager.Instance.blueButton2.activeSelf)
             {
                 MultiManager.Instance.AtkBlue2();
                 UnityEngine.Debug.Log("Blue skill!");
+                updateBlock();
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && MultiManager.Instance.yellowButton2.activeSelf)
             {
                 MultiManager.Instance.AtkYellow2();
                 UnityEngine.Debug.Log("Yellow skill!");
+                updateBlock();
             }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (Input.GetKeyDown(KeyCode.Alpha4) && MultiManager.Instance.greenButton2.activeSelf)
             {
                 UnityEngine.Debug.Log("Green skill!");
                 MultiManager.Instance.Green2();
+                updateBlock();
             }
         }
 
@@ -232,7 +237,7 @@ public class StageMulti : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
 
-        preview.position = new Vector2(halfWidth + 2.5f+ 2f*offset2p, halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 2.5f+ 2f*offset2p , halfHeight - 2.5f); // 미리보기 
 
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -504,7 +509,7 @@ public class StageMulti : MonoBehaviour
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + -2*offset2p+ halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + -2*offset2p + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -689,7 +694,7 @@ public class StageMulti : MonoBehaviour
             int x = Mathf.RoundToInt(node.transform.position.x -2*offset2p+ halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1 + offset_y);
             //UnityEngine.Debug.Log("x 노드:" + x);
-            if (x < 0|| x > boardWidth - 1) // x좌표가 보드 이내
+            if (x < 0  || x > boardWidth - 1 ) // x좌표가 보드 이내
                 return false;
 
             if (y < 0 + offset_y) //y가 음수

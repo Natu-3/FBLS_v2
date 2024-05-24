@@ -58,10 +58,10 @@ public class GaugeBar : MonoBehaviour
             myBlock = StageMulti.blockCount;
             enemyBlock = Stage.blockCount;
             difference = enemyBlock - myBlock;
-
+            gaugeBar.value = -difference + pivot;
             if (difference >= penaltyBlock) // 타이머 시작
             {
-                gaugeBar.value = -difference + pivot;
+                
                 textTime.gameObject.SetActive(true);
                 penaltyZone.color = Color.green;
                 penaltyZone.gameObject.SetActive(true);
