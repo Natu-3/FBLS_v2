@@ -8,6 +8,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.8359375
+      objectReference: {fileID: 0}
+    - target: {fileID: -7224487024983866057, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.8359375
+      objectReference: {fileID: 0}
     - target: {fileID: 1947992381077774714, guid: f465b7d8698584fa7a723a810626b908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,6 +100,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9046432583249526396, guid: f465b7d8698584fa7a723a810626b908,
         type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046432583249526396, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d5907c7ec725e51449fd48470f1659d4,
@@ -72,5 +112,62 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8898468410266244867, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6913090162690797640}
+    - targetCorrespondingSourceObject: {fileID: 8898468410266244867, guid: f465b7d8698584fa7a723a810626b908,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8321968284183667775}
   m_SourcePrefab: {fileID: 100100000, guid: f465b7d8698584fa7a723a810626b908, type: 3}
+--- !u!1 &3051960973977493141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8898468410266244867, guid: f465b7d8698584fa7a723a810626b908,
+    type: 3}
+  m_PrefabInstance: {fileID: 5847655330724235670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &6913090162690797640
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051960973977493141}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5
+--- !u!114 &8321968284183667775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051960973977493141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c591e408b87754ebc1ec8d2655fec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileType: 0
+  fall: 0
+  isFire: 0
+  isIce: 0
