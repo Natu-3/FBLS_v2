@@ -32,8 +32,8 @@ public class Resoluetion : MonoBehaviour
 
         // 비율 구하기(16:9 기준)
         //width 9, height 16
-        float fResolutionX = Screen.width / 16f;
-        float fResolutionY = Screen.height / 9f;
+        float fResolutionX = Screen.width / 9f;
+        float fResolutionY = Screen.height / 16f;
 
         // X가 Y보가 큰 경우는 화면이 가로로 놓인 경우
         if (fResolutionX > fResolutionY)

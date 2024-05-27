@@ -176,6 +176,7 @@ public class Stage : MonoBehaviour
         }
         else
         {
+            CheckAgain();
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
@@ -473,7 +474,7 @@ public class Stage : MonoBehaviour
                 CreateTetromino();
                 CreatePreview();
                 CheckTileGroups();
-                CheckAgain();
+                
 
 
                 if (!CanMoveTo(tetrominoNode))
@@ -535,8 +536,8 @@ public class Stage : MonoBehaviour
     // 보드에 완성된 행이 있으면 삭제
     void CheckBoardColumn()
     {
-        bool isCleared = false;
-
+        
+        List<List<Transform>> tilesFall = new List<List<Transform>>();
         foreach (Transform column in boardNode)
         {
             List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
@@ -547,6 +548,8 @@ public class Stage : MonoBehaviour
                     if (SceneManager.GetActiveScene().name != "MultiScene")
                     {
                         Destroy(tile.gameObject);
+                        List<Transform> fallList2 = GetEx(tile);
+                        tilesFall.Add(fallList2);
                     }
                     else
                     {
@@ -589,7 +592,7 @@ public class Stage : MonoBehaviour
                     }
                 }
                 
-                isCleared = true;
+               // isCleared = true;
                 scoreVal += 10 * lineWeight;
                 score.text = "Score: " + scoreVal;
                 PlayerPrefs.SetInt("score", scoreVal);
@@ -597,45 +600,29 @@ public class Stage : MonoBehaviour
             }
         }
 
-
-
-
-        // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
+       
+        foreach (List<Transform> fall2 in tilesFall)
         {
-            for (int i = 1; i < boardNode.childCount; ++i)
-            {
-                var column = boardNode.Find("y_" + i.ToString());
-
-                // 이미 비어 있는 행은 무시
-                if (column.childCount == 0)
-                    continue;
-
-                int emptyCol = 0;
-                int j = i - 1;
-                while (j >= 0)
+            foreach(Transform tt in fall2) {
+                if (tt != null)
                 {
-                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
+                    Tile tile = tt.GetComponent<Tile>();
+                    if (tile != null)
                     {
-                        emptyCol++;
+                        tile.fallReady();
+                        //UnityEngine.Debug.Log("낙하에 추가함");
                     }
-                    j--;
-                }
-
-                if (emptyCol > 0)
-                {
-                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
-
-                    while (column.childCount > 0)
+                    else
                     {
-                        Transform tile = column.GetChild(0);
-                        tile.parent = targetColumn;
-                        tile.transform.position += new Vector3(0, -emptyCol, 0);
+                        UnityEngine.Debug.Log("문제있음");
                     }
-                    column.DetachChildren();
                 }
             }
+            
         }
+
+
+      
     }
 
 
@@ -815,7 +802,7 @@ public class Stage : MonoBehaviour
 
             }
         }
-
+        
         // 좌우 테두리
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
@@ -829,6 +816,7 @@ public class Stage : MonoBehaviour
         {
             Createback(backgroundNode, new Vector2(x + 3/2f*offset1p, -halfHeight), color, 0);
         }
+        
     }
 
     // 테트로미노 생성
@@ -945,7 +933,7 @@ public class Stage : MonoBehaviour
 
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
-        List<List<(int, int)>> allFall = new List<List<(int, int)>>();
+       
         List<List<Transform>> tilesFall = new List<List<Transform>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
@@ -988,7 +976,7 @@ public class Stage : MonoBehaviour
                 else
                 {
                     // 게임 오브젝트를 찾지 못했음을 알립니다.
-                    UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
+                    //UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
                 }
             }
 
@@ -1049,7 +1037,7 @@ public class Stage : MonoBehaviour
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 //currentGroupColors.Add(currentColor);
                 continuousBlocks.Add(new Vector2Int(x, row));
-                UnityEngine.Debug.Log("연속임! \n");
+                //UnityEngine.Debug.Log("연속임! \n");
             }
             else
             {
@@ -1059,7 +1047,7 @@ public class Stage : MonoBehaviour
                 {
                     for (int i = x - continuousBlocks.Count; i < x; i++)
                     {
-                        UnityEngine.Debug.Log("블럭 추가!! \n");
+                       // UnityEngine.Debug.Log("블럭 추가!! \n");
                     }
                     return continuousBlocks;
                 }
@@ -1135,12 +1123,12 @@ public class Stage : MonoBehaviour
 
     public void CheckAgain()
     {
-        bool pass = true;
+       
         foreach (Transform column in boardNode)
         {
             if(column.childCount == boardWidth)
             {
-                pass = false;
+               
                 UnityEngine.Debug.Log("남은열삭제");
                 CheckBoardColumn();
                 break;
@@ -1152,8 +1140,8 @@ public class Stage : MonoBehaviour
             List<Vector2Int> cont = FindContinuousBlocksInRow(y);
             if(cont.Count >= 1)
             {
-                UnityEngine.Debug.Log("남은연속 삭제!!!");
-                pass = false;
+                //UnityEngine.Debug.Log("남은연속 삭제!!!");
+            
                 CheckTileGroups();
                 break;
             }

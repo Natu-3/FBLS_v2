@@ -38,7 +38,7 @@ public class StageMulti : MonoBehaviour
     public GameObject tileBlue;
     public GameObject tileGreen;
     public GameObject tileYellow;
-
+    public GameObject sevenBag;
 
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
@@ -92,8 +92,7 @@ public class StageMulti : MonoBehaviour
     [HideInInspector] public int blueVal = 0;   // 사라진 블럭 개수
     [HideInInspector] public int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
-    public GameObject[] backs = new GameObject[200];
-    public GameObject[] backgrid = new GameObject[40];
+   
     private bool isPaused = true;
     private void Start()
     {
@@ -110,7 +109,7 @@ public class StageMulti : MonoBehaviour
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
             GameObject col = Instantiate(nodePrefab);
-            rowNode rowNodeScript = col.GetComponent<rowNode>();
+            
             col.name = "y_" + (boardHeight - i - 1).ToString();
             col.transform.position = new Vector3(offset2p*2, halfHeight - i, 0);
            
@@ -156,6 +155,7 @@ public class StageMulti : MonoBehaviour
         }
         else
         {
+            CheckAgain();
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
@@ -520,11 +520,12 @@ public class StageMulti : MonoBehaviour
                 //UnityEngine.Debug.Log(sendcolor);
                 // insertBlock 메서드에 x, y 위치와 색상 정보를 전달
                 //UnityEngine.Debug.Log("x: " + x + ", y: " + y + ", key: " + keyTime);
-                blockPos.insertBlock(x, y, sendcolor, keyTime);
+                //blockPos.insertBlock(x, y, sendcolor, keyTime);
+                 rememberTile(node, keyTime);
             }
             else
             {
-                UnityEngine.Debug.Log("오브젝트가 null!");
+               // UnityEngine.Debug.Log("오브젝트가 null!");
             }
             //blockPos.insertBlock(x , y, )
             //node.tag = keyTime; <<< 못써먹음2
@@ -536,8 +537,8 @@ public class StageMulti : MonoBehaviour
     
     void CheckBoardColumn()
     {
-        bool isCleared = false;
-
+        
+         List<List<Transform>> tilesFall = new List<List<Transform>>();
         foreach (Transform column in boardNode)
         {
             List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
@@ -552,13 +553,13 @@ public class StageMulti : MonoBehaviour
                     {
                         currentTile.isIced = false; // 풀기
                         currentTile.color = currentTile.preColor;
-                        UnityEngine.Debug.Log("얼었다");
+                       // UnityEngine.Debug.Log("얼었다");
                     }
                     else
                     {
 
                         tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
-                        UnityEngine.Debug.Log("안얼었다");
+                        //UnityEngine.Debug.Log("안얼었다");
                     }
                 }
                 foreach (var tile in tilesToRemove)
@@ -582,103 +583,46 @@ public class StageMulti : MonoBehaviour
                     }
                     updateBlock(); // 개수 업데이트
                     Destroy(tile.gameObject);
+                    List<Transform> fallList2 = GetEx(tile.transform);
+                    tilesFall.Add(fallList2);
                 }
 
-                    column.DetachChildren();
-                    isCleared = true;
+                    
+                   // isCleared = true;
                     scoreVal += tilesToRemove.Count * lineWeight;
                     score.text = "Score: " + scoreVal;
                     PlayerPrefs.SetInt("score", scoreVal);
                     blockCount += tilesToRemove.Count;
-                    UnityEngine.Debug.Log("count");
+                   // UnityEngine.Debug.Log("count");
                 
             }
         }
-
-
-        // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
+        
+        
+        foreach (List<Transform> fall2 in tilesFall)
         {
-            for (int i = 1; i < boardNode.childCount; ++i)
-            {
-                var column = boardNode.Find("y_" + i.ToString());
-
-                // 이미 비어 있는 행은 무시
-                if (column.childCount == 0)
-                    continue;
-
-                int emptyCol = 0;
-                int j = i - 1;
-                while (j >= 0)
+            foreach(Transform tt in fall2) {
+                if (tt != null)
                 {
-                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
+                    Tile tile = tt.GetComponent<Tile>();
+                    if (tile != null)
                     {
-                        emptyCol++;
+                        tile.fallReady();
+                        //UnityEngine.Debug.Log("낙하에 추가함");
                     }
-                    j--;
-                }
-
-                if (emptyCol > 0)
-                {
-                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
-
-                    while (column.childCount > 0)
+                    else
                     {
-                        Transform tile = column.GetChild(0);
-                        tile.parent = targetColumn;
-                        tile.transform.position += new Vector3(0, -emptyCol, 0);
+                        UnityEngine.Debug.Log("문제있음");
                     }
-                    column.DetachChildren();
                 }
             }
+            
         }
+
+      
     }
     
 
-    void gravity(int startX, int startY)
-    {
-        for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
-        {
-            var rowNode = boardNode.transform.Find("y_" + y.ToString());
-            var nextRowNode = rowNode.transform.Find("y_" + (y - 1).ToString());
-
-            if (rowNode != null && nextRowNode != null)
-            {
-                for (int x = 0; x < boardWidth; x++)
-                {
-                    var block = rowNode.transform.Find("x_" + x.ToString());
-                    if (block != null)
-                    {
-                        // 현재 행의 다음(아래) 행에서 같은 열에 블록이 있는지 검사
-                        var nextBlock = nextRowNode.transform.Find("x_" + x.ToString());
-                        if (nextBlock == null)
-                        {
-                            // 블록이 없으면 아래로 이동
-                            block.SetParent(nextRowNode.transform);
-                            block.localPosition -= new Vector3(0, 1, 0); // 아래로 이동
-                                                                         // 이동된 위치에 다른 블록이 있는지 확인
-                            for (int i = y - 1; i >= 0; i--)
-                            {
-                                var tempRowNode = boardNode.transform.Find("y_" + i.ToString());
-                                var tempBlock = tempRowNode.transform.Find("x_" + x.ToString());
-                                if (tempBlock != null)
-                                {
-                                    break; // 다음 블록을 확인하기 위해 반복문 탈출
-                                }
-                                else
-                                {
-                                    // 다음 블록이 없으면 계속해서 이동
-                                    block.SetParent(tempRowNode.transform);
-                                    block.localPosition -= new Vector3(0, 1, 0); // 아래로 이동
-                                    y = i; // y값 갱신
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     // 이동 가능한지 체크
     bool CanMoveTo(Transform root)
@@ -954,7 +898,7 @@ public class StageMulti : MonoBehaviour
     
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
-        List<List<(int, int)>> allFall = new List<List<(int, int)>>();
+        List<List<Transform>> tilesFall = new List<List<Transform>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
         {
@@ -970,7 +914,7 @@ public class StageMulti : MonoBehaviour
                 Transform blockTransform = rowObject.transform.Find(blockName);
                 
                  if(blockTransform == null){
-                    UnityEngine.Debug.Log("null");
+                   //UnityEngine.Debug.Log("null");
                     
                 }
                
@@ -998,11 +942,15 @@ public class StageMulti : MonoBehaviour
                         {
                             yellowVal++;
                         }
+
+                        List<Transform> fallList2 = GetEx(blockTransform);
+                        tilesFall.Add(fallList2);
+
+
                         Destroy(blockTransform.gameObject);
                         updateBlock();
                         UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
-                        List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
-                        allFall.Add(fallList);
+                       
                     }
                     else
                     {
@@ -1019,117 +967,49 @@ public class StageMulti : MonoBehaviour
                 else
                 {
                     // 게임 오브젝트를 찾지 못했음을 알립니다.
-                    UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
+                    //UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
                 }
 
             }
 
 
-        }
-  
-        List<(int, int)> allTuples = new List<(int, int)>(); //y 축이 낮은거부터 낙하할수 있게 정렬했음,
-        foreach (List<(int, int)> fall in allFall)
-        {
-            allTuples.AddRange(fall);
-        }
-        allTuples.Sort((t1, t2) => t1.Item2.CompareTo(t2.Item2));
-
-        foreach ((int xx, int yy) in allTuples)
-        {
-            gravity(xx, yy);
-            //이미 한번 낙하한 블럭들은 이후로도 계속 낙하해야함, prefab의 인수에 isitFall - bool값 구현해놓고, 낮은곳부터 전면순회해서 isitfall 있는애들 먼저 낙하시킨다음,
-            // list에 있는(블럭형태를 잃은, 애들 낙하 + 프리펩의 낙하여부 설정해주기
-        }
-        
+        }    
        
-    }
-    /*
-
-    List<Vector2Int> FindContinuousBlocksInRow(int row) //연속되는 블록 탐색 메소드
-    {
-        List<Vector2Int> continuousBlocks = new List<Vector2Int>();
-
-
-        List<Vector2Int> currentGroup = new List<Vector2Int>(); //연속 블럭그룹
-                                                               // 첫 번째 블록의 색상을 가져옵니다.
-        UnityEngine.Debug.Log(" 첫 블록 색상 ");
-        Color32 previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
-
-        // 현재 연속된 블록의 가중치를 초기화합니다.
-        //int currentWeight = weight;
-
-
-        // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
-        for (int x = 1 ; x < boardWidth ; x++)
+        List<Transform> allF = new List<Transform>();
+        foreach (List<Transform> fall2 in tilesFall)
         {
-            // 현재 블록의 색상을 가져옵니다.
-            Color32 currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
-
-            // currentWeight += vertWeight(x, row, currentColor
-            List<Vector2Int> verticalLine = onlyUp(x, row, currentColor);
-
-
-
-
-            // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
-            if (currentColor.Equals(previousColor))
-            {
-               // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
-                
-                currentWeight++;
-                UnityEngine.Debug.Log(" 연속임! \n ");
-            }
-            else
-            {
-                // 이전 블록과 현재 블록의 색상이 다르면 연속된 블록 그룹이 끝났습니다.
-                // 현재 연속된 블록 그룹의 가중치를 확인하고, 3 이상인 경우에만 리스트에 추가합니다.
-                if (currentWeight >= 4)
+            foreach(Transform tt in fall2) {
+                if (tt != null)
                 {
-                    for (int i = x - currentWeight; i < x; i++)
+                    Tile tile = tt.GetComponent<Tile>();
+                    if (tile != null)
                     {
-                        continuousBlocks.Add(new Vector2Int(i, row));
-                        UnityEngine.Debug.Log(" 블럭 추가!! \n ");
+                        tile.fallReady();
+                        //UnityEngine.Debug.Log("낙하에 추가함");
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.Log("문제있음");
                     }
                 }
-
-                // 가중치를 초기화합니다.
-                currentWeight = 1;
             }
-
-            // 현재 블록의 색상을 이전 색상으로 설정합니다.
-            previousColor = currentColor;
+            
         }
 
-        return continuousBlocks;
+
+
     }
-    
-
-    List<Vector2Int> onlyUp(int x, int row, Color32 previouisColor)
-    {
-        List<Vector2Int> semi = new List<Vector2Int>();
-        Color32 curColor = GetTileColorAtPosition(new Vector2Int(x, row+1));
-
-        if(curColor.Equals(previouisColor))
-        {
-            semi.Add(new Vector2Int(x, row + 1));
-            List<Vector2Int> buf = FindContinuousBlocksInRow(row + 1);
-        }
-
-        return semi;
-    }
-    
-
-    */
+   
 
     List<Vector2Int> FindContinuousBlocksInRow(int row)
     {
         List<Vector2Int> continuousBlocks = new List<Vector2Int>(); //연속된 블록 그 자체를 저장하는 리스트
 
-        List<Color32> currentGroupColors = new List<Color32>(); // 연속된 블록 그룹의 색상을 저장하는 리스트
+        
 
         // 첫 번째 블록의 색상을 가져옵니다.
 
-        UnityEngine.Debug.Log("첫 블록 색상");
+        //UnityEngine.Debug.Log("첫 블록 색상");
         string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
 
         int currentStart = 0; // 지금의 시작 좌표
@@ -1142,16 +1022,7 @@ public class StageMulti : MonoBehaviour
 
             // 현재 블록의 색상을 가져옵니다.
             string currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
-            //vertWeight(x, row, currentColor, continuousBlocks, currentGroupColors/*,continuousBlocks);
-            // 현재 블록의 색상이 이전 블록의 색상과 같은지 확인합니다.
-
-            /*
-            List<Vector2Int> buf = onlyUp(x, row + 1, previousColor);
-            List<Vector2Int> merg = new List<Vector2Int>();
-            merg.AddRange(continuousBlocks);
-            merg.AddRange(buf);
-            continuousBlocks = merg;
-            */
+            
 
             continuousBlocks = upStair(row, continuousBlocks);
 
@@ -1161,7 +1032,7 @@ public class StageMulti : MonoBehaviour
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 //currentGroupColors.Add(currentColor);
                 continuousBlocks.Add(new Vector2Int(x, row));
-                UnityEngine.Debug.Log("연속임! \n");
+               // UnityEngine.Debug.Log("연속임! \n");
             }
             else
             {
@@ -1171,7 +1042,7 @@ public class StageMulti : MonoBehaviour
                 {
                     for (int i = x - continuousBlocks.Count; i < x; i++)
                     {
-                        UnityEngine.Debug.Log("블럭 추가!! \n");
+                       // UnityEngine.Debug.Log("블럭 추가!! \n");
                     }
                     return continuousBlocks;
                 }
@@ -1187,7 +1058,7 @@ public class StageMulti : MonoBehaviour
 
 
         }
-        UnityEngine.Debug.Log("연속계산중..");
+        //UnityEngine.Debug.Log("연속계산중..");
         return continuousBlocks;
     }
 
@@ -1251,9 +1122,33 @@ public class StageMulti : MonoBehaviour
 
 
 
+      public void CheckAgain()
+    {
+     
+        foreach (Transform column in boardNode)
+        {
+            if(column.childCount == boardWidth)
+            {
+             
+                UnityEngine.Debug.Log("남은열삭제");
+                CheckBoardColumn();
+                break;
+            }
+        }
 
+        for (int y = 0; y < 20; y++)
+        {
+            List<Vector2Int> cont = FindContinuousBlocksInRow(y);
+            if(cont.Count >= 1)
+            {
+                //UnityEngine.Debug.Log("남은연속 삭제!!!");
+            
+                CheckTileGroups();
+                break;
+            }
+        }
 
-
+    }
 
 
 
@@ -1498,6 +1393,74 @@ public class StageMulti : MonoBehaviour
         blue.text = $"{blueVal}/{maxBlock}"; // 블럭 개수 출력
         yellow.text = $"{yellowVal}/{maxBlock}"; // 블럭 개수 출력
     }
+
+
+
+
+    
+    private Dictionary<string, List<Transform>> addedTiles = new Dictionary<string, List<Transform>>();
+
+     public void rememberTile(Transform tile, string key)
+    {
+        List<Transform> tetroList;
+        if (addedTiles.TryGetValue(key, out tetroList))
+        {
+            tetroList.Add(tile);
+            //UnityEngine.Debug.Log("나중걸로추가아");
+        }
+        else
+        {
+            addedTiles[key] = new List<Transform>() { tile };
+           // UnityEngine.Debug.Log("새롭게추가");
+        }
+    }
+
+
+
+    
+ public List<Transform> GetEx(Transform tile)
+    {
+        List<Transform> result = new List<Transform>();
+        string keyToRemove = null;
+        // key에 해당하는 리스트가 있는지 확인
+        foreach (var entry in addedTiles)
+        {
+            var blockList = entry.Value;
+
+            // 현재 key에 대한 value에서 입력한 (x, y) 값을 제외하고 나머지 값을 결과에 추가
+            foreach (Transform t in blockList)
+            {
+                if (t == tile)
+                {
+                    keyToRemove = entry.Key; // 투입한 값과 동일한 (x, y)를 가진 key를 저장
+            
+                }
+                else
+                {
+                    result.Add(t); // (x, y)와 다른 값은 결과에 추가
+                }
+            }
+        }
+
+        if (keyToRemove != null)
+        {
+            addedTiles.Remove(keyToRemove);
+
+        }
+        else
+        {
+            UnityEngine.Debug.Log("이미 찾아서 존재하지않음");
+        }
+
+        return result;
+    }
+
+
+
+
+
+
+
 }
 
 
