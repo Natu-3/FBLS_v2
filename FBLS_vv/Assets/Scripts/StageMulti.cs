@@ -27,6 +27,7 @@ using System.Collections.Concurrent;
 using static System.Net.Mime.MediaTypeNames;
 using Text = UnityEngine.UI.Text;
 using System.Security.Principal;
+using TMPro;
 
 
 public class StageMulti : MonoBehaviour
@@ -46,7 +47,7 @@ public class StageMulti : MonoBehaviour
 
     public Transform tetrominoNode; //테트리미노
                                     // public GameObject gameoverPanel; //게임오버
-    public Text score; // 점수
+    public TextMeshProUGUI score; // 점수
    
 
     public Transform preview; // 다음 블럭
@@ -75,13 +76,10 @@ public class StageMulti : MonoBehaviour
 
 
 
-
     public float offset_x = 0f;
     public float offset_y = 0f;
 
     public int offset2p = 14;
-
-
 
     private float nextFallTime;
     public static int scoreVal = 0;
@@ -97,7 +95,7 @@ public class StageMulti : MonoBehaviour
     private bool isPaused = true;
     private void Start()
     {
-       
+
         //gameoverPanel.SetActive(false);
         blockPos = new BlockPosition();
         halfWidth = Mathf.RoundToInt(boardWidth * 0.5f); //(5)
@@ -105,7 +103,7 @@ public class StageMulti : MonoBehaviour
 
         nextFallTime = Time.time + fallCycle; //낙하주기 설정
         //blockArray = new BlockArray(); //블럭 저장할 구조체 선언
-        CreateBackground(); //백그라운드 생성 메소드
+        //CreateBackground(); //백그라운드 생성 메소드
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
@@ -135,7 +133,7 @@ public class StageMulti : MonoBehaviour
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
-        score.text = "Score: " + scoreVal; // 점수 출력
+        updateScore(); // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
 
 
@@ -237,7 +235,7 @@ public class StageMulti : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
 
-        preview.position = new Vector2(halfWidth + 2.5f+ 2f*offset2p , halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 3.3f+ 2f*offset2p , halfHeight - 2.5f); // 미리보기 
 
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -592,7 +590,7 @@ public class StageMulti : MonoBehaviour
                     column.DetachChildren();
                     isCleared = true;
                     scoreVal += tilesToRemove.Count * lineWeight;
-                    score.text = "Score: " + scoreVal;
+                    updateScore();
                     PlayerPrefs.SetInt("score", scoreVal);
                     blockCount += tilesToRemove.Count;
                     UnityEngine.Debug.Log("count");
@@ -730,6 +728,8 @@ public class StageMulti : MonoBehaviour
                 var tiler = go.GetComponent<Tile>();
                 tiler.sortingOrder = order;
                 tiler.setRed();
+                //tiler.transform.localScale = new Vector3(scale1, scale2, 0);
+
                 return tiler;
 
             case 2:
@@ -739,6 +739,7 @@ public class StageMulti : MonoBehaviour
                 var tileg = go.GetComponent<Tile>();
                 tileg.sortingOrder = order;
                 tileg.setGreen();
+                //tileg.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileg;
 
             case 3:
@@ -748,6 +749,7 @@ public class StageMulti : MonoBehaviour
                 var tileb = go.GetComponent<Tile>();
                 tileb.sortingOrder = order;
                 tileb.setBlue();
+                //tileb.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileb;
 
             case 4:
@@ -757,6 +759,7 @@ public class StageMulti : MonoBehaviour
                 var tiley = go.GetComponent<Tile>();
                 tiley.sortingOrder = order;
                 tiley.setYellow();
+                //tiley.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiley;
 
             default:
@@ -765,17 +768,19 @@ public class StageMulti : MonoBehaviour
                 go.transform.localPosition = position;
                 var tile = go.GetComponent<Tile>();
                 tile.sortingOrder = order;
+                //tile.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tile;
 
         }
-
+        
 
 
 
         // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
 
     }
-
+    public float scale1;
+    public float scale2;
 
 
     Tile Createback(Transform parent, Vector2 position, Color color, int order = 1)
@@ -1017,7 +1022,7 @@ public class StageMulti : MonoBehaviour
 
                     scoreVal += colorWeight;
                     blockCount++;
-                    score.text = "Score: " + scoreVal;
+                    updateScore();
                     PlayerPrefs.SetInt("score", scoreVal);
 
                 }
@@ -1498,10 +1503,14 @@ public class StageMulti : MonoBehaviour
     }
     public void updateBlock()
     {
-        red.text = $"{redVal}/{maxBlock}"; //블럭 개수 출력
-        green.text = $"{greenVal}/{maxBlock}"; // 블럭 개수 출력
-        blue.text = $"{blueVal}/{maxBlock}"; // 블럭 개수 출력
-        yellow.text = $"{yellowVal}/{maxBlock}"; // 블럭 개수 출력
+        red.text = $"{redVal}"; //블럭 개수 출력
+        green.text = $"{greenVal}"; // 블럭 개수 출력
+        blue.text = $"{blueVal}"; // 블럭 개수 출력
+        yellow.text = $"{yellowVal}"; // 블럭 개수 출력
+    }
+    public void updateScore()
+    {
+        score.text = $"{scoreVal}";
     }
 }
 

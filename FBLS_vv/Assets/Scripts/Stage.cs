@@ -26,7 +26,7 @@ using System.Net.Mime;
 using System.Security;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
-
+using TMPro;
 
 
 public class Stage : MonoBehaviour
@@ -44,7 +44,7 @@ public class Stage : MonoBehaviour
 
     public Transform tetrominoNode; //테트리미노
    // public GameObject gameoverPanel; //게임오버
-    public Text score; // 점수
+    public TextMeshProUGUI score; // 점수
     public Text red; // 사라진 블럭
     public Text green; // 사라진 블럭
     public Text blue; // 사라진 블럭
@@ -93,7 +93,7 @@ public class Stage : MonoBehaviour
 
         nextFallTime = Time.time + fallCycle; //낙하주기 설정
         //blockArray = new BlockArray(); //블럭 저장할 구조체 선언
-        CreateBackground(); //백그라운드 생성 메소드
+        //CreateBackground(); //백그라운드 생성 메소드
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
@@ -126,7 +126,7 @@ public class Stage : MonoBehaviour
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
-        score.text = "Score: " + scoreVal; // 점수 출력
+        score.text = scoreVal.ToString(); // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
  
         Time.timeScale = 0f;
@@ -202,8 +202,8 @@ public class Stage : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
         
-        preview.position = new Vector2(halfWidth + 2.5f + 1.5f*offset1p, halfHeight - 2.5f); // 미리보기 
-        
+        preview.position = new Vector2(halfWidth + 2.2f + 1.5f*offset1p, halfHeight - 2.5f); // 미리보기 
+
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
         {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
@@ -573,7 +573,7 @@ public class Stage : MonoBehaviour
                 column.DetachChildren();
                 isCleared = true;
                 scoreVal += 10 * lineWeight;
-                score.text = "Score: " + scoreVal;
+                score.text = scoreVal.ToString();
                 PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
@@ -712,6 +712,7 @@ public class Stage : MonoBehaviour
                 var tiler = go.GetComponent<Tile>();
                 tiler.sortingOrder = order;
                 tiler.setRed();
+                //tiler.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiler;
           
             case 2:
@@ -721,6 +722,7 @@ public class Stage : MonoBehaviour
                 var tileg = go.GetComponent<Tile>();
                 tileg.sortingOrder = order;
                 tileg.setGreen();
+                //tileg.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileg;
               
             case 3:
@@ -730,6 +732,7 @@ public class Stage : MonoBehaviour
                 var tileb = go.GetComponent<Tile>();
                 tileb.sortingOrder = order;
                 tileb.setBlue();
+                //tileb.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileb;
               
             case 4:
@@ -739,6 +742,7 @@ public class Stage : MonoBehaviour
                 var tiley = go.GetComponent<Tile>();
                 tiley.sortingOrder = order;
                 tiley.setYellow();
+                //tiley.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiley;
          
             default:
@@ -747,6 +751,7 @@ public class Stage : MonoBehaviour
                 go.transform.localPosition = position;
                 var tile = go.GetComponent<Tile>();
                 tile.sortingOrder = order;
+                //tile.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tile;
              
         }
@@ -757,7 +762,8 @@ public class Stage : MonoBehaviour
        // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
         
     }
-
+    public float scale1;
+    public float scale2;
 
 
     Tile Createback(Transform parent, Vector2 position, Color color, int order = 1)
@@ -955,7 +961,7 @@ public class Stage : MonoBehaviour
 
                     scoreVal += colorWeight;
                     blockCount++;
-                    score.text = "Score: " + scoreVal;
+                    score.text = scoreVal.ToString();
                     PlayerPrefs.SetInt("score", scoreVal);
 
                 }

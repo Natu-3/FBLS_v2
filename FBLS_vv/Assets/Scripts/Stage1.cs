@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
@@ -45,7 +46,7 @@ public class Stage1 : MonoBehaviour
 
     public Transform tetrominoNode; //테트리미노
    // public GameObject gameoverPanel; //게임오버
-    public Text score; // 점수
+    public TextMeshProUGUI score; // 점수
     public Text red; // 사라진 블럭
     public Text green; // 사라진 블럭
     public Text blue; // 사라진 블럭
@@ -110,7 +111,7 @@ public class Stage1 : MonoBehaviour
 
         nextFallTime = Time.time + fallCycle; //낙하주기 설정
         //blockArray = new BlockArray(); //블럭 저장할 구조체 선언
-        CreateBackground(); //백그라운드 생성 메소드
+        //CreateBackground(); //백그라운드 생성 메소드
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
@@ -143,8 +144,8 @@ public class Stage1 : MonoBehaviour
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
-        score.text = "Score: " + scoreVal; // 점수 출력
-        PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
+        updateScore(); // 점수 출력
+        //PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
 
 
         textTime.gameObject.SetActive(false);
@@ -154,6 +155,7 @@ public class Stage1 : MonoBehaviour
 
         Time.timeScale = 0f;
     }
+
 
     void Update()
     {
@@ -220,7 +222,6 @@ public class Stage1 : MonoBehaviour
             {
 
                 textTime.gameObject.SetActive(true);
-                penaltyZone.color = Color.green;
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
@@ -237,11 +238,9 @@ public class Stage1 : MonoBehaviour
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
-                penaltyZone.color = Color.blue;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
             }
-           
         }
     }
     void CreatePreview()
@@ -256,7 +255,7 @@ public class Stage1 : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
         
-        preview.position = new Vector2(halfWidth + 2.5f + offset1p, halfHeight - 2.5f); // 미리보기 
+        preview.position = new Vector2(halfWidth + 3.3f + offset1p, halfHeight - 2.5f); // 미리보기 
         
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -624,8 +623,8 @@ public class Stage1 : MonoBehaviour
                 column.DetachChildren();
                 isCleared = true;
                 scoreVal += 10 * lineWeight;
-                score.text = "Score: " + scoreVal;
-                PlayerPrefs.SetInt("score", scoreVal);
+                updateScore();
+                //PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
         }
@@ -769,6 +768,7 @@ public class Stage1 : MonoBehaviour
                 var tiler = go.GetComponent<Tile>();
                 tiler.sortingOrder = order;
                 tiler.setRed();
+                //tiler.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiler;
           
             case 2:
@@ -778,6 +778,7 @@ public class Stage1 : MonoBehaviour
                 var tileg = go.GetComponent<Tile>();
                 tileg.sortingOrder = order;
                 tileg.setGreen();
+                //tileg.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileg;
               
             case 3:
@@ -787,6 +788,7 @@ public class Stage1 : MonoBehaviour
                 var tileb = go.GetComponent<Tile>();
                 tileb.sortingOrder = order;
                 tileb.setBlue();
+                //tileb.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileb;
               
             case 4:
@@ -796,6 +798,7 @@ public class Stage1 : MonoBehaviour
                 var tiley = go.GetComponent<Tile>();
                 tiley.sortingOrder = order;
                 tiley.setYellow();
+                //tiley.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiley;
          
             default:
@@ -804,6 +807,7 @@ public class Stage1 : MonoBehaviour
                 go.transform.localPosition = position;
                 var tile = go.GetComponent<Tile>();
                 tile.sortingOrder = order;
+                //tile.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tile;
              
         }
@@ -814,7 +818,8 @@ public class Stage1 : MonoBehaviour
        // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
         
     }
-
+    public float scale1;
+    public float scale2;
 
 
     Tile Createback(Transform parent, Vector2 position, Color color, int order = 1)
@@ -1041,9 +1046,10 @@ public class Stage1 : MonoBehaviour
 
 
                     scoreVal += colorWeight;
+                    UnityEngine.Debug.Log(scoreVal.ToString());
                     blockCount++;
-                    score.text = "Score: " + scoreVal;
-                    PlayerPrefs.SetInt("score", scoreVal);
+                    updateScore();
+                    //PlayerPrefs.SetInt("score", scoreVal);
 
                 }
                 else
@@ -1264,12 +1270,15 @@ public class Stage1 : MonoBehaviour
     public int maxBlock;
     public void updateBlock()
     {
-        red.text = $"{redVal}/{maxBlock}"; //블럭 개수 출력
-        green.text = $"{greenVal}/{maxBlock}"; // 블럭 개수 출력
-        blue.text = $"{blueVal}/{maxBlock}"; // 블럭 개수 출력
-        yellow.text = $"{yellowVal}/{maxBlock}"; // 블럭 개수 출력
+        red.text = $"{redVal}"; //블럭 개수 출력
+        green.text = $"{greenVal}"; // 블럭 개수 출력
+        blue.text = $"{blueVal}"; // 블럭 개수 출력
+        yellow.text = $"{yellowVal}"; // 블럭 개수 출력
     }
-
+    public void updateScore()
+    {
+        score.text = $"{scoreVal}";
+    }
     //1p 게이지
     IEnumerator GaugeTimer() // 30초마다 게이지 타이머 제한 시간 2초씩 감소
     {

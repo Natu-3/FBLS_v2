@@ -56,14 +56,13 @@ public class GaugeBar : MonoBehaviour
 
             //2p기준
             myBlock = StageMulti.blockCount;
-            enemyBlock = Stage.blockCount;
+            enemyBlock = Stage1.blockCount;
             difference = enemyBlock - myBlock;
             gaugeBar.value = -difference + pivot;
             if (difference >= penaltyBlock) // 타이머 시작
             {
                 
                 textTime.gameObject.SetActive(true);
-                penaltyZone.color = Color.green;
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
@@ -73,14 +72,13 @@ public class GaugeBar : MonoBehaviour
             if (timer <= 0) // 타이머 종료 후 패널티
             {
                 StageMulti.blockCount = 0;
-                enemyBlock = 0;
+                Stage1.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
                 pan();
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
-                penaltyZone.color = Color.blue;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
             }
@@ -92,7 +90,7 @@ public class GaugeBar : MonoBehaviour
             myBlock = Stage.blockCount;
             gaugeBar.value -= Time.deltaTime;
             timer -= Time.deltaTime;
-            textTime.text = ((int)timer).ToString();
+            //textTime.text = ((int)timer).ToString();
 
             if (gaugeBar.value < gaugeBar.maxValue)
             {
