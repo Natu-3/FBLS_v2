@@ -16,6 +16,9 @@ public class Tile : MonoBehaviour
     protected Rigidbody2D rb;
 
     public bool fall = false; // 낙하 구현용 변수
+    public bool stop = false;
+    
+
 
     public virtual void fallReady()
     {
@@ -53,6 +56,8 @@ public class Tile : MonoBehaviour
         {
            Fall();
         }
+
+        
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -84,15 +89,6 @@ public class Tile : MonoBehaviour
         
     }
 
-    public void setFall()
-    {
-        enableCollisionWithSubTiles = false;
-    }
-
-    public bool getFall()
-    {
-        return enableCollisionWithSubTiles;
-    }
 
     public Color color
     {
