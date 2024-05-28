@@ -757,7 +757,7 @@ public class Stage : MonoBehaviour
                 go.transform.localPosition = position;
                 var tileGhost = go.GetComponent<Tile>();
                 tileGhost.sortingOrder = order;
-                tileGhost.color = new Color(150f / 255f, 150f / 255f, 150f / 255f, 1);
+                tileGhost.color = new Color(186f / 255f, 186f / 255f, 186f / 255f, 186f/ 255f);
 
                 return tileGhost;
           
