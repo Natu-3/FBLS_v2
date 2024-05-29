@@ -26,7 +26,7 @@ using System.Net.Mime;
 using System.Security;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
-
+using TMPro;
 
 
 public class Stage : MonoBehaviour
@@ -40,11 +40,11 @@ public class Stage : MonoBehaviour
 
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
- 
 
+    public Transform ghostNode;
     public Transform tetrominoNode; //테트리미노
    // public GameObject gameoverPanel; //게임오버
-    public Text score; // 점수
+    public TextMeshProUGUI score; // 점수
     public Text red; // 사라진 블럭
     public Text green; // 사라진 블럭
     public Text blue; // 사라진 블럭
@@ -96,7 +96,7 @@ public class Stage : MonoBehaviour
 
         nextFallTime = Time.time + fallCycle; //낙하주기 설정
         //blockArray = new BlockArray(); //블럭 저장할 구조체 선언
-        CreateBackground(); //백그라운드 생성 메소드
+        //CreateBackground(); //백그라운드 생성 메소드
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
@@ -156,7 +156,7 @@ public class Stage : MonoBehaviour
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
-        score.text = "Score: " + scoreVal; // 점수 출력
+        score.text = scoreVal.ToString(); // 점수 출력
         PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
  
         Time.timeScale = 0f;
@@ -218,8 +218,9 @@ public class Stage : MonoBehaviour
             {
                 MoveTetromino(moveDir, isRotate);
             }
-
+            
         }
+        setGhostBlock();
     }
     void CreatePreview()
     {
@@ -233,8 +234,8 @@ public class Stage : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
         
-        preview.position = new Vector2(halfWidth + 2.5f + 1.5f*offset1p, halfHeight - 2.5f); // 미리보기 
-        
+        preview.position = new Vector2(halfWidth + 2.2f + 1.5f*offset1p, halfHeight - 2.5f); // 미리보기 
+
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
         {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
@@ -466,17 +467,20 @@ public class Stage : MonoBehaviour
         {
             tetrominoNode.transform.position = oldPos;
             tetrominoNode.transform.rotation = oldRot;
-
+            
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
                 AddToBoard(tetrominoNode);
+                for (int i = 0; i < ghostNode.childCount; i++)
+                {
+                    Transform child = ghostNode.GetChild(i);
+                    Destroy(child.gameObject);
+                }
+
                 CheckBoardColumn();
                 CreateTetromino();
                 CreatePreview();
                 CheckTileGroups();
-                
-
-
                 if (!CanMoveTo(tetrominoNode))
                 {
                     //gameoverPanel.SetActive(true);
@@ -594,7 +598,7 @@ public class Stage : MonoBehaviour
                 
                // isCleared = true;
                 scoreVal += 10 * lineWeight;
-                score.text = "Score: " + scoreVal;
+                score.text = scoreVal.ToString();
                 PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
@@ -707,7 +711,6 @@ public class Stage : MonoBehaviour
         //여기서 var go 를 기억해둬야 사용가능함
 
         GameObject go;
-        
         switch (color)
         {
             case 1:
@@ -717,6 +720,7 @@ public class Stage : MonoBehaviour
                 var tiler = go.GetComponent<Tile>();
                 tiler.sortingOrder = order;
                 tiler.setRed();
+                //tiler.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiler;
           
             case 2:
@@ -726,6 +730,7 @@ public class Stage : MonoBehaviour
                 var tileg = go.GetComponent<Tile>();
                 tileg.sortingOrder = order;
                 tileg.setGreen();
+                //tileg.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileg;
               
             case 3:
@@ -735,6 +740,7 @@ public class Stage : MonoBehaviour
                 var tileb = go.GetComponent<Tile>();
                 tileb.sortingOrder = order;
                 tileb.setBlue();
+                //tileb.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileb;
               
             case 4:
@@ -744,14 +750,26 @@ public class Stage : MonoBehaviour
                 var tiley = go.GetComponent<Tile>();
                 tiley.sortingOrder = order;
                 tiley.setYellow();
+                //tiley.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiley;
-         
+
+            case 0:
+                go = Instantiate(tilePrefab);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tileGhost = go.GetComponent<Tile>();
+                tileGhost.sortingOrder = order;
+                tileGhost.color = new Color(186f / 255f, 186f / 255f, 186f / 255f, 186f/ 255f);
+
+                return tileGhost;
+          
             default:
                 go = Instantiate(tilePrefab);
                 go.transform.parent = parent;
                 go.transform.localPosition = position;
                 var tile = go.GetComponent<Tile>();
                 tile.sortingOrder = order;
+                //tile.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tile;
              
         }
@@ -762,7 +780,8 @@ public class Stage : MonoBehaviour
        // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
         
     }
-
+    public float scale1;
+    public float scale2;
 
 
     Tile Createback(Transform parent, Vector2 position, Color color, int order = 1)
@@ -858,6 +877,7 @@ public class Stage : MonoBehaviour
 
         tetrominoNode.rotation = Quaternion.identity;
         tetrominoNode.position = new Vector2(2*offset1p, halfHeight - panalty);
+        ghostNode.position = tetrominoNode.position;
 
         switch (index)
         {
@@ -868,6 +888,11 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col3);
                 CreateTile(tetrominoNode, new Vector2(0f, -2f), col4);
+
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, -1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, -2f), 0);
                 break;
 
             // J 
@@ -877,6 +902,11 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
                 CreateTile(tetrominoNode, new Vector2(-1f, 1.0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(-1f, 1.0f), 0);
                 break;
 
             // L 
@@ -886,6 +916,11 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 1.0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 1.0f), 0);
                 break;
 
             // O 
@@ -895,6 +930,11 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 1f), col4);
+
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 1f), 0);
                 break;
 
             // S 
@@ -904,6 +944,11 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, -1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, -1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
                 break;
 
             // T 
@@ -913,6 +958,11 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col3);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
                 break;
 
             // Z 
@@ -922,14 +972,15 @@ public class Stage : MonoBehaviour
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
                 break;
         }
+
     }
-
-   
-
-
-
 
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
@@ -969,7 +1020,7 @@ public class Stage : MonoBehaviour
 
                     scoreVal += colorWeight;
                     blockCount++;
-                    score.text = "Score: " + scoreVal;
+                    score.text = scoreVal.ToString();
                     PlayerPrefs.SetInt("score", scoreVal);
 
                 }
@@ -1220,6 +1271,7 @@ public class Stage : MonoBehaviour
     }
 
 
+
     private Dictionary<string, List<Transform>> addedTiles = new Dictionary<string, List<Transform>>();
 
     public void rememberTile(Transform tile, string key)
@@ -1276,6 +1328,44 @@ public class Stage : MonoBehaviour
 
         return result;
     }
+
+    //쉐도우
+
+
+    bool DownGhostBlock(Vector3 moveDir, bool isRotate)
+    {
+        Vector3 oldPos = ghostNode.transform.position;
+        Quaternion oldRot = ghostNode.transform.rotation;
+
+        ghostNode.transform.position += moveDir;
+
+        if (isRotate)
+        {
+            ghostNode.transform.rotation *= Quaternion.Euler(0, 0, 90);
+        }
+        if (!CanMoveTo(ghostNode))
+        {
+            ghostNode.transform.position = oldPos;
+            ghostNode.transform.rotation = oldRot;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private void setGhostBlock()
+    {
+        ghostNode.position = tetrominoNode.position;
+        ghostNode.rotation = tetrominoNode.rotation;
+        while(DownGhostBlock(Vector3.down, false))
+        {
+
+        }
+        
+    }
+
+
 }
 
 
