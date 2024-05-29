@@ -44,7 +44,7 @@ public class GaugeBar : MonoBehaviour
     }
 
     void pan(){
-        stage = GameObject.Find("Stage1");
+        stage = GameObject.Find("Stage");
         stage.GetComponent<Stage>().doPanalty();
     }
     void Update()
@@ -56,7 +56,7 @@ public class GaugeBar : MonoBehaviour
 
             //2p기준
             myBlock = StageMulti.blockCount;
-            enemyBlock = Stage1.blockCount;
+            enemyBlock = Stage.blockCount;
             difference = enemyBlock - myBlock;
 
             if (difference >= penaltyBlock) // 타이머 시작
