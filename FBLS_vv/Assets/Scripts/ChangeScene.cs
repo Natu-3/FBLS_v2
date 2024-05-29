@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 { 
     public static char currentScene;
-    public GameObject setting;
    // public Transform preview;
     public void changeSingle()
     {
@@ -28,12 +27,15 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene("Main");
         
     }    
-    public void openSetting()
+ 
+    void Start()
     {
-        setting.SetActive(true);
+        
     }
-    public void CloseSetting()
+
+    // Update is called once per frame
+    void Update()
     {
-        setting.SetActive(false);
+       
     }
 }
