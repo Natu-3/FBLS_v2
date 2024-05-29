@@ -15,7 +15,7 @@ public class rowNode : MonoBehaviour
         if (rb != null && !rb.isKinematic)
         {
             other.transform.parent = transform;
-            //UnityEngine.Debug.Log("추가");
+            UnityEngine.Debug.Log("추가");
         }
     }
 
@@ -26,7 +26,7 @@ public class rowNode : MonoBehaviour
             if (other.transform.parent == transform)
             {
                 other.transform.parent = null;
-               // UnityEngine.Debug.Log("빠이");
+                UnityEngine.Debug.Log("빠이");
             }
         
     }

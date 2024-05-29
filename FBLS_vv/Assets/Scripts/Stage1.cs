@@ -182,80 +182,77 @@ public class Stage1 : MonoBehaviour
         }
         else
         {
-            if(CheckAgain())
-            { 
-            
-                Vector3 moveDir = Vector3.zero;
-                bool isRotate = false;
+            CheckAgain();
+            Vector3 moveDir = Vector3.zero;
+            bool isRotate = false;
 
-                if (Input.GetKeyDown(KeyCode.A))
-                {
-                    moveDir.x = -1;
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                moveDir.x = -1;
 
-                }
-                else if (Input.GetKeyDown(KeyCode.D))
-                {
-                    moveDir.x = 1;
-                }
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                moveDir.x = 1;
+            }
 
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    isRotate = true;
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                {
-                    moveDir.y = -1;
-                }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                isRotate = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                moveDir.y = -1;
+            }
 
-                if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                while (MoveTetromino(Vector3.down, false))
                 {
-                    while (MoveTetromino(Vector3.down, false))
-                    {
-                    }
                 }
+            }
 
-                // 아래로 떨어지는 경우는 강제로 이동시킵니다.
-                if (Time.time > nextFallTime)
-                {
-                    nextFallTime = Time.time + fallCycle;
-                    moveDir = Vector3.down;
-                    isRotate = false;
-                }
+            // 아래로 떨어지는 경우는 강제로 이동시킵니다.
+            if (Time.time > nextFallTime)
+            {
+                nextFallTime = Time.time + fallCycle;
+                moveDir = Vector3.down;
+                isRotate = false;
+            }
 
-                if (moveDir != Vector3.zero || isRotate)
-                {
-                    MoveTetromino(moveDir, isRotate);
-                }
+            if (moveDir != Vector3.zero || isRotate)
+            {
+                MoveTetromino(moveDir, isRotate);
+            }
 
-                myBlock = blockCount;
-                enemyBlock = StageMulti.blockCount;
-                difference = enemyBlock - myBlock;
+            myBlock = blockCount;
+            enemyBlock = StageMulti.blockCount;
+            difference = enemyBlock - myBlock;
 
-                if (difference >= penaltyBlock) // 타이머 시작
-                {
-                    gaugeBar.value = -difference + pivot;
-                    textTime.gameObject.SetActive(true);
-                    penaltyZone.color = Color.green;
-                    penaltyZone.gameObject.SetActive(true);
-                    timer -= Time.deltaTime;
-                    textTime.text = ((int)timer).ToString();
+            if (difference >= penaltyBlock) // 타이머 시작
+            {
+                gaugeBar.value = -difference + pivot;
+                textTime.gameObject.SetActive(true);
+                penaltyZone.color = Color.green;
+                penaltyZone.gameObject.SetActive(true);
+                timer -= Time.deltaTime;
+                textTime.text = ((int)timer).ToString();
 
-                }
+            }
 
-                if (timer <= 0) // 타이머 종료 후 패널티
-                {
-                    StageMulti.blockCount = 0;
-                    blockCount = 0;
-                    textTime.gameObject.SetActive(false);
-                    InitializedGaugeBar(limitTime);
-                    pan();
-                }
-                if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
-                {
-                    penaltyZone.color = Color.blue;
-                    textTime.gameObject.SetActive(false);
-                    InitializedGaugeBar(limitTime);
-                }
+            if (timer <= 0) // 타이머 종료 후 패널티
+            {
+                StageMulti.blockCount = 0;
+                blockCount = 0;
+                textTime.gameObject.SetActive(false);
+                InitializedGaugeBar(limitTime);
+                pan();
+            }
+            if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
+            {
+                penaltyZone.color = Color.blue;
+                textTime.gameObject.SetActive(false);
+                InitializedGaugeBar(limitTime);
             }
         }
     }
@@ -1191,9 +1188,9 @@ public class Stage1 : MonoBehaviour
     } 
 
 
-     public bool CheckAgain()
+     public void CheckAgain()
     {
-       bool check = false;
+       
         foreach (Transform column in boardNode)
         {
             if(column.childCount == boardWidth)
@@ -1201,7 +1198,6 @@ public class Stage1 : MonoBehaviour
              
                 UnityEngine.Debug.Log("남은열삭제");
                 CheckBoardColumn();
-                check = true;
                 break;
             }
         }
@@ -1214,12 +1210,10 @@ public class Stage1 : MonoBehaviour
                 //UnityEngine.Debug.Log("남은연속 삭제!!!");
                
                 CheckTileGroups();
-                check = true;
                 break;
-                
             }
         }
-    return check;
+
     }
 
 
