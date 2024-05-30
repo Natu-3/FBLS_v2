@@ -47,8 +47,8 @@ public class GaugeBar : MonoBehaviour
 
     void pan(){
         
-        var panaltys = player1.GetComponent<Stage>();
-        panaltys.doPanalty();
+        //var panaltys = player1.GetComponent<Stage>();
+        //panaltys.doPanalty();
     }
     void Update()
     {
