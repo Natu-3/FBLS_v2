@@ -21,6 +21,8 @@ public class GaugeBar : MonoBehaviour
     public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
     public Image penaltyZone; // 패널티 존
     private GameObject stage;
+
+    public GameObject player1;
     void InitializedGaugeBar(float time)
     {
         this.timer = time;
@@ -44,8 +46,9 @@ public class GaugeBar : MonoBehaviour
     }
 
     void pan(){
-        stage = GameObject.Find("Stage1");
-        stage.GetComponent<Stage>().doPanalty();
+        
+        var panaltys = player1.GetComponent<Stage>();
+        panaltys.doPanalty();
     }
     void Update()
     {
