@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 //using System.Runtime.Remoting.Messaging;
@@ -12,6 +12,7 @@ public class BlockPosition
 {
     public string[,] grid; // 블록의 색상을 저장하는 2차원 배열
     private Dictionary<string, List<(int, int)>> addedBlocks; //한번에 추가된 블럭들
+    private Dictionary<string, List<Transform>> addedTiles;
     private StageMulti stage;
 
     public int redVal = 0; // 사라진 블럭 개수
@@ -45,13 +46,11 @@ public class BlockPosition
             }
         }
         addedBlocks = new Dictionary<string, List<(int, int)>>();
-    }
+        addedTiles = new Dictionary<string, List<Transform>>();
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
+
 
     public void deleteBlock(int x, int y)
     {
@@ -99,6 +98,23 @@ public class BlockPosition
     }
 
 
+    public void insertObject(Transform tile,string key) {
+        List<Transform> tileList; //타일오브젝트 담은 리스트
+
+        // 리스트가 있음 값 추가
+        if (addedTiles.TryGetValue(key, out tileList))
+        {
+           tileList.Add(tile); // 리스트가 이미 있으면 값을 추가합니다.
+        }
+        else
+        {
+            addedTiles[key] = new List<Transform> {tile}; // 리스트가 없으면 새로운 리스트를 만들어 추가합니다.
+        }
+
+        // 아니면 새 리스트 만들어 추가
+    }
+
+
     private void UpdateBlockList(int x, int y, string key)
     {
         List<(int, int)> blockList;
@@ -111,6 +127,49 @@ public class BlockPosition
             addedBlocks[key] = new List<(int, int)> { (x, y) }; // 리스트가 없으면 새로운 리스트를 만들어 추가합니다.
         }
     }
+
+
+    public List<Transform> GetExcept2(Transform tile)
+    {
+        List<Transform> result = new List<Transform>();
+        string keyToRemove = null;
+        // key에 해당하는 리스트가 있는지 확인
+        foreach (var entry in addedTiles)
+        {
+            var blockList = entry.Value;
+
+            // 현재 key에 대한 value에서 입력한 (x, y) 값을 제외하고 나머지 값을 결과에 추가
+            foreach (Transform t in blockList)
+            {
+                if (t == tile)
+                {
+                    keyToRemove = entry.Key; // 투입한 값과 동일한 (x, y)를 가진 key를 저장
+                }
+                else
+                {
+                    result.Add(t); // (x, y)와 다른 값은 결과에 추가
+                }
+            }
+        }
+
+        if (keyToRemove != null)
+        {
+            addedTiles.Remove(keyToRemove);
+
+        }
+        else
+        {
+            UnityEngine.Debug.Log("이미 찾아서 존재하지않음");
+        }
+
+        return result;
+    }
+
+
+
+
+
+
 
     public List<(int, int)> GetExcept(int x, int y)
     {
