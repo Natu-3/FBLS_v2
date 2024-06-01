@@ -16,8 +16,7 @@ public class MultiManager : MonoBehaviour
     public int atkPlayer;
     
     [Header("1p")]
-    public GameObject warningPanel1; // 경고판
-    public GameObject warningRed1; //텍스트
+    public GameObject warningRed1; // 경고핀
     public GameObject warningBlue1;
     public GameObject warningYellow1;
     public GameObject cancelSkill1;
@@ -29,8 +28,7 @@ public class MultiManager : MonoBehaviour
 
 
     [Header("2p")]
-    public GameObject warningPanel2; // 경고판
-    public GameObject warningRed2; //텍스트
+    public GameObject warningRed2; //경고판
     public GameObject warningBlue2;
     public GameObject warningYellow2;
     public GameObject cancelSkill2;
@@ -186,7 +184,6 @@ public class MultiManager : MonoBehaviour
     //경고판
     public void ActivePanel(GameObject skillText)
     {
-        warningPanel1.SetActive(true);
         skillText.SetActive(true);
         currentSkill = skillText;
         Invoke("HidePanel", 5f);
@@ -194,7 +191,7 @@ public class MultiManager : MonoBehaviour
     private GameObject currentSkill;
     public void HidePanel()
     {
-        warningPanel1.SetActive(false);
+
         currentSkill.SetActive(false);
     }
 

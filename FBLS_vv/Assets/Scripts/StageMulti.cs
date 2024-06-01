@@ -93,6 +93,7 @@ public class StageMulti : MonoBehaviour
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
     private bool isPaused = true;
+
     private void Start()
     {
 
@@ -496,7 +497,7 @@ public class StageMulti : MonoBehaviour
 
         return true;
     }
-
+  
     // 테트로미노를 보드에 추가
     void AddToBoard(Transform root)
     {
@@ -1392,10 +1393,10 @@ public class StageMulti : MonoBehaviour
     public UnityEngine.UI.Image lightening;
     public float fadeInImage = 0.1f; // 이미지 나타나는 시간
     public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
+    public TextMeshProUGUI red; // 사라진 블럭
+    public TextMeshProUGUI green; // 사라진 블럭
+    public TextMeshProUGUI blue; // 사라진 블럭
+    public TextMeshProUGUI yellow; // 사라진 블럭
 
 
     public List<Tile> randomTile(int maxCount = 5)

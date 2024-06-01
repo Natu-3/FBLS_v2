@@ -47,10 +47,10 @@ public class Stage1 : MonoBehaviour
     public Transform tetrominoNode; //테트리미노
    // public GameObject gameoverPanel; //게임오버
     public TextMeshProUGUI score; // 점수
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
+    public TextMeshProUGUI red; // 사라진 블럭
+    public TextMeshProUGUI green; // 사라진 블럭
+    public TextMeshProUGUI blue; // 사라진 블럭
+    public TextMeshProUGUI yellow; // 사라진 블럭
     public Transform preview; // 다음 블럭
     public GameObject start;
 
@@ -95,12 +95,12 @@ public class Stage1 : MonoBehaviour
     private int enemyBlock = 0; // 상대 누적 블럭
     private int difference; // 누적 블럭 차이
     public int pivot = 50; // 기준(게이지 중간)
-    public Text textTime;
+    public TextMeshProUGUI textTime;
     private float timer;
     public float timerLimit; // 타이머 제한 시간 감소치
     public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
     public Image penaltyZone; // 패널티 존
-    
+
     private GameObject stage;
     private void Start()
     {
@@ -471,7 +471,7 @@ public class Stage1 : MonoBehaviour
 
 
 
-
+    private GameOver gameOver;
 
 
     bool MoveTetromino(Vector3 moveDir, bool isRotate)
@@ -492,12 +492,13 @@ public class Stage1 : MonoBehaviour
 
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
-                AddToBoard(tetrominoNode);
                 for (int i = 0; i < ghostNode.childCount; i++)
                 {
                     Transform child = ghostNode.GetChild(i);
                     Destroy(child.gameObject);
                 }
+                AddToBoard(tetrominoNode);
+                
                 CheckTileGroups();
                 CheckBoardColumn();
                 CreateTetromino();
@@ -509,7 +510,7 @@ public class Stage1 : MonoBehaviour
                     //gameoverPanel.SetActive(true);
                     lose = true;
                     SceneManager.LoadScene("MultiGameOver");
-                    
+
                 }
             }
 
