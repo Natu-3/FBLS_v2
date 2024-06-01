@@ -100,6 +100,30 @@ public class Stage1 : MonoBehaviour
     public float timerLimit; // 타이머 제한 시간 감소치
     public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
     public Image penaltyZone; // 패널티 존
+    
+
+
+      [Header("Skill")]
+    public int redSkillNum; // 적용시킬 블럭 개수
+    public int yellowSkillNum; // 적용시킬 블럭 개수
+    public int blueSkillNum; // 적용시킬 블럭 개수
+   
+    private Color fire = Color.black;
+    private Color ice = Color.gray;
+    public UnityEngine.UI.Image lightening;
+    public float fadeInImage = 0.1f; // 이미지 나타나는 시간
+    public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
+   
+
+
+
+
+
+
+
+
+
+
 
     private GameObject stage;
     private void Start()
@@ -217,6 +241,34 @@ public class Stage1 : MonoBehaviour
                 {
                     MoveTetromino(moveDir, isRotate);
                 }
+
+                if (Input.GetKeyDown(KeyCode.Alpha1) && MultiManager.Instance.redButton1.activeSelf){
+                    MultiManager.Instance.AtkRed1();
+                    updateBlock();
+        
+                    UnityEngine.Debug.Log("Red skill!");
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2) && MultiManager.Instance.blueButton1.activeSelf)
+                {
+                    MultiManager.Instance.AtkBlue1();
+                    UnityEngine.Debug.Log("Blue skill!");
+                    updateBlock();
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha3) && MultiManager.Instance.yellowButton1.activeSelf)
+                {
+                    MultiManager.Instance.AtkYellow1();
+                    UnityEngine.Debug.Log("Yellow skill!");
+                    updateBlock();
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha4) && MultiManager.Instance.greenButton1.activeSelf)
+                {
+                    UnityEngine.Debug.Log("Green skill!");
+                    MultiManager.Instance.Green1();
+                    updateBlock();
+                }
+
+
+
 
                 myBlock = blockCount;
                 enemyBlock = StageMulti.blockCount;
@@ -554,7 +606,7 @@ public class Stage1 : MonoBehaviour
                 Color tileColor = tileComponent.color;
 
                 string sendcolor = tileColor.ToString();    //Color32ToRGBString(tileColor);
-                //UnityEngine.Debug.Log(sendcolor);
+                //UnityEngine.Debug.Log(randomKey);
             
                
                 rememberTile(node, keyTime);
@@ -631,9 +683,12 @@ public class Stage1 : MonoBehaviour
                         yellowVal++;
                     }
                     updateBlock(); // 개수 업데이트
-                    Destroy(tile.gameObject);
+                    
                     List<Transform> fallList2 = GetEx(tile.transform);
                     tilesFall.Add(fallList2);
+           
+
+                    Destroy(tile.gameObject);
                 }
                
        
@@ -1052,7 +1107,7 @@ public class Stage1 : MonoBehaviour
                 else
                 {
                     // 게임 오브젝트를 찾지 못했음을 알립니다.
-                    UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
+                    //UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
                 }
 
             }
@@ -1081,7 +1136,7 @@ public class Stage1 : MonoBehaviour
             }
 
         }
-
+        tilesFall.Clear();
 
     }
 
@@ -1094,7 +1149,7 @@ public class Stage1 : MonoBehaviour
 
         //UnityEngine.Debug.Log("첫 블록 색상");
         string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
-        UnityEngine.Debug.Log(previousColor);
+       // UnityEngine.Debug.Log(previousColor);
         int currentStart = 0; // 지금의 시작 좌표
 
         continuousBlocks.Add(new Vector2Int(currentStart, row));
@@ -1234,7 +1289,7 @@ public class Stage1 : MonoBehaviour
 
                 if (blockTransform != null)
                 {
-                    UnityEngine.Debug.Log("블록을 찾았습니다, x_" + position.x.ToString());
+                   // UnityEngine.Debug.Log("블록을 찾았습니다, x_" + position.x.ToString());
                     Tile tile = blockTransform.GetComponent<Tile>();
                     string coll = tile.getColor();
 
@@ -1242,13 +1297,13 @@ public class Stage1 : MonoBehaviour
                 }
                 else
                 {
-                    UnityEngine.Debug.Log("해당 x 좌표를 가진 블록이 없습니다.");
+                    //UnityEngine.Debug.Log("해당 x 좌표를 가진 블록이 없습니다.");
                     // 해당 x 좌표를 가진 블록이 없습니다.
                 }
             }
             else
             {
-                UnityEngine.Debug.Log("해당 y 좌표를 가진 행이 없습니다.");
+              //  UnityEngine.Debug.Log("해당 y 좌표를 가진 행이 없습니다.");
                 // 해당 y 좌표를 가진 행이 없습니다.
             }
 
@@ -1262,13 +1317,14 @@ public class Stage1 : MonoBehaviour
     public void doPanalty()
     { // 패널티부여 + 줄 줄어듦
         int buff = 19 - panalty;
-        for (int i = 0; i < 12; i++)
-        {
+        //for (int i = 0; i < 12; i++)
+       // {
             //ransform backRow = backgroundNode.transform.Find("back" + buff.ToString());
             // backRow.transform.position = new Vector3Int(-50, 0,0);
             //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
            // Destroy(backRow);
-        }
+        //}
+        UnityEngine.Debug.Log("1P패널티");
         panalty++;
         panaltyVal++;
 
@@ -1373,10 +1429,10 @@ public class Stage1 : MonoBehaviour
             // 현재 key에 대한 value에서 입력한 (x, y) 값을 제외하고 나머지 값을 결과에 추가
             foreach (Transform t in blockList)
             {
-                if (t == tile)
+                if (t.gameObject == tile.gameObject)
                 {
                     keyToRemove = entry.Key; // 투입한 값과 동일한 (x, y)를 가진 key를 저장
-
+                     UnityEngine.Debug.Log("오브젝트");
                 }
                 else
                 {
@@ -1428,6 +1484,162 @@ public class Stage1 : MonoBehaviour
             }
         }
         return check;
+    }
+
+
+
+
+    public void redSkill(int num) // 빨강이
+    {
+        
+        UnityEngine.Debug.Log("빨강스킬");
+        List<Tile> tiles = randomTile(num);
+       
+        foreach (Tile tile in tiles)
+        {
+            if (!tile.isred())
+            {
+                
+                tile.isFired = true;
+                tile.color = fire;
+            }else{
+                    redSkill(1);// 랜덤 걸릴시 재사용
+            }
+        }
+        
+    }
+     public void yellowSkill(int num) // 노랑이
+    {
+        UnityEngine.Debug.Log("노랑스킬");
+        StartCoroutine(yellowSkillActive());
+        yellowDel(num);
+    }
+    public GameObject image;
+    
+
+    public void yellowDel(int value)
+    {
+        int count = 0;
+        List<Tile> tiles = randomTile(value);
+        foreach (Tile tile in tiles)
+        {
+            if (tile != null && (tile.color != Color.white || tile.color != Color.gray))
+            {
+                Destroy(tile.gameObject);
+            }
+            else if (tile.color != Color.white || tile.color != Color.gray)
+            {
+                count++;
+            }
+        }
+        if (count > 0)
+        {
+            yellowDel(value - count);
+        }
+
+    }
+
+
+    IEnumerator yellowSkillActive()
+    {
+        
+        image.SetActive(true);
+        float timer = 0;
+        while (timer <= fadeInImage) // fade in
+        {
+            float alpha = Mathf.Lerp(0, 1, timer / fadeInImage);
+            lightening.color = new Color(1, 1, 1, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        lightening.color = Color.white;
+        
+        
+            
+
+        timer = 0;
+        while (timer <= fadeOutImage) // fade out
+        {
+            float alpha = Mathf.Lerp(1, 0, timer / fadeOutImage);
+            lightening.color = new Color(1, 1, 1, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        lightening.color = new Color(1, 1, 1, 0); // 화면 사라짐
+
+    }
+
+    public void blueSkill(int num) // 파랑이
+    {
+        UnityEngine.Debug.Log("파랑스킬");
+        int i = 0;
+        
+        while (i < num)
+        {
+            List<Tile> tiles = randomTile(num-i);
+            foreach (Tile tile in tiles)
+            {
+                if (!tile.isIced)
+                {
+                    tile.isIced = true;
+                    tile.color = ice;
+                    i++;
+                }
+            }
+        }
+    }
+
+     public List<Tile> randomTile(int maxCount = 5)
+    {
+        List<Tile> selectedTiles = new List<Tile>();
+        List<int> availableYIndices = new List<int>();
+
+        // 각 y 노드에 대해 자식이 있는지 확인하고, 인덱스를 리스트에 추가
+        for (int y = 0; y < 19; y++)
+        {
+            var ynode = boardNode.Find("y_" + y.ToString());
+            if (ynode != null && ynode.childCount > 0)
+            {
+                availableYIndices.Add(y);
+            }
+        }
+
+        // 사용 가능한 y 노드가 없으면 빈 리스트 반환
+        if (availableYIndices.Count == 0)
+        {
+            return selectedTiles;
+        }
+
+        // 무작위로 5개의 y 인덱스 선택 (중복 없음)
+        List<int> randomYIndices = new List<int>();
+        while (randomYIndices.Count < maxCount && randomYIndices.Count < availableYIndices.Count)
+        {
+            int randomYIndex = availableYIndices[UnityEngine.Random.Range(0, availableYIndices.Count)];
+            if (!randomYIndices.Contains(randomYIndex))
+            {
+                randomYIndices.Add(randomYIndex);
+            }
+        }
+
+        // 선택된 각 y 노드에서 무작위로 x 노드 선택하여 타일 리스트에 추가
+       
+        foreach (int yIndex in randomYIndices)
+        {
+            var ynode = boardNode.Find("y_" + yIndex.ToString());
+            if (ynode != null)
+            {
+                int randomXIndex = UnityEngine.Random.Range(0, ynode.childCount);
+                var xnode = ynode.GetChild(randomXIndex);
+                Tile tile = xnode.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    selectedTiles.Add(tile);
+                }
+            }
+        }
+
+        return selectedTiles;
     }
 
 

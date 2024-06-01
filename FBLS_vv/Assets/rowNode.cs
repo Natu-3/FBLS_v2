@@ -37,18 +37,18 @@ public class rowNode : MonoBehaviour
         if (other.transform.parent == transform)
         {
             other.transform.parent = null;
-            UnityEngine.Debug.Log("빠이");
+            //UnityEngine.Debug.Log("빠이");
         }
     }
 
     private IEnumerator WaitAndAddChild(Collider2D other)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         if (other != null && other.transform.parent != transform)
         {
             other.transform.parent = transform;
-            UnityEngine.Debug.Log("추가");
+            //UnityEngine.Debug.Log("추가");
         }
 
         coroutines.Remove(other);

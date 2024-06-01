@@ -23,6 +23,9 @@ public class GaugeBar : MonoBehaviour
     private GameObject stage;
 
     public GameObject player1;
+    public GameObject player2;
+
+
     void InitializedGaugeBar(float time)
     {
         this.timer = time;
@@ -44,11 +47,20 @@ public class GaugeBar : MonoBehaviour
         StartCoroutine(GaugeTimer());
         InitializedGaugeBar(limitTime);
     }
-
     void pan(){
         
-        //var panaltys = player1.GetComponent<Stage>();
-        //panaltys.doPanalty();
+        var pansolo = player1.GetComponent<Stage>();
+        pansolo.doPanalty();
+    }
+    void panto1(){
+        
+        var panaltys = player1.GetComponent<Stage1>();
+        panaltys.doPanalty();
+    }
+    void panto2(){
+        
+        var panaltys = player2.GetComponent<StageMulti>();
+        panaltys.doPanalty();
     }
     void Update()
     {
@@ -78,7 +90,7 @@ public class GaugeBar : MonoBehaviour
                 Stage1.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
-                pan();
+                panto2();
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {

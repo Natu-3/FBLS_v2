@@ -201,6 +201,10 @@ public class Tile : MonoBehaviour
             rb.isKinematic = false; // Rigidbody의 물리 상호작용을 활성화
         }
     }
+
+    public void deleteThis(){
+       Destroy(this.gameObject);
+    }
 }
 /*
 public class TileR : Tile

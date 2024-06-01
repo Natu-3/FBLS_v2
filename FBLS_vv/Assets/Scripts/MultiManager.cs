@@ -145,11 +145,31 @@ public class MultiManager : MonoBehaviour
     private void PerformSkill()
     {
         UnityEngine.Debug.Log("스킬적용!!!");
-        if (atkPlayer == 1)
+        if (atkPlayer == 2)
         {
-            // player1의 스킬 수행 로직
+            if(!green1p){
+                Stage1 p1 = player1.GetComponent<Stage1>();
+  
+                switch (skillStatus)
+                    {
+                        case "R":
+                            p1.redSkill(5);
+                            break;
+                        case "B":
+                            p1.blueSkill(5);
+                            break;
+                        case "Y":
+                            p1.yellowSkill(5);
+                            break;
+                        default:
+                            break;
+                    }
+                green2p = false;
+            }
+            atkPlayer = 0;
+        skillTimer = limitTime;
         }
-        else if (atkPlayer == 2)
+        else if (atkPlayer == 1)
         {
             if (!green2p)
             {
@@ -157,13 +177,13 @@ public class MultiManager : MonoBehaviour
                 switch (skillStatus)
                 {
                     case "R":
-                        multi.redSkill();
+                        multi.redSkill(5);
                         break;
                     case "B":
-                        multi.blueSkill();
+                        multi.blueSkill(5);
                         break;
                     case "Y":
-                        multi.yellowSkill();
+                        multi.yellowSkill(5);
                         break;
                     default:
                         break;

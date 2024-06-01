@@ -147,7 +147,7 @@ public class Stage : MonoBehaviour
         }
         else
         {
-            CheckAgain();
+            
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
@@ -192,6 +192,7 @@ public class Stage : MonoBehaviour
             
         }
         setGhostBlock();
+        CheckAgain();
     }
     void CreatePreview()
     {
@@ -533,61 +534,18 @@ public class Stage : MonoBehaviour
             {
                 foreach (Transform tile in column)
                 {
-                    if (SceneManager.GetActiveScene().name != "MultiScene")
-                    {
-                        Destroy(tile.gameObject);
-                    }
-                    else
-                    {
-                        Tile currentTile = tile.GetComponent<Tile>();
-
-                        if (currentTile.isIced) // 얼었을 때
-                        {
-                            currentTile.isIced = false; // 풀기
-                            currentTile.color = Color.gray;
-                        }
-                        else
-                        {
-                            tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
-                        }
-                    }
+                  List<Transform> fallList2 = GetEx(tile);
+                  tilesFall.Add(fallList2);
+                  Tile aa = tile.GetComponent<Tile>();
+                  aa.deleteThis();
                 }
-                if (SceneManager.GetActiveScene().name == "MultiScene")
-                {
-                    foreach (var tile in tilesToRemove)
-                    {
-                        if (tile.color == Color.red)
-                        {
-                            redVal++;
-                        }
-                        else if (tile.color == Color.blue)
-                        {
-                            blueVal++;
-                        }
-                        else if (tile.color == Color.green)
-                        {
-                            greenVal++;
-
-                        }
-                        else if (tile.color == Color.yellow)
-                        {
-                            yellowVal++;
-                        }
-                        updateBlock(); // 개수 업데이트
-                        Destroy(tile);
-                    }
-                }
-             
-              
+             // column.DetachChildren();
                 scoreVal += 10 * lineWeight;
                 score.text = scoreVal.ToString();
                 PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
         }
-
-
-
 
         foreach (List<Transform> fall2 in tilesFall)
         {
@@ -607,7 +565,6 @@ public class Stage : MonoBehaviour
                     }
                 }
             }
-
         }
     }
 
@@ -1024,7 +981,7 @@ public class Stage : MonoBehaviour
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 //currentGroupColors.Add(currentColor);
                 continuousBlocks.Add(new Vector2Int(x, row));
-                UnityEngine.Debug.Log("연속임! \n");
+                //UnityEngine.Debug.Log("연속임! \n");
             }
             else
             {
@@ -1217,12 +1174,12 @@ public class Stage : MonoBehaviour
         if (addedTiles.TryGetValue(key, out tetroList))
         {
             tetroList.Add(tile);
-            //UnityEngine.Debug.Log("나중걸로추가아");
+            UnityEngine.Debug.Log("나중걸로추가아");
         }
         else
         {
             addedTiles[key] = new List<Transform>() { tile };
-            // UnityEngine.Debug.Log("새롭게추가");
+            UnityEngine.Debug.Log("새롭게추가");
         }
     }
 

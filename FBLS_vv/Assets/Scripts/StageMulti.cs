@@ -196,25 +196,25 @@ public class StageMulti : MonoBehaviour
                 MoveTetromino(moveDir, isRotate);
             }
             
-            if (Input.GetKeyDown(KeyCode.Alpha1) && MultiManager.Instance.redButton2.activeSelf){
+            if (Input.GetKeyDown(KeyCode.M) && MultiManager.Instance.redButton2.activeSelf){
                 MultiManager.Instance.AtkRed2();
                 updateBlock();
         
                 UnityEngine.Debug.Log("Red skill!");
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && MultiManager.Instance.blueButton2.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Comma) && MultiManager.Instance.blueButton2.activeSelf)
             {
                 MultiManager.Instance.AtkBlue2();
                 UnityEngine.Debug.Log("Blue skill!");
                 updateBlock();
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && MultiManager.Instance.yellowButton2.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Period) && MultiManager.Instance.yellowButton2.activeSelf)
             {
                 MultiManager.Instance.AtkYellow2();
                 UnityEngine.Debug.Log("Yellow skill!");
                 updateBlock();
             }
-            if (Input.GetKeyDown(KeyCode.Alpha4) && MultiManager.Instance.greenButton2.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Slash) && MultiManager.Instance.greenButton2.activeSelf)
             {
                 UnityEngine.Debug.Log("Green skill!");
                 MultiManager.Instance.Green2();
@@ -1263,14 +1263,14 @@ public class StageMulti : MonoBehaviour
     }*/
     public void doPanalty()
     { // 패널티부여 + 줄 줄어듦
-        int buff = 19 - panalty;
-        for (int i = 0; i < 12; i++)
-        {
-            Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
+        //int buff = 19 - panalty;
+        //for (int i = 0; i < 12; i++)
+        //{
+           // Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
             // backRow.transform.position = new Vector3Int(-50, 0,0);
-            backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
-            Destroy(backRow);
-        }
+            //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
+            //Destroy(backRow);
+        //}
         panalty++;
         panaltyVal++;
 
@@ -1344,11 +1344,11 @@ public class StageMulti : MonoBehaviour
 
         return selectedTiles;
     }
-    public void redSkill() // 빨강이
+    public void redSkill(int num) // 빨강이
     {
-
+        
         UnityEngine.Debug.Log("빨강스킬");
-        List<Tile> tiles = randomTile(5);
+        List<Tile> tiles = randomTile(num);
        
         foreach (Tile tile in tiles)
         {
@@ -1356,6 +1356,8 @@ public class StageMulti : MonoBehaviour
             {
                 tile.isFired = true;
                 tile.color = fire;
+            }else{
+                    redSkill(1);// 랜덤 걸릴시 재사용
             }
         }
         
@@ -1363,11 +1365,11 @@ public class StageMulti : MonoBehaviour
 
 
 
-    public void yellowSkill() // 노랑이
+    public void yellowSkill(int num) // 노랑이
     {
         UnityEngine.Debug.Log("노랑스킬");
         StartCoroutine(yellowSkillActive());
-        yellowDel(5);
+        yellowDel(num);
     }
     public GameObject image;
     
@@ -1424,15 +1426,14 @@ public class StageMulti : MonoBehaviour
         lightening.color = new Color(1, 1, 1, 0); // 화면 사라짐
 
     }
-    public void blueSkill() // 파랑이
+    public void blueSkill(int num) // 파랑이
     {
         UnityEngine.Debug.Log("파랑스킬");
         int i = 0;
-        blueSkillNum = 5;
-        while (i < blueSkillNum)
+        
+        while (i < num)
         {
-
-            List<Tile> tiles = randomTile(5);
+            List<Tile> tiles = randomTile(num-i);
             foreach (Tile tile in tiles)
             {
                 if (!tile.isIced)

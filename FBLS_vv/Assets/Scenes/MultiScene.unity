@@ -3877,9 +3877,16 @@ MonoBehaviour:
   timerLimit: 2
   penaltyBlock: 1
   penaltyZone: {fileID: 448305280}
+  redSkillNum: 0
+  yellowSkillNum: 0
+  blueSkillNum: 0
+  lightening: {fileID: 0}
+  fadeInImage: 0.1
+  fadeOutImage: 1.01
   scale1: 1.1
   scale2: 1
   maxBlock: 10
+  image: {fileID: 0}
 --- !u!4 &700486351
 Transform:
   m_ObjectHideFlags: 0
@@ -4616,7 +4623,8 @@ MonoBehaviour:
   text_time:
   - {fileID: 711206591}
   - {fileID: 1833794440}
-  limitTime: 120
+  - {fileID: 1833794440}
+  limitTime: 180
   gameover: {fileID: 2011521440}
 --- !u!4 &890302459
 Transform:
@@ -6957,7 +6965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c56c3e7689ffd6438958c3069fd0bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
+  player1: {fileID: 700486348}
   player2: {fileID: 452944801}
   limitTime: 5
   skillStatus: None
@@ -11447,6 +11455,7 @@ MonoBehaviour:
   penaltyBlock: 3
   penaltyZone: {fileID: 385631532}
   player1: {fileID: 700486348}
+  player2: {fileID: 452944801}
 --- !u!4 &2027363645
 Transform:
   m_ObjectHideFlags: 0
