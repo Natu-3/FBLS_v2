@@ -107,7 +107,16 @@ public class Tile : MonoBehaviour
     public void setBlue() { tileType = TileType.Blue; }
     public void setGreen() { tileType = TileType.Green; }
     public void setYellow() { tileType = TileType.Yellow; }
-    public string getColor() { return tileType.ToString(); }
+    public string getColor() {
+        if (isFire == true)
+        {
+            return "Fire";
+        }
+        else
+        {
+            return tileType.ToString();
+        }
+     }
 
     public int sortingOrder
     {
@@ -168,6 +177,8 @@ public class Tile : MonoBehaviour
     {
         return isFire;
     }
+
+
 
     public bool getice()
     {
