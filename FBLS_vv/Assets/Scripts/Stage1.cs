@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
@@ -32,19 +33,20 @@ using System.Collections.Concurrent;
 public class Stage1 : MonoBehaviour
 {
     [Header("Editor Objects")]
+    public GameObject nodePrefab; //노드(가로줄) 프리펩
     public GameObject tilePrefab; //타일프리펩 불러옴
     public GameObject tileRed;
     public GameObject tileBlue;
     public GameObject tileGreen;
     public GameObject tileYellow;
-
+    public GameObject stageObject;
     public Transform backgroundNode; // 백그라운드 
     public Transform boardNode; //게임판(각 열 y0 - y19까지의 노드)
- 
-
+    public static bool lose = false;
+    public Transform ghostNode;
     public Transform tetrominoNode; //테트리미노
-   // public GameObject gameoverPanel; //게임오버
-    public Text score; // 점수
+                                    // public GameObject gameoverPanel; //게임오버
+    public TextMeshProUGUI score; // 점수
     public Text red; // 사라진 블럭
     public Text green; // 사라진 블럭
     public Text blue; // 사라진 블럭
@@ -54,8 +56,8 @@ public class Stage1 : MonoBehaviour
 
 
     public BlockPosition blockPos; // 블럭 구조체
-    
-    
+
+
 
     [Header("Game Settings")]
     [Range(4, 40)]
@@ -69,21 +71,61 @@ public class Stage1 : MonoBehaviour
     public int lineWeight; // 지워진 줄 점수
     public int colorWeight; // 지워진 색 점수
     public int panalty = 0; // 패널티시 생기는 가중치
+    public static int panaltyVal = 0;
     public int indexback = 0;
-
     private float nextFallTime;
-    private int scoreVal = 0;
+    public static int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    private int redVal = 0; // 사라진 블럭 개수
-    private int greenVal = 0; // 사라진 블럭 개수
-    private int blueVal = 0;   // 사라진 블럭 개수
-    private int yellowVal = 0; // 사라진 블랙 개수
+    public static int redVal = 0; // 사라진 블럭 개수
+    public static int greenVal = 0; // 사라진 블럭 개수
+    public static int blueVal = 0;   // 사라진 블럭 개수
+    public static int yellowVal = 0; // 사라진 블랙 개수
     public static int blockCount = 0;
     public GameObject[] backs = new GameObject[200];
     public GameObject[] backgrid = new GameObject[40];
     private bool isPaused = true;
+    public int offset1p;
+    [Header("Gauge")]
+    private static GaugeBar gauge;
+    public Slider gaugeBar; // 게이지
+    private int myBlock = 0; // 내 누적블럭
+    public float limitTime; // 제한 시간
+    public float goal; // 타이머 시작 개수
+    private int enemyBlock = 0; // 상대 누적 블럭
+    private int difference; // 누적 블럭 차이
+    public int pivot = 50; // 기준(게이지 중간)
+    public Text textTime;
+    private float timer;
+    public float timerLimit; // 타이머 제한 시간 감소치
+    public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
+    public Image penaltyZone; // 패널티 존
+    
 
+
+      [Header("Skill")]
+    public int redSkillNum; // 적용시킬 블럭 개수
+    public int yellowSkillNum; // 적용시킬 블럭 개수
+    public int blueSkillNum; // 적용시킬 블럭 개수
+   
+    private Color fire = Color.black;
+    private Color ice = Color.gray;
+    public UnityEngine.UI.Image lightening;
+    public float fadeInImage = 0.1f; // 이미지 나타나는 시간
+    public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
+   
+
+
+
+
+
+
+
+
+
+
+
+    private GameObject stage;
     private void Start()
     {
         //gameoverPanel.SetActive(false);
@@ -93,21 +135,22 @@ public class Stage1 : MonoBehaviour
 
         nextFallTime = Time.time + fallCycle; //낙하주기 설정
         //blockArray = new BlockArray(); //블럭 저장할 구조체 선언
-        CreateBackground(); //백그라운드 생성 메소드
+        //CreateBackground(); //백그라운드 생성 메소드
 
         for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
         {
-            var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //보드의 세로줄을 동적으로 생성하는중
+            GameObject col = Instantiate(nodePrefab);
+            col.name = "y_" + (boardHeight - i - 1).ToString();
             col.transform.position = new Vector3(0, halfHeight - i, 0);
             col.transform.parent = boardNode;
         }
 
-       /* for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
-        {
-            var col = new GameObject("back" + (boardHeight - i - 1).ToString());     //background의 세로줄을 동적으로 생성하는중
-            col.transform.position = new Vector3(0, halfHeight - i, 0);
-            col.transform.parent = backgroundNode;
-        }*/
+        /* for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
+         {
+             var col = new GameObject("back" + (boardHeight - i - 1).ToString());     //background의 세로줄을 동적으로 생성하는중
+             col.transform.position = new Vector3(0, halfHeight - i, 0);
+             col.transform.parent = backgroundNode;
+         }*/
 
         /*해야할 일
          1. 테트리스 블록 7백 노드로 불러오기 + 섞기
@@ -126,18 +169,22 @@ public class Stage1 : MonoBehaviour
         create7Bag();
         CreateTetromino();  //테트리미노 생성 메소드 실행
         CreatePreview(); // 미리보기
-        score.text = "Score: " + scoreVal; // 점수 출력
-        PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
-        red.text = redVal.ToString(); //블럭 개수 출력
-        green.text = greenVal.ToString(); // 블럭 개수 출력
-        blue.text = blueVal.ToString(); // 블럭 개수 출력
-        yellow.text = yellowVal.ToString(); // 블럭 개수 출력
+        updateScore(); // 점수 출력
+        //PlayerPrefs.SetInt("score", scoreVal); // 점수 넘겨주기
+
+
+        textTime.gameObject.SetActive(false);
+        gaugeBar.value = gaugeBar.maxValue;
+        StartCoroutine(GaugeTimer());
+        InitializedGaugeBar(limitTime);
 
         Time.timeScale = 0f;
     }
 
+
     void Update()
     {
+        gaugeBar.value = -difference + pivot;
         if (isPaused)
         {
             if (Input.anyKeyDown)
@@ -150,50 +197,111 @@ public class Stage1 : MonoBehaviour
         }
         else
         {
-            Vector3 moveDir = Vector3.zero;
-            bool isRotate = false;
+            if (CheckAgain())
+            {
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                moveDir.x = -1;
+                Vector3 moveDir = Vector3.zero;
+                bool isRotate = false;
 
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                moveDir.x = 1;
-            }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                isRotate = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                moveDir.y = -1;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                while (MoveTetromino(Vector3.down, false))
+                if (Input.GetKeyDown(KeyCode.A))
                 {
+                    moveDir.x = -1;
+
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    moveDir.x = 1;
+                }
+
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    isRotate = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    moveDir.y = -1;
+                }
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    while (MoveTetromino(Vector3.down, false))
+                    {
+                    }
+                }
+
+                // 아래로 떨어지는 경우는 강제로 이동시킵니다.
+                if (Time.time > nextFallTime)
+                {
+                    nextFallTime = Time.time + fallCycle;
+                    moveDir = Vector3.down;
+                    isRotate = false;
+                }
+
+                if (moveDir != Vector3.zero || isRotate)
+                {
+                    MoveTetromino(moveDir, isRotate);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha1) && MultiManager.Instance.redButton1.activeSelf){
+                    MultiManager.Instance.AtkRed1();
+                    updateBlock();
+        
+                    UnityEngine.Debug.Log("Red skill!");
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2) && MultiManager.Instance.blueButton1.activeSelf)
+                {
+                    MultiManager.Instance.AtkBlue1();
+                    UnityEngine.Debug.Log("Blue skill!");
+                    updateBlock();
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha3) && MultiManager.Instance.yellowButton1.activeSelf)
+                {
+                    MultiManager.Instance.AtkYellow1();
+                    UnityEngine.Debug.Log("Yellow skill!");
+                    updateBlock();
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha4) && MultiManager.Instance.greenButton1.activeSelf)
+                {
+                    UnityEngine.Debug.Log("Green skill!");
+                    MultiManager.Instance.Green1();
+                    updateBlock();
+                }
+
+
+
+
+                myBlock = blockCount;
+                enemyBlock = StageMulti.blockCount;
+                difference = enemyBlock - myBlock;
+
+                if (difference >= penaltyBlock) // 타이머 시작
+                {
+
+                    textTime.gameObject.SetActive(true);
+                    penaltyZone.gameObject.SetActive(true);
+                    timer -= Time.deltaTime;
+                    textTime.text = ((int)timer).ToString();
+
+                }
+
+                if (timer <= 0) // 타이머 종료 후 패널티
+                {
+                    StageMulti.blockCount = 0;
+                    blockCount = 0;
+                    textTime.gameObject.SetActive(false);
+                    InitializedGaugeBar(limitTime);
+                    pan();
+                }
+                if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
+                {
+                    textTime.gameObject.SetActive(false);
+                    InitializedGaugeBar(limitTime);
                 }
             }
-
-            // 아래로 떨어지는 경우는 강제로 이동시킵니다.
-            if (Time.time > nextFallTime)
-            {
-                nextFallTime = Time.time + fallCycle;
-                moveDir = Vector3.down;
-                isRotate = false;
-            }
-
-            if (moveDir != Vector3.zero || isRotate)
-            {
-                MoveTetromino(moveDir, isRotate);
-            }
-
+            setGhostBlock();
         }
     }
+
     void CreatePreview()
     {
         // 이미 있는 미리보기 삭제하기
@@ -205,9 +313,9 @@ public class Stage1 : MonoBehaviour
 
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
-        
-        preview.position = new Vector2(halfWidth + 2.5f, halfHeight - 2.5f); // 미리보기 
-        
+
+        preview.position = new Vector2(halfWidth + 3.3f + offset1p, halfHeight - 2.5f); // 미리보기 
+
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
         {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
@@ -218,7 +326,7 @@ public class Stage1 : MonoBehaviour
         {4, 4, 1, 2}, {4, 4, 1, 3}, {4, 4, 2, 1},
         {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
         };
-        
+
         int col1;
         int col2;
         int col3;
@@ -231,7 +339,7 @@ public class Stage1 : MonoBehaviour
         switch (indexVal)
         {
             case 0: // I
-                
+
                 CreateTile(preview, new Vector2(0f, 1f), col1);
                 CreateTile(preview, new Vector2(0f, 0f), col2);
                 CreateTile(preview, new Vector2(0f, -1f), col3);
@@ -239,7 +347,7 @@ public class Stage1 : MonoBehaviour
                 break;
 
             case 1: // J
-                
+
                 CreateTile(preview, new Vector2(-1f, 0.0f), col1);
                 CreateTile(preview, new Vector2(0f, 0.0f), col2);
                 CreateTile(preview, new Vector2(1f, 0.0f), col3);
@@ -247,7 +355,7 @@ public class Stage1 : MonoBehaviour
                 break;
 
             case 2: // L
-                  
+
                 CreateTile(preview, new Vector2(-1f, 0.0f), col1);
                 CreateTile(preview, new Vector2(0f, 0.0f), col2);
                 CreateTile(preview, new Vector2(1f, 0.0f), col3);
@@ -255,7 +363,7 @@ public class Stage1 : MonoBehaviour
                 break;
 
             case 3: // O 
-               
+
                 CreateTile(preview, new Vector2(0f, 0f), col1);
                 CreateTile(preview, new Vector2(1f, 0f), col2);
                 CreateTile(preview, new Vector2(0f, 1f), col3);
@@ -263,7 +371,7 @@ public class Stage1 : MonoBehaviour
                 break;
 
             case 4: //  S
-              
+
                 CreateTile(preview, new Vector2(-1f, -1f), col1);
                 CreateTile(preview, new Vector2(0f, -1f), col2);
                 CreateTile(preview, new Vector2(0f, 0f), col3);
@@ -271,7 +379,7 @@ public class Stage1 : MonoBehaviour
                 break;
 
             case 5: //  T
-            
+
                 CreateTile(preview, new Vector2(-1f, 0f), col1);
                 CreateTile(preview, new Vector2(0f, 0f), col2);
                 CreateTile(preview, new Vector2(1f, 0f), col3);
@@ -279,7 +387,7 @@ public class Stage1 : MonoBehaviour
                 break;
 
             case 6: // Z
-            
+
                 CreateTile(preview, new Vector2(-1f, 1f), col1);
                 CreateTile(preview, new Vector2(0f, 1f), col2);
                 CreateTile(preview, new Vector2(0f, 0f), col3);
@@ -290,7 +398,7 @@ public class Stage1 : MonoBehaviour
 
     public void create7Bag()
     {
-        
+
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
         {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
@@ -306,7 +414,7 @@ public class Stage1 : MonoBehaviour
         int col3;
         int col4;
         //List<Transform> list7Bag = new List<Transform>();
-       
+
         GameObject gameObject0 = new GameObject(); // 새로운 게임 오브젝트 생성
         GameObject gameObject1 = new GameObject();
         GameObject gameObject2 = new GameObject();
@@ -317,33 +425,34 @@ public class Stage1 : MonoBehaviour
 
         Transform node0 = gameObject0.transform;
         node0.transform.name = "node0";
-        node0.transform.position = new Vector2(-20,0);
+        node0.transform.position = new Vector2(-20, 0);
 
         Transform node1 = gameObject1.transform;
         node1.transform.name = "node1";
-        node1.transform.position = new Vector2(-24,0);
+        node1.transform.position = new Vector2(-24, 0);
 
         Transform node2 = gameObject2.transform;
         node2.transform.name = "node2";
-        node2.transform.position = new Vector2(-28,0);
+        node2.transform.position = new Vector2(-28, 0);
 
         Transform node3 = gameObject3.transform;
         node3.transform.name = "node3";
-        node3.transform.position = new Vector2(-32,0);
+        node3.transform.position = new Vector2(-32, 0);
 
         Transform node4 = gameObject4.transform;
         node4.transform.name = "node4";
-        node4.transform.position = new Vector2(-36,0);
+        node4.transform.position = new Vector2(-36, 0);
 
         Transform node5 = gameObject5.transform;
         node5.transform.name = "node5";
-        node5.transform.position = new Vector2(-40,0);
-        
+        node5.transform.position = new Vector2(-40, 0);
+
         Transform node6 = gameObject6.transform;
         node6.transform.name = "node6";
-        node6.transform.position = new Vector2(-44,0);
+        node6.transform.position = new Vector2(-44, 0);
 
-        for( int i = 0 ; i < 7 ; i++){
+        for (int i = 0; i < 7; i++)
+        {
             arrIndexVal = UnityEngine.Random.Range(0, 24);
             col1 = colorArray[arrIndexVal, 0];
             col2 = colorArray[arrIndexVal, 1];
@@ -353,7 +462,7 @@ public class Stage1 : MonoBehaviour
             switch (i)
             {
                 case 0: // I
-                   
+
                     CreateTile(node0, new Vector2(0f, 1f), col1);
                     CreateTile(node0, new Vector2(0f, 0f), col2);
                     CreateTile(node0, new Vector2(0f, -1f), col3);
@@ -361,7 +470,7 @@ public class Stage1 : MonoBehaviour
                     break;
 
                 case 1: // J
-                     
+
                     CreateTile(node1, new Vector2(-1f, 0.0f), col1);
                     CreateTile(node1, new Vector2(0f, 0.0f), col2);
                     CreateTile(node1, new Vector2(1f, 0.0f), col3);
@@ -369,7 +478,7 @@ public class Stage1 : MonoBehaviour
                     break;
 
                 case 2: // L
-                    
+
                     CreateTile(node2, new Vector2(-1f, 0.0f), col1);
                     CreateTile(node2, new Vector2(0f, 0.0f), col2);
                     CreateTile(node2, new Vector2(1f, 0.0f), col3);
@@ -377,7 +486,7 @@ public class Stage1 : MonoBehaviour
                     break;
 
                 case 3: // O 
-                     
+
                     CreateTile(node3, new Vector2(0f, 0f), col1);
                     CreateTile(node3, new Vector2(1f, 0f), col2);
                     CreateTile(node3, new Vector2(0f, 1f), col3);
@@ -385,7 +494,7 @@ public class Stage1 : MonoBehaviour
                     break;
 
                 case 4: //  S
-                    
+
                     CreateTile(node4, new Vector2(-1f, -1f), col1);
                     CreateTile(node4, new Vector2(0f, -1f), col2);
                     CreateTile(node4, new Vector2(0f, 0f), col3);
@@ -393,7 +502,7 @@ public class Stage1 : MonoBehaviour
                     break;
 
                 case 5: //  T
-                   
+
                     CreateTile(node5, new Vector2(-1f, 0f), col1);
                     CreateTile(node5, new Vector2(0f, 0f), col2);
                     CreateTile(node5, new Vector2(1f, 0f), col3);
@@ -401,7 +510,7 @@ public class Stage1 : MonoBehaviour
                     break;
 
                 case 6: // Z
-                  
+
                     CreateTile(node6, new Vector2(-1f, 1f), col1);
                     CreateTile(node6, new Vector2(0f, 1f), col2);
                     CreateTile(node6, new Vector2(0f, 0f), col3);
@@ -443,15 +552,23 @@ public class Stage1 : MonoBehaviour
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
                 AddToBoard(tetrominoNode);
+                for (int i = 0; i < ghostNode.childCount; i++)
+                {
+                    Transform child = ghostNode.GetChild(i);
+                    Destroy(child.gameObject);
+                }
+                CheckTileGroups();
                 CheckBoardColumn();
                 CreateTetromino();
                 CreatePreview();
-                CheckTileGroups();
+
 
                 if (!CanMoveTo(tetrominoNode))
                 {
                     //gameoverPanel.SetActive(true);
+                    lose = true;
                     SceneManager.LoadScene("MultiGameOver");
+
                 }
             }
 
@@ -470,13 +587,13 @@ public class Stage1 : MonoBehaviour
             return;
         }
         int randomKey = UnityEngine.Random.Range(100000, 999999); // 100000부터 999999까지의 랜덤한 값
-        string keyTime = randomKey.ToString(); 
+        string keyTime = randomKey.ToString();
         //UnityEngine.Debug.Log(keyTime);
         while (root.childCount > 0)
         {
             var node = root.GetChild(0);
 
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth + offset1p);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
             node.parent = boardNode.Find("y_" + y.ToString());
@@ -489,10 +606,10 @@ public class Stage1 : MonoBehaviour
                 Color tileColor = tileComponent.color;
 
                 string sendcolor = tileColor.ToString();    //Color32ToRGBString(tileColor);
-                //UnityEngine.Debug.Log(sendcolor);
-                // insertBlock 메서드에 x, y 위치와 색상 정보를 전달
-                UnityEngine.Debug.Log("x: "+x+", y: "+ y+", key: " + keyTime);
-                blockPos.insertBlock(x, y, sendcolor,keyTime);
+                //UnityEngine.Debug.Log(randomKey);
+            
+               
+                rememberTile(node, keyTime);
             }
             //blockPos.insertBlock(x , y, )
             //node.tag = keyTime; <<< 못써먹음2
@@ -521,7 +638,7 @@ public class Stage1 : MonoBehaviour
     // 보드에 완성된 행이 있으면 삭제
     void CheckBoardColumn()
     {
-        bool isCleared = false;
+        List<List<Transform>> tilesFall = new List<List<Transform>>();
 
         foreach (Transform column in boardNode)
         {
@@ -530,156 +647,97 @@ public class Stage1 : MonoBehaviour
             {
                 foreach (Transform tile in column)
                 {
-                    if (SceneManager.GetActiveScene().name != "MultiScene")
+
+                    Tile currentTile = tile.GetComponent<Tile>();
+
+                    if (currentTile.isIced) // 얼었을 때
                     {
-                        Destroy(tile.gameObject);
+                        currentTile.isIced = false; // 풀기
+                        currentTile.color = currentTile.preColor;
+                        UnityEngine.Debug.Log("얼었다");
                     }
                     else
                     {
-                        Tile currentTile = tile.GetComponent<Tile>();
 
-                        if (currentTile.isIced) // 얼었을 때
-                        {
-                            currentTile.isIced = false; // 풀기
-                            currentTile.color = Color.gray;
-                        }
-                        else
-                        {
-                            tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
-                        }
+                        tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
+                        UnityEngine.Debug.Log("안얼었다");
                     }
                 }
-                if (SceneManager.GetActiveScene().name == "MultiScene")
+                foreach (var tile in tilesToRemove)
                 {
-                    foreach (var tile in tilesToRemove)
+                    if (tile.color == Color.red)
                     {
-                        if (tile.color == Color.red)
-                        {
-                            redVal++;
-                        }
-                        else if (tile.color == Color.blue)
-                        {
-                            blueVal++;
-                        }
-                        else if (tile.color == Color.green)
-                        {
-                            greenVal++;
-                        }
-                        else if (tile.color == Color.yellow)
-                        {
-                            yellowVal++;
-                        }
-                        updateBlock(); // 개수 업데이트
-                        Destroy(tile);
+                        redVal++;
                     }
+                    else if (tile.color == Color.blue)
+                    {
+                        blueVal++;
+                    }
+                    else if (tile.color == Color.green)
+                    {
+                        greenVal++;
+                        UnityEngine.Debug.Log("countGreen");
+                    }
+                    else if (tile.color == Color.yellow)
+                    {
+                        yellowVal++;
+                    }
+                    updateBlock(); // 개수 업데이트
+                    
+                    List<Transform> fallList2 = GetEx(tile.transform);
+                    tilesFall.Add(fallList2);
+           
+
+                    Destroy(tile.gameObject);
                 }
-                column.DetachChildren();
-                isCleared = true;
+               
+       
                 scoreVal += 10 * lineWeight;
-                score.text = "Score: " + scoreVal;
-                PlayerPrefs.SetInt("score", scoreVal);
+                updateScore();
+                //PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
         }
 
+        foreach (List<Transform> fall2 in tilesFall)
+        {
+            foreach (Transform tt in fall2)
+            {
+                if (tt != null)
+                {
+                    Tile tile = tt.GetComponent<Tile>();
+                    if (tile != null)
+                    {
+                        tile.fallReady();
+                        //UnityEngine.Debug.Log("낙하에 추가함");
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.Log("문제있음");
+                    }
+                }
+            }
 
+        }
 
 
         // 비어 있는 행이 존재하면 아래로 당기기
-        if (isCleared)
-        {
-            for (int i = 1; i < boardNode.childCount; ++i)
-            {
-                var column = boardNode.Find("y_" + i.ToString());
 
-                // 이미 비어 있는 행은 무시
-                if (column.childCount == 0)
-                    continue;
-
-                int emptyCol = 0;
-                int j = i - 1;
-                while (j >= 0)
-                {
-                    if (boardNode.Find("y_" + j.ToString()).childCount == 0)
-                    {
-                        emptyCol++;
-                    }
-                    j--;
-                }
-
-                if (emptyCol > 0)
-                {
-                    var targetColumn = boardNode.Find("y_" + (i - emptyCol).ToString());
-
-                    while (column.childCount > 0)
-                    {
-                        Transform tile = column.GetChild(0);
-                        tile.parent = targetColumn;
-                        tile.transform.position += new Vector3(0, -emptyCol, 0);
-                    }
-                    column.DetachChildren();
-                }
-            }
-        }
     }
 
 
 
-    void gravity(int startX, int startY)
-    {
-        for (int y = startY; y >= 0; y--) // 아래쪽부터 시작하여 위로 이동
-        {
-            var rowNode = GameObject.Find("y_" + y.ToString());
-            var nextRowNode = GameObject.Find("y_" + (y - 1).ToString());
-
-            if (rowNode != null && nextRowNode != null)
-            {
-                for (int x = 0; x < boardWidth; x++)
-                {
-                    var block = rowNode.transform.Find("x_" + x.ToString());
-                    if (block != null)
-                    {
-                        // 현재 행의 다음(아래) 행에서 같은 열에 블록이 있는지 검사
-                        var nextBlock = nextRowNode.transform.Find("x_" + x.ToString());
-                        if (nextBlock == null)
-                        {
-                            // 블록이 없으면 아래로 이동
-                            block.SetParent(nextRowNode.transform);
-                            block.localPosition -= new Vector3(0, 1, 0); // 아래로 이동
-                                                                         // 이동된 위치에 다른 블록이 있는지 확인
-                            for (int i = y - 1; i >= 0; i--)
-                            {
-                                var tempRowNode = GameObject.Find("y_" + i.ToString());
-                                var tempBlock = tempRowNode.transform.Find("x_" + x.ToString());
-                                if (tempBlock != null)
-                                {
-                                    break; // 다음 블록을 확인하기 위해 반복문 탈출
-                                }
-                                else
-                                {
-                                    // 다음 블록이 없으면 계속해서 이동
-                                    block.SetParent(tempRowNode.transform);
-                                    block.localPosition -= new Vector3(0, 1, 0); // 아래로 이동
-                                    y = i; // y값 갱신
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
+ 
     // 이동 가능한지 체크
     bool CanMoveTo(Transform root)
     {
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
+            int x = Mathf.RoundToInt(node.transform.position.x + halfWidth + offset1p);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            if (x < 0 || x > boardWidth - 1) // x좌표가 보드 이내
+            if (x < 0 + 2 * offset1p || x > boardWidth - 1 + 2 * offset1p) // x좌표가 보드 이내
                 return false;
 
             if (y < 0) //y가 음수
@@ -705,7 +763,7 @@ public class Stage1 : MonoBehaviour
         //여기서 var go 를 기억해둬야 사용가능함
 
         GameObject go;
-        
+
         switch (color)
         {
             case 1:
@@ -715,8 +773,9 @@ public class Stage1 : MonoBehaviour
                 var tiler = go.GetComponent<Tile>();
                 tiler.sortingOrder = order;
                 tiler.setRed();
+                //tiler.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiler;
-          
+
             case 2:
                 go = Instantiate(tileGreen);
                 go.transform.parent = parent;
@@ -724,8 +783,9 @@ public class Stage1 : MonoBehaviour
                 var tileg = go.GetComponent<Tile>();
                 tileg.sortingOrder = order;
                 tileg.setGreen();
+                //tileg.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileg;
-              
+
             case 3:
                 go = Instantiate(tileBlue);
                 go.transform.parent = parent;
@@ -733,8 +793,9 @@ public class Stage1 : MonoBehaviour
                 var tileb = go.GetComponent<Tile>();
                 tileb.sortingOrder = order;
                 tileb.setBlue();
+                //tileb.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tileb;
-              
+
             case 4:
                 go = Instantiate(tileYellow);
                 go.transform.parent = parent;
@@ -742,30 +803,41 @@ public class Stage1 : MonoBehaviour
                 var tiley = go.GetComponent<Tile>();
                 tiley.sortingOrder = order;
                 tiley.setYellow();
+                //tiley.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tiley;
-         
+            case 0:
+                go = Instantiate(tilePrefab);
+                go.transform.parent = parent;
+                go.transform.localPosition = position;
+                var tileGhost = go.GetComponent<Tile>();
+                tileGhost.sortingOrder = order;
+                tileGhost.color = new Color(186f / 255f, 186f / 255f, 186f / 255f, 186f / 255f);
+
+                return tileGhost;
             default:
                 go = Instantiate(tilePrefab);
                 go.transform.parent = parent;
                 go.transform.localPosition = position;
                 var tile = go.GetComponent<Tile>();
                 tile.sortingOrder = order;
+                //tile.transform.localScale = new Vector3(scale1, scale2, 0);
                 return tile;
-             
+
         }
 
 
 
-        
-       // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
-        
-    }
 
+        // tile.transform.name = "tile" + position.x.ToString() + "_" + position.y.ToString();
+
+    }
+    public float scale1;
+    public float scale2;
 
 
     Tile Createback(Transform parent, Vector2 position, Color color, int order = 1)
     {
-    var go = Instantiate(tilePrefab);
+        var go = Instantiate(tilePrefab);
         int convertY = (int)position.y + 9;
         string parentName = "back" + convertY.ToString();
 
@@ -794,8 +866,8 @@ public class Stage1 : MonoBehaviour
         {
             for (int y = halfHeight; y > -halfHeight; --y)
             {
-                Createback(backgroundNode, new Vector2(x, y), color, 0);//
-                
+                Createback(backgroundNode, new Vector2(x + offset1p, y), color, 0);//
+
 
 
             }
@@ -805,14 +877,14 @@ public class Stage1 : MonoBehaviour
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
-            Createback(backgroundNode, new Vector2(-halfWidth - 1, y), color, 0);
-            Createback(backgroundNode, new Vector2(halfWidth, y), color, 0);
+            Createback(backgroundNode, new Vector2(-halfWidth - 1 + offset1p, y), color, 0);
+            Createback(backgroundNode, new Vector2(halfWidth + offset1p, y), color, 0);
         }
 
         // 아래 테두리
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
-            Createback(backgroundNode, new Vector2(x, -halfHeight), color, 0);
+            Createback(backgroundNode, new Vector2(x + offset1p, -halfHeight), color, 0);
         }
     }
 
@@ -826,7 +898,7 @@ public class Stage1 : MonoBehaviour
         }
         else index = indexVal;
         int arrIndex;
-        if(arrIndexVal == -1)
+        if (arrIndexVal == -1)
         {
             arrIndex = UnityEngine.Random.Range(0, 24);
         }
@@ -843,7 +915,7 @@ public class Stage1 : MonoBehaviour
         {4, 4, 2, 3}, {4, 4, 3, 1}, {4, 4, 3, 2}
         };
 
-        
+
         int col1;
         int col2;
         int col3;
@@ -854,83 +926,118 @@ public class Stage1 : MonoBehaviour
         col4 = colorArray[arrIndex, 3];
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(0, halfHeight - panalty);
+        tetrominoNode.position = new Vector2(0 + offset1p, halfHeight - panalty);
 
         switch (index)
         {
             // I 
             case 0:
-         
+
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col3);
                 CreateTile(tetrominoNode, new Vector2(0f, -2f), col4);
+
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, -1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, -2f), 0);
                 break;
 
             // J 
             case 1:
-          
+
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
                 CreateTile(tetrominoNode, new Vector2(-1f, 1.0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(-1f, 1.0f), 0);
                 break;
 
             // L 
             case 2:
-             
+
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 1.0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0.0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 1.0f), 0);
                 break;
 
             // O 
             case 3:
-            
+
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col1);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 1f), col4);
+
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 1f), 0);
                 break;
 
             // S 
             case 4:
-               
+
                 CreateTile(tetrominoNode, new Vector2(-1f, -1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, -1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, -1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
                 break;
 
             // T 
             case 5:
-              
+
                 CreateTile(tetrominoNode, new Vector2(-1f, 0f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col2);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col3);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
                 break;
 
             // Z 
             case 6:
-               
+
                 CreateTile(tetrominoNode, new Vector2(-1f, 1f), col1);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), col2);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), col3);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), col4);
+
+                CreateTile(ghostNode, new Vector2(-1f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 1f), 0);
+                CreateTile(ghostNode, new Vector2(0f, 0f), 0);
+                CreateTile(ghostNode, new Vector2(1f, 0f), 0);
                 break;
         }
     }
 
-   
+
 
 
 
 
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
-        List<List<(int, int)>> allFall = new List<List<(int, int)>>();
+        List<List<Transform>> tilesFall = new List<List<Transform>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
         {
@@ -940,67 +1047,109 @@ public class Stage1 : MonoBehaviour
 
             foreach (Vector2Int blockPosition in continuousBlocks)
             {
-                GameObject rowObject = GameObject.Find("y_" + blockPosition.y.ToString());
+                Transform rowObject = boardNode.Find("y_" + blockPosition.y.ToString());
                 int xgrav = blockPosition.x;
                 string blockName = "x_" + blockPosition.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
+                if (blockTransform == null)
+                {
+                    //UnityEngine.Debug.Log("null");
+
+                }
                 //UnityEngine.Debug.Log(blockPosition.x.ToString());
                 if (blockTransform != null && blockPosition.x < 10)
                 {
+                    Tile tile = blockTransform.GetComponent<Tile>();
                     int ygrav = y;
                     // 게임 오브젝트를 찾았으므로 삭제합니다.
-                    Destroy(blockTransform.gameObject);
-                    UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
-                    List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
-                    allFall.Add(fallList);
+                    if (!tile.isIced)
+                    { // 안 얼었을 때
 
-                    
+                        if (tile.getColor() == "Red")
+                        {
+                            redVal++;
+                        }
+                        else if (tile.getColor() == "Blue")
+                        {
+                            blueVal++;
+                        }
+                        else if (tile.getColor() == "Green")
+                        {
+                            greenVal++;
+                        }
+                        else if (tile.getColor() == "Yellow")
+                        {
+                            yellowVal++;
+                        }
+
+                        List<Transform> fallList2 = GetEx(blockTransform);
+                        tilesFall.Add(fallList2);
+
+
+                        Destroy(blockTransform.gameObject);
+                        updateBlock();
+                       // UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
+                       
+                    }
+                    else
+                    {
+                        tile.isIced = false;
+                    }
+
 
                     scoreVal += colorWeight;
+                    UnityEngine.Debug.Log(scoreVal.ToString());
                     blockCount++;
-                    score.text = "Score: " + scoreVal;
-                    PlayerPrefs.SetInt("score", scoreVal);
+                    updateScore();
+                    //PlayerPrefs.SetInt("score", scoreVal);
 
                 }
                 else
                 {
                     // 게임 오브젝트를 찾지 못했음을 알립니다.
-                    UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
+                    //UnityEngine.Debug.LogWarning("게임 오브젝트를 찾을 수 없습니다: " + blockName);
                 }
+
             }
 
 
         }
 
-
-        List<(int, int)> allTuples = new List<(int, int)>(); //y 축이 낮은거부터 낙하할수 있게 정렬했음,
-        foreach (List<(int, int)> fall in allFall)
+        List<Transform> allF = new List<Transform>();
+        foreach (List<Transform> fall2 in tilesFall)
         {
-            allTuples.AddRange(fall);
-        }
-        allTuples.Sort((t1, t2) => t1.Item2.CompareTo(t2.Item2));
+            foreach (Transform tt in fall2)
+            {
+                if (tt != null)
+                {
+                    Tile tile = tt.GetComponent<Tile>();
+                    if (tile != null)
+                    {
+                        tile.fallReady();
+                        //UnityEngine.Debug.Log("낙하에 추가함");
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.Log("문제있음");
+                    }
+                }
+            }
 
-        foreach ((int xx, int yy) in allTuples)
-        {
-            gravity(xx, yy);
-            //이미 한번 낙하한 블럭들은 이후로도 계속 낙하해야함, prefab의 인수에 isitFall - bool값 구현해놓고, 낮은곳부터 전면순회해서 isitfall 있는애들 먼저 낙하시킨다음,
-            // list에 있는(블럭형태를 잃은, 애들 낙하 + 프리펩의 낙하여부 설정해주기
         }
-
-        
+        tilesFall.Clear();
 
     }
-   
-    
+
     List<Vector2Int> FindContinuousBlocksInRow(int row)
     {
         List<Vector2Int> continuousBlocks = new List<Vector2Int>(); //연속된 블록 그 자체를 저장하는 리스트
 
-        // 첫 번째 블록의 색상을 가져옵니다.
-        
-        
-        string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
 
+        // 첫 번째 블록의 색상을 가져옵니다.
+
+        //UnityEngine.Debug.Log("첫 블록 색상");
+        string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
+       // UnityEngine.Debug.Log(previousColor);
         int currentStart = 0; // 지금의 시작 좌표
 
         continuousBlocks.Add(new Vector2Int(currentStart, row));
@@ -1008,10 +1157,18 @@ public class Stage1 : MonoBehaviour
         // 좌측부터 모든 블록을 확인하며 연속된 블록 그룹을 찾습니다.
         for (int x = 1; x < 11; x++)
         {
-            
+
             // 현재 블록의 색상을 가져옵니다.
             string currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
-  
+            //UnityEngine.Debug.Log(row + "열 색상" + currentColor);
+
+            /*
+            List<Vector2Int> buf = onlyUp(x, row + 1, previousColor);
+            List<Vector2Int> merg = new List<Vector2Int>();
+            merg.AddRange(continuousBlocks);
+            merg.AddRange(buf);
+            continuousBlocks = merg;
+            */
 
             continuousBlocks = upStair(row, continuousBlocks);
 
@@ -1020,13 +1177,17 @@ public class Stage1 : MonoBehaviour
             {
                 // 이전 블록과 현재 블록의 색상이 같으면 연속된 블록 그룹입니다.
                 //currentGroupColors.Add(currentColor);
+
+                //UnityEngine.Debug.Log(previousColor + " =  = " + currentColor);
                 continuousBlocks.Add(new Vector2Int(x, row));
-                UnityEngine.Debug.Log("연속임! \n");
+               // UnityEngine.Debug.Log("연속임! \n");
             }
             else
             {
+
                 // 이전 블록과 현재 블록의 색상이 다르면 연속된 블록 그룹이 끝났습니다.
                 // 현재 연속된 블록 그룹의 가중치를 확인하고, 4 이상인 경우에만 리스트에 추가합니다.
+                //UnityEngine.Debug.Log(previousColor + " = / = " + currentColor);
                 if (continuousBlocks.Count >= 4)
                 {
                     for (int i = x - continuousBlocks.Count; i < x; i++)
@@ -1047,26 +1208,27 @@ public class Stage1 : MonoBehaviour
 
 
         }
-
+        //UnityEngine.Debug.Log("연속계산중..");
         return continuousBlocks;
-    } 
+    }
 
-    List<Vector2Int> upStair(int row,List<Vector2Int> downStair)
+    List<Vector2Int> upStair(int row, List<Vector2Int> downStair)
     {
-        Vector2Int remember = new Vector2Int(-100,-100);
+        Vector2Int remember = new Vector2Int(-100, -100);
 
         string previousColor = GetTileColorAtPosition(downStair[0]);
-        foreach (var block in downStair) {
+        foreach (var block in downStair)
+        {
             string currentColor = GetTileColorAtPosition(new Vector2Int(block.x, row + 1));
             if (currentColor.Equals(previousColor) && currentColor != "null" && !downStair.Contains(new Vector2Int(block.x, row + 1)))
             {
-                remember = new Vector2Int(block.x, row+1);
+                remember = new Vector2Int(block.x, row + 1);
                 downStair.Add(remember);
                 break;
             }
         }
 
-        
+
         if (remember.x != -100)
         {
             int middle = remember.x;
@@ -1075,7 +1237,7 @@ public class Stage1 : MonoBehaviour
             string left;
             do
             {
-               
+
                 left = GetTileColorAtPosition(new Vector2Int(remember.x - 1 * n, row + 1));
                 if (left.Equals(previousColor))
                 {
@@ -1086,7 +1248,7 @@ public class Stage1 : MonoBehaviour
             n = 1;
             do
             {
-                
+
                 right = GetTileColorAtPosition(new Vector2Int(remember.x + 1 * n, row + 1));
                 if (right.Equals(previousColor))
                 {
@@ -1100,50 +1262,22 @@ public class Stage1 : MonoBehaviour
         }
 
         return downStair;
-    } 
-
-
-
-    //연속에 대한 가중치에 수직을 추가하기 위함
-    void vertWeight(int x, int y, Color32 col, List<Vector2Int> contBlocks, List<Color32> colorGroup)
-    {
-        int yy = y + 1;
-        GameObject rowObject = GameObject.Find("y_" + yy.ToString());
-        if (rowObject != null)
-        {
-            string block = "x_" + x.ToString();
-            Transform blockUp = rowObject.transform.Find(block);
-            if (blockUp != null)
-            {
-                // 블록을 찾았습니다
-                SpriteRenderer spriteRenderer = blockUp.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    Color32 col2 = spriteRenderer.color;
-                    if (col2.Equals(col) && col2 != Color.clear)
-                    {
-                        // 같은 색상의 블록을 찾았으므로 continuousBlocks와 colorGroup 리스트에 정보를 추가합니다.
-                        contBlocks.Add(new Vector2Int(x, yy));
-                        colorGroup.Add(col2);
-
-                        // 재귀 호출을 통해 위쪽 방향의 블록을 탐색합니다.
-                        vertWeight(x, yy, col, contBlocks, colorGroup);
-                    }
-                }
-            }
-        }
     }
+
+
 
 
 
     string GetTileColorAtPosition(Vector2Int position)
     {
+
         // 유효한 위치인지 확인합니다.
         if (position.x >= 0 && position.x < boardWidth &&
             position.y >= 0 && position.y < boardHeight)
         {
             // 해당 행의 게임 오브젝트를 가져옵니다.
-            GameObject rowObject = GameObject.Find("y_" + position.y.ToString());
+            Transform rowObject = boardNode.transform.Find("y_" + position.y.ToString());
+
 
             // 해당 행에 있는 모든 블럭을 가져옵니다.
 
@@ -1151,28 +1285,27 @@ public class Stage1 : MonoBehaviour
             {
                 // 행 오브젝트가 발견되면 해당 행의 자식 오브젝트 중에서 x 좌표와 같은 이름을 가진 블록을 찾습니다.
                 string blockName = "x_" + position.x.ToString();
-                Transform blockTransform = rowObject.transform.Find(blockName);
+                var blockTransform = rowObject.transform.Find(blockName);
 
                 if (blockTransform != null)
                 {
-                    // 블록을 찾았습니다
+                   // UnityEngine.Debug.Log("블록을 찾았습니다, x_" + position.x.ToString());
                     Tile tile = blockTransform.GetComponent<Tile>();
                     string coll = tile.getColor();
-                    
 
                     return coll;
                 }
                 else
                 {
+                    //UnityEngine.Debug.Log("해당 x 좌표를 가진 블록이 없습니다.");
                     // 해당 x 좌표를 가진 블록이 없습니다.
                 }
             }
             else
             {
+              //  UnityEngine.Debug.Log("해당 y 좌표를 가진 행이 없습니다.");
                 // 해당 y 좌표를 가진 행이 없습니다.
             }
-
-
 
         }
 
@@ -1181,27 +1314,336 @@ public class Stage1 : MonoBehaviour
         return a;
     }
 
-    public void doPanalty(){ // 패널티부여 + 줄 줄어듦
+    public void doPanalty()
+    { // 패널티부여 + 줄 줄어듦
         int buff = 19 - panalty;
-        for(int i = 0; i < 12; i++){
-            GameObject backRow = GameObject.Find("back" + buff.ToString());
-           // backRow.transform.position = new Vector3Int(-50, 0,0);
-            backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
-            Destroy(backRow);
-        }
-         panalty++;
-        
+        //for (int i = 0; i < 12; i++)
+       // {
+            //ransform backRow = backgroundNode.transform.Find("back" + buff.ToString());
+            // backRow.transform.position = new Vector3Int(-50, 0,0);
+            //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
+           // Destroy(backRow);
+        //}
+        UnityEngine.Debug.Log("1P패널티");
+        panalty++;
+        panaltyVal++;
+
     }
     public int maxBlock;
     public void updateBlock()
     {
-        red.text = $"{redVal}/{maxBlock}"; //블럭 개수 출력
-        green.text = $"{greenVal}/{maxBlock}"; // 블럭 개수 출력
-        blue.text = $"{blueVal}/{maxBlock}"; // 블럭 개수 출력
-        yellow.text = $"{yellowVal}/{maxBlock}"; // 블럭 개수 출력
+        red.text = $"{redVal}"; //블럭 개수 출력
+        green.text = $"{greenVal}"; // 블럭 개수 출력
+        blue.text = $"{blueVal}"; // 블럭 개수 출력
+        yellow.text = $"{yellowVal}"; // 블럭 개수 출력
     }
-}
+    public void updateScore()
+    {
+        score.text = $"{scoreVal}";
+    }
+    //1p 게이지
+    IEnumerator GaugeTimer() // 30초마다 게이지 타이머 제한 시간 2초씩 감소
+    {
 
+        while (true)
+        {
+            yield return new WaitForSeconds(30f);
+            limitTime -= timerLimit;
+            gaugeBar.maxValue -= timerLimit;
+        }
+    }
+    void InitializedGaugeBar(float time)
+    {
+        this.timer = time;
+    }
+    void pan()
+    {
+        stage = GameObject.Find("Stage1");
+        //stage.GetComponent<Stage>().doPanalty();
+    }
+
+    bool DownGhostBlock(Vector3 moveDir, bool isRotate)
+    {
+        Vector3 oldPos = ghostNode.transform.position;
+        Quaternion oldRot = ghostNode.transform.rotation;
+
+        ghostNode.transform.position += moveDir;
+
+        if (isRotate)
+        {
+            ghostNode.transform.rotation *= Quaternion.Euler(0, 0, 90);
+        }
+        if (!CanMoveTo(ghostNode))
+        {
+            ghostNode.transform.position = oldPos;
+            ghostNode.transform.rotation = oldRot;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private void setGhostBlock()
+    {
+        ghostNode.position = tetrominoNode.position;
+        ghostNode.rotation = tetrominoNode.rotation;
+        while (DownGhostBlock(Vector3.down, false))
+        {
+
+        }
+
+    }
+
+
+
+
+
+
+    private Dictionary<string, List<Transform>> addedTiles = new Dictionary<string, List<Transform>>();
+
+    public void rememberTile(Transform tile, string key)
+    {
+        List<Transform> tetroList;
+        if (addedTiles.TryGetValue(key, out tetroList))
+        {
+            tetroList.Add(tile);
+            //UnityEngine.Debug.Log("나중걸로추가아");
+        }
+        else
+        {
+            addedTiles[key] = new List<Transform>() { tile };
+            // UnityEngine.Debug.Log("새롭게추가");
+        }
+    }
+
+    public List<Transform> GetEx(Transform tile)
+    {
+        List<Transform> result = new List<Transform>();
+        string keyToRemove = null;
+        // key에 해당하는 리스트가 있는지 확인
+        foreach (var entry in addedTiles)
+        {
+            var blockList = entry.Value;
+
+            // 현재 key에 대한 value에서 입력한 (x, y) 값을 제외하고 나머지 값을 결과에 추가
+            foreach (Transform t in blockList)
+            {
+                if (t.gameObject == tile.gameObject)
+                {
+                    keyToRemove = entry.Key; // 투입한 값과 동일한 (x, y)를 가진 key를 저장
+                     UnityEngine.Debug.Log("오브젝트");
+                }
+                else
+                {
+                    result.Add(t); // (x, y)와 다른 값은 결과에 추가
+                }
+            }
+        }
+
+        if (keyToRemove != null)
+        {
+            addedTiles.Remove(keyToRemove);
+
+        }
+        else
+        {
+            UnityEngine.Debug.Log("이미 찾아서 존재하지않음");
+        }
+
+        return result;
+
+    }
+
+    public bool CheckAgain()
+    {
+        bool check = false;
+        foreach (Transform column in boardNode)
+        {
+            if (column.childCount == boardWidth)
+            {
+
+                UnityEngine.Debug.Log("남은열삭제");
+                CheckBoardColumn();
+                check = true;
+                break;
+            }
+        }
+
+        for (int y = 0; y < 20; y++)
+        {
+            List<Vector2Int> cont = FindContinuousBlocksInRow(y);
+            if (cont.Count >= 1)
+            {
+                //UnityEngine.Debug.Log("남은연속 삭제!!!");
+
+                CheckTileGroups();
+                check = true;
+                break;
+
+            }
+        }
+        return check;
+    }
+
+
+
+
+    public void redSkill(int num) // 빨강이
+    {
+        
+        UnityEngine.Debug.Log("빨강스킬");
+        List<Tile> tiles = randomTile(num);
+       
+        foreach (Tile tile in tiles)
+        {
+            if (!tile.isred())
+            {
+                
+                tile.isFired = true;
+                tile.color = fire;
+            }else{
+                    redSkill(1);// 랜덤 걸릴시 재사용
+            }
+        }
+        
+    }
+     public void yellowSkill(int num) // 노랑이
+    {
+        UnityEngine.Debug.Log("노랑스킬");
+        StartCoroutine(yellowSkillActive());
+        yellowDel(num);
+    }
+    public GameObject image;
+    
+
+    public void yellowDel(int value)
+    {
+        int count = 0;
+        List<Tile> tiles = randomTile(value);
+        foreach (Tile tile in tiles)
+        {
+            if (tile != null && (tile.color != Color.white || tile.color != Color.gray))
+            {
+                Destroy(tile.gameObject);
+            }
+            else if (tile.color != Color.white || tile.color != Color.gray)
+            {
+                count++;
+            }
+        }
+        if (count > 0)
+        {
+            yellowDel(value - count);
+        }
+
+    }
+
+
+    IEnumerator yellowSkillActive()
+    {
+        
+        image.SetActive(true);
+        float timer = 0;
+        while (timer <= fadeInImage) // fade in
+        {
+            float alpha = Mathf.Lerp(0, 1, timer / fadeInImage);
+            lightening.color = new Color(1, 1, 1, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        lightening.color = Color.white;
+        
+        
+            
+
+        timer = 0;
+        while (timer <= fadeOutImage) // fade out
+        {
+            float alpha = Mathf.Lerp(1, 0, timer / fadeOutImage);
+            lightening.color = new Color(1, 1, 1, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        lightening.color = new Color(1, 1, 1, 0); // 화면 사라짐
+
+    }
+
+    public void blueSkill(int num) // 파랑이
+    {
+        UnityEngine.Debug.Log("파랑스킬");
+        int i = 0;
+        
+        while (i < num)
+        {
+            List<Tile> tiles = randomTile(num-i);
+            foreach (Tile tile in tiles)
+            {
+                if (!tile.isIced)
+                {
+                    tile.isIced = true;
+                    tile.color = ice;
+                    i++;
+                }
+            }
+        }
+    }
+
+     public List<Tile> randomTile(int maxCount = 5)
+    {
+        List<Tile> selectedTiles = new List<Tile>();
+        List<int> availableYIndices = new List<int>();
+
+        // 각 y 노드에 대해 자식이 있는지 확인하고, 인덱스를 리스트에 추가
+        for (int y = 0; y < 19; y++)
+        {
+            var ynode = boardNode.Find("y_" + y.ToString());
+            if (ynode != null && ynode.childCount > 0)
+            {
+                availableYIndices.Add(y);
+            }
+        }
+
+        // 사용 가능한 y 노드가 없으면 빈 리스트 반환
+        if (availableYIndices.Count == 0)
+        {
+            return selectedTiles;
+        }
+
+        // 무작위로 5개의 y 인덱스 선택 (중복 없음)
+        List<int> randomYIndices = new List<int>();
+        while (randomYIndices.Count < maxCount && randomYIndices.Count < availableYIndices.Count)
+        {
+            int randomYIndex = availableYIndices[UnityEngine.Random.Range(0, availableYIndices.Count)];
+            if (!randomYIndices.Contains(randomYIndex))
+            {
+                randomYIndices.Add(randomYIndex);
+            }
+        }
+
+        // 선택된 각 y 노드에서 무작위로 x 노드 선택하여 타일 리스트에 추가
+       
+        foreach (int yIndex in randomYIndices)
+        {
+            var ynode = boardNode.Find("y_" + yIndex.ToString());
+            if (ynode != null)
+            {
+                int randomXIndex = UnityEngine.Random.Range(0, ynode.childCount);
+                var xnode = ynode.GetChild(randomXIndex);
+                Tile tile = xnode.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    selectedTiles.Add(tile);
+                }
+            }
+        }
+
+        return selectedTiles;
+    }
+
+
+}
 
 
 
