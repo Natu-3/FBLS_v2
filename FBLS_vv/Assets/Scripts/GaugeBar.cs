@@ -21,6 +21,11 @@ public class GaugeBar : MonoBehaviour
     public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
     public Image penaltyZone; // 패널티 존
     private GameObject stage;
+
+    public GameObject player1;
+    public GameObject player2;
+
+
     void InitializedGaugeBar(float time)
     {
         this.timer = time;
@@ -42,10 +47,20 @@ public class GaugeBar : MonoBehaviour
         StartCoroutine(GaugeTimer());
         InitializedGaugeBar(limitTime);
     }
-
     void pan(){
-        stage = GameObject.Find("Stage");
-        stage.GetComponent<Stage>().doPanalty();
+        
+        var pansolo = player1.GetComponent<Stage>();
+        pansolo.doPanalty();
+    }
+    void panto1(){
+        
+        var panaltys = player1.GetComponent<Stage1>();
+        panaltys.doPanalty();
+    }
+    void panto2(){
+        
+        var panaltys = player2.GetComponent<StageMulti>();
+        panaltys.doPanalty();
     }
     void Update()
     {
@@ -56,14 +71,13 @@ public class GaugeBar : MonoBehaviour
 
             //2p기준
             myBlock = StageMulti.blockCount;
-            enemyBlock = Stage.blockCount;
+            enemyBlock = Stage1.blockCount;
             difference = enemyBlock - myBlock;
             gaugeBar.value = -difference + pivot;
-
             if (difference >= penaltyBlock) // 타이머 시작
             {
+                
                 textTime.gameObject.SetActive(true);
-                penaltyZone.color = Color.green;
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
@@ -73,14 +87,13 @@ public class GaugeBar : MonoBehaviour
             if (timer <= 0) // 타이머 종료 후 패널티
             {
                 StageMulti.blockCount = 0;
-                enemyBlock = 0;
+                Stage1.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
-                pan();
+                panto2();
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
-                penaltyZone.color = Color.blue;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
             }
@@ -92,7 +105,7 @@ public class GaugeBar : MonoBehaviour
             myBlock = Stage.blockCount;
             gaugeBar.value -= Time.deltaTime;
             timer -= Time.deltaTime;
-            textTime.text = ((int)timer).ToString();
+            //textTime.text = ((int)timer).ToString();
 
             if (gaugeBar.value < gaugeBar.maxValue)
             {
