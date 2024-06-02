@@ -118,7 +118,6 @@ public class MultiManager : MonoBehaviour
         green1p = true;
         CancelCurrentSkill();
         ActivePanel(cancelSkill2);
-        warningImage2.SetActive(false);
         greenButton1.SetActive(false);
     }
 
@@ -128,7 +127,7 @@ public class MultiManager : MonoBehaviour
         CancelCurrentSkill();
         UnityEngine.Debug.Log("green skill on");
         ActivePanel(cancelSkill1);
-        warningImage1.SetActive(false);
+
         greenButton2.SetActive(false);
     }
 
