@@ -56,4 +56,22 @@ public class GameOver : MonoBehaviour
             }
         }
     }
+    public void gameover()
+    {
+        if (!StageMulti.lose && !Stage1.lose)
+        {
+            if ((Stage1.scoreVal == StageMulti.scoreVal) || (Stage1.panaltyVal == StageMulti.panaltyVal))
+            { // 스코어 같거나 천장 위치 동일
+                draw.SetActive(true);
+            }
+        }
+        else if ((Stage1.panaltyVal < StageMulti.panaltyVal) || StageMulti.lose)
+        { // 1p 천장 위치 더 높음, 2p가 천장 닿았을 때
+            win1p.SetActive(true);
+        }
+        else if ((Stage1.panaltyVal > StageMulti.panaltyVal) || Stage1.lose)
+        { //2p 천장 위치 더 높음, 1p가 천장 닿았을 때
+            win2p.SetActive(true);
+        }
+    }
 }
