@@ -2042,7 +2042,7 @@ SpriteRenderer:
   m_Size: {x: 30.12046, y: 16.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &352463234
@@ -3012,6 +3012,7 @@ MonoBehaviour:
   yellowSkillNum: 5
   blueSkillNum: 5
   maxBlock: 10
+  ice_1: {fileID: 594195291768403694, guid: 491920df9570fa64daaa2ee3d79e2f23, type: 3}
   lightening: {fileID: 1577722560}
   fadeInImage: 0.1
   fadeOutImage: 1.5
@@ -3019,7 +3020,7 @@ MonoBehaviour:
   green: {fileID: 1513821323}
   blue: {fileID: 1646576423}
   yellow: {fileID: 1805407771}
-  image: {fileID: 1577722558}
+  image: {fileID: 6283637}
 --- !u!4 &452944803
 Transform:
   m_ObjectHideFlags: 0
@@ -9408,14 +9409,14 @@ MonoBehaviour:
   redSkillNum: 0
   yellowSkillNum: 0
   blueSkillNum: 0
-  lightening: {fileID: 0}
+  ice_1: {fileID: 594195291768403694, guid: 491920df9570fa64daaa2ee3d79e2f23, type: 3}
+  lightening: {fileID: 1577722560}
   fadeInImage: 0.1
   fadeOutImage: 1.01
-  warning: {fileID: 409907077}
   scale1: 1.1
   scale2: 1
   maxBlock: 10
-  image: {fileID: 0}
+  image: {fileID: 707242699}
 --- !u!4 &700486351
 Transform:
   m_ObjectHideFlags: 0
@@ -17120,7 +17121,7 @@ SpriteRenderer:
   m_Size: {x: 30.12046, y: 16.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1142410674
@@ -22958,6 +22959,7 @@ MonoBehaviour:
   snow_1: {fileID: 352463234}
   backGround_1: {fileID: 450777491}
   lightningTransform_1: {fileID: 707242700}
+  twinkle_1: {fileID: 0}
   warningPanel2: {fileID: 1155332545}
   warningRed2: {fileID: 1647891962}
   warningBlue2: {fileID: 355563843}
@@ -22972,6 +22974,7 @@ MonoBehaviour:
   snow_2: {fileID: 891346181}
   backGround_2: {fileID: 690196973}
   lightningTransform_2: {fileID: 6283638}
+  twinkle_2: {fileID: 0}
 --- !u!1 &1330359733
 GameObject:
   m_ObjectHideFlags: 0
@@ -24273,7 +24276,7 @@ SpriteRenderer:
   m_Size: {x: 30.12046, y: 16.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1475397534
@@ -33751,7 +33754,7 @@ SpriteRenderer:
   m_Size: {x: 30.12046, y: 16.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2082141842

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
@@ -9,7 +9,7 @@ public class SkillBackGround : MonoBehaviour
     public static SkillBackGround Instance;
 
     Color cr = Color.white;
-    public float cl = 120; // ÃÖÁ¾ »ö
+    public float cl = 120; // ìµœì¢… ìƒ‰
     MultiManager MultiManager;
 
     private void Awake()
@@ -18,7 +18,7 @@ public class SkillBackGround : MonoBehaviour
         MultiManager = new MultiManager();
     }
 
-    public IEnumerator SunBackGround(SpriteRenderer render) //ÅÂ¾ç ¹è°æ »ö º¯°æ
+    public IEnumerator Transparency(SpriteRenderer render) //Â»Ã¶ ÂºÂ¯Â°Ã¦
     {
         cr = render.color;
         for (int i = 0; i < cl; i++)
@@ -40,7 +40,30 @@ public class SkillBackGround : MonoBehaviour
         }
     }
 
-    public IEnumerator SnowBackGround(SpriteRenderer render) //´« ¹è°æ »ö º¯°æ
+
+    public IEnumerator SunBackGround(SpriteRenderer render) //íƒœì–‘ ë°°ê²½ ìƒ‰ ë³€ê²½
+    {
+        cr = render.color;
+        for (int i = 0; i < cl; i++)
+        {
+            cr.g -= 1f / 255f;
+            cr.b -= 1f / 255f;
+            render.color = cr;
+            render = render.GetComponent<SpriteRenderer>();
+            yield return new WaitForSeconds(0.04f);
+        }
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < cl; i++)
+        {
+            cr.g += 1f / 255f;
+            cr.b += 1f / 255f;
+            render.color = cr;
+            render = render.GetComponent<SpriteRenderer>();
+            yield return new WaitForSeconds(0.04f);
+        }
+    }
+
+    public IEnumerator SnowBackGround(SpriteRenderer render) //ëˆˆ ë°°ê²½ ìƒ‰ ë³€ê²½
     {
         cr = render.color;
         for (int i = 0; i < cl; i++)
@@ -62,7 +85,7 @@ public class SkillBackGround : MonoBehaviour
         }
     }
 
-    public IEnumerator Twinkle(SpriteRenderer render) //¹ø°³ È­¸é ¹ÝÂ¦
+    public IEnumerator Twinkle(SpriteRenderer render) //ë²ˆê°œ í™”ë©´ ë°˜ì§
     {
         render.gameObject.SetActive(true);
 
@@ -89,7 +112,7 @@ public class SkillBackGround : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-            render.color = new Color(1, 1, 1, 0); // È­¸é »ç¶óÁü
+            render.color = new Color(1, 1, 1, 0); // í™”ë©´ ì‚¬ë¼ì§
         }
 
         yield return new WaitForSeconds(0.5f);
