@@ -25,7 +25,7 @@ public class GaugeBar : MonoBehaviour
 
     public GameObject player1;
     public GameObject player2;
-
+    public GameObject warning;
 
     void InitializedGaugeBar(float time)
     {
@@ -82,6 +82,7 @@ public class GaugeBar : MonoBehaviour
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
+                warning.SetActive(true);
 
             }
 
@@ -91,12 +92,14 @@ public class GaugeBar : MonoBehaviour
                 Stage1.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+                warning.SetActive(false);
                 panto2();
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+                warning.SetActive(false);
             }
 
         }

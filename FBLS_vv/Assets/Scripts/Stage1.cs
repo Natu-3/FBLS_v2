@@ -280,7 +280,7 @@ public class Stage1 : MonoBehaviour
                     penaltyZone.gameObject.SetActive(true);
                     timer -= Time.deltaTime;
                     textTime.text = ((int)timer).ToString();
-
+                    warning.SetActive(true);
                 }
 
                 if (timer <= 0) // 타이머 종료 후 패널티
@@ -289,18 +289,20 @@ public class Stage1 : MonoBehaviour
                     blockCount = 0;
                     textTime.gameObject.SetActive(false);
                     InitializedGaugeBar(limitTime);
+                    warning.SetActive(false);
                     pan();
                 }
                 if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
                 {
                     textTime.gameObject.SetActive(false);
                     InitializedGaugeBar(limitTime);
+                    warning.SetActive(false);
                 }
             }
             setGhostBlock();
         }
     }
-
+    public GameObject warning;
     void CreatePreview()
     {
         // 이미 있는 미리보기 삭제하기
