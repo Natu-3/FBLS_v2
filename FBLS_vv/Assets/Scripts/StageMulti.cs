@@ -33,30 +33,30 @@ using TMPro;
 public class StageMulti : MonoBehaviour
 {
     [Header("Editor Objects")]
-    public GameObject nodePrefab; //³ëµå(°¡·ÎÁÙ) ÇÁ¸®Æé
-    public GameObject tilePrefab; //Å¸ÀÏÇÁ¸®Æé ºÒ·¯¿È
+    public GameObject nodePrefab; //ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject tilePrefab; //Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
     public GameObject tileRed;
     public GameObject tileBlue;
     public GameObject tileGreen;
     public GameObject tileYellow;
     public GameObject sevenBag;
 
-    public Transform backgroundNode; // ¹é±×¶ó¿îµå 
-    public Transform boardNode; //°ÔÀÓÆÇ(°¢ ¿­ y0 - y19±îÁöÀÇ ³ëµå)
+    public Transform backgroundNode; // ï¿½ï¿½×¶ï¿½ï¿½ï¿½ 
+    public Transform boardNode; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ ï¿½ï¿½ y0 - y19ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
    
 
-    public Transform tetrominoNode; //Å×Æ®¸®¹Ì³ë
-                                    // public GameObject gameoverPanel; //°ÔÀÓ¿À¹ö
-    public TextMeshProUGUI score; // Á¡¼ö
+    public Transform tetrominoNode; //ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì³ï¿½
+                                    // public GameObject gameoverPanel; //ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
+    public TextMeshProUGUI score; // ï¿½ï¿½ï¿½ï¿½
    
 
-    public Transform preview; // ´ÙÀ½ ºí·°
+    public Transform preview; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject start;
     private Skill skill;
     private SkillManager skillManager;
 
-    public BlockPosition blockPos; // ºí·° ±¸Á¶Ã¼
-    public static bool lose = false; //ÃµÀå¿¡ ´ê¾Ò´ÂÁö
+    public BlockPosition blockPos; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
+    public static bool lose = false; //Ãµï¿½å¿¡ ï¿½ï¿½Ò´ï¿½ï¿½ï¿½
     public Transform ghostNode;
 
     [Header("Game Settings")]
@@ -66,11 +66,11 @@ public class StageMulti : MonoBehaviour
     public int boardHeight = 20;
     public float fallCycle = 1.0f;
 
-    private int halfWidth; // ÁÂÇ¥ (°¡·Î)Áß¾Ó°ª
-    private int halfHeight; //ÁÂÇ¥ (¼¼·Î) Áß¾Ó°ª
-    public int lineWeight; // Áö¿öÁø ÁÙ Á¡¼ö
-    public int colorWeight; // Áö¿öÁø »ö Á¡¼ö
-    public int panalty = 0; // ÆÐ³ÎÆ¼½Ã »ý±â´Â °¡ÁßÄ¡
+    private int halfWidth; // ï¿½ï¿½Ç¥ (ï¿½ï¿½ï¿½ï¿½)ï¿½ß¾Ó°ï¿½
+    private int halfHeight; //ï¿½ï¿½Ç¥ (ï¿½ï¿½ï¿½ï¿½) ï¿½ß¾Ó°ï¿½
+    public int lineWeight; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int colorWeight; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int panalty = 0; // ï¿½Ð³ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
     public int indexback = 0;
     public static int panaltyVal = 0;
 
@@ -85,10 +85,10 @@ public class StageMulti : MonoBehaviour
     public static int scoreVal = 0;
     private int indexVal = -1;
     private int arrIndexVal = -1;
-    public static int redVal = 0; // »ç¶óÁø ºí·° °³¼ö
-    public static int greenVal = 0; // »ç¶óÁø ºí·° °³¼ö
-    public static int blueVal = 0;   // »ç¶óÁø ºí·° °³¼ö
-    public static int yellowVal = 0; // »ç¶óÁø ºí·¢ °³¼ö
+    public static int redVal = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static int greenVal = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static int blueVal = 0;   // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static int yellowVal = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static int blockCount = 0;
    
     private bool isPaused = true;
@@ -100,40 +100,40 @@ public class StageMulti : MonoBehaviour
         halfWidth = Mathf.RoundToInt(boardWidth * 0.5f); //(5)
         halfHeight = Mathf.RoundToInt(boardHeight * 0.5f); //(10)
 
-        nextFallTime = Time.time + fallCycle; //³«ÇÏÁÖ±â ¼³Á¤
-        //blockArray = new BlockArray(); //ºí·° ÀúÀåÇÒ ±¸Á¶Ã¼ ¼±¾ð
-        //CreateBackground(); //¹é±×¶ó¿îµå »ý¼º ¸Þ¼Òµå
+        nextFallTime = Time.time + fallCycle; //ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
+        //blockArray = new BlockArray(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+        //CreateBackground(); //ï¿½ï¿½×¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 
-        for (int i = 0; i < boardHeight; ++i)  //º¸µå ³ôÀÌ±îÁö
+        for (int i = 0; i < boardHeight; ++i)  //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ï¿½ï¿½
         {
             GameObject col = Instantiate(nodePrefab);
             
             col.name = "y_" + (boardHeight - i - 1).ToString();
             col.transform.position = new Vector3(offset2p*2, halfHeight - i, 0);
            
-            //* var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //º¸µåÀÇ °¡·ÎÁÙÀ» µ¿ÀûÀ¸·Î »ý¼ºÇÏ´ÂÁß
+            //* var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½
            
             col.transform.parent = boardNode;
         }
 
-        /*ÇØ¾ßÇÒ ÀÏ
-         1. Å×Æ®¸®½º ºí·Ï 7¹é ³ëµå·Î ºÒ·¯¿À±â + ¼¯±â
+        /*ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½ï¿½
+         1. ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 7ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½
          
-         2. 7¹é¿¡¼­ Å×Æ®¸®¹Ì³ë ¹Þ¾Æ¿Í »ý¼ºÇÏ±â
+         2. 7ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 
-         3. µÎ¹øÂ° ¸ñ·Ï¿¡ ÀÖ´Â Å×Æ®¸®½º ºí·Ï ¹Ì¸®º¸±â·Î ¿Å±â±â
+         3. ï¿½Î¹ï¿½Â° ï¿½ï¿½Ï¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½ï¿½
 
-         4. (2~3) ¾Õ¿¡ Á¶°ÇÀ¸·Î -> ¸¸¾à 7¹é »ý¼ºÇÑ°É ´Ù ½è´Ù¸é ? ´Ù½Ã 1¹ø ½ÇÇà
+         4. (2~3) ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ 7ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ ? ï¿½Ù½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             
-         ÇÊ¿äÇÑ°Í, CreateTileÀ» void·Î ³¡³ª´Â°Ô ¾Æ´Ñ GameObjectÀÇ ¹è¿­·Î return¹ÞÀÚ!
+         ï¿½Ê¿ï¿½ï¿½Ñ°ï¿½, CreateTileï¿½ï¿½ voidï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´ï¿½ GameObjectï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ returnï¿½ï¿½ï¿½ï¿½!
         */
 
 
         create7Bag();
-        CreateTetromino();  //Å×Æ®¸®¹Ì³ë »ý¼º ¸Þ¼Òµå ½ÇÇà
-        CreatePreview(); // ¹Ì¸®º¸±â
-        updateScore(); // Á¡¼ö Ãâ·Â
-        PlayerPrefs.SetInt("score", scoreVal); // Á¡¼ö ³Ñ°ÜÁÖ±â
+        CreateTetromino();  //ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
+        CreatePreview(); // ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½
+        updateScore(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        PlayerPrefs.SetInt("score", scoreVal); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ö±ï¿½
 
 
         Time.timeScale = 0f;
@@ -183,7 +183,7 @@ public class StageMulti : MonoBehaviour
                 }
             }
 
-            // ¾Æ·¡·Î ¶³¾îÁö´Â °æ¿ì´Â °­Á¦·Î ÀÌµ¿½ÃÅµ´Ï´Ù.
+            // ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Åµï¿½Ï´ï¿½.
             if (Time.time > nextFallTime)
             {
                 nextFallTime = Time.time + fallCycle;
@@ -225,7 +225,7 @@ public class StageMulti : MonoBehaviour
     }
     void CreatePreview()
     {
-        // ÀÌ¹Ì ÀÖ´Â ¹Ì¸®º¸±â »èÁ¦ÇÏ±â
+        // ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
         foreach (Transform tile in preview)
         {
             Destroy(tile.gameObject);
@@ -235,7 +235,7 @@ public class StageMulti : MonoBehaviour
         indexVal = UnityEngine.Random.Range(0, 7);
         arrIndexVal = UnityEngine.Random.Range(0, 24);
 
-        preview.position = new Vector2(halfWidth + 3.3f+ 2f*offset2p , halfHeight - 2.5f); // ¹Ì¸®º¸±â 
+        preview.position = new Vector2(halfWidth + 3.3f+ 2f*offset2p , halfHeight - 2.5f); // ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
         int[,] colorArray = new int[24, 4] {
         {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2},
@@ -336,7 +336,7 @@ public class StageMulti : MonoBehaviour
         int col4;
         //List<Transform> list7Bag = new List<Transform>();
 
-        GameObject gameObject0 = new GameObject(); // »õ·Î¿î °ÔÀÓ ¿ÀºêÁ§Æ® »ý¼º
+        GameObject gameObject0 = new GameObject(); // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         GameObject gameObject1 = new GameObject();
         GameObject gameObject2 = new GameObject();
         GameObject gameObject3 = new GameObject();
@@ -472,6 +472,7 @@ public class StageMulti : MonoBehaviour
 
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
+                SoundManager.Instance.playSfx(SfxType.Fall);
                 AddToBoard(tetrominoNode);
                 for (int i = 0; i < ghostNode.childCount; i++)
                 {
@@ -497,7 +498,7 @@ public class StageMulti : MonoBehaviour
         return true;
     }
 
-    // Å×Æ®·Î¹Ì³ë¸¦ º¸µå¿¡ Ãß°¡
+    // ï¿½ï¿½Æ®ï¿½Î¹Ì³ë¸¦ ï¿½ï¿½ï¿½å¿¡ ï¿½ß°ï¿½
     void AddToBoard(Transform root)
     {
         if (root == null)
@@ -505,7 +506,7 @@ public class StageMulti : MonoBehaviour
             UnityEngine.Debug.LogError("Root transform is null.");
             return;
         }
-        int randomKey = UnityEngine.Random.Range(100000, 999999); // 100000ºÎÅÍ 999999±îÁöÀÇ ·£´ýÇÑ °ª
+        int randomKey = UnityEngine.Random.Range(100000, 999999); // 100000ï¿½ï¿½ï¿½ï¿½ 999999ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         string keyTime = randomKey.ToString();
         //UnityEngine.Debug.Log(keyTime);
         while (root.childCount > 0)
@@ -517,58 +518,64 @@ public class StageMulti : MonoBehaviour
 
             node.parent = boardNode.Find("y_" + y.ToString());
             node.name = "x_" + x.ToString();
-            // Ãß°¡ÆÄÆ®
-            Tile tileComponent = node.GetComponent<Tile>(); // ÇÁ¸®ÆÕ¿¡¼­ Tile ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+            // ï¿½ß°ï¿½ï¿½ï¿½Æ®
+            Tile tileComponent = node.GetComponent<Tile>(); // ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½ Tile ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (tileComponent != null)
             {
-                // Tile ÄÄÆ÷³ÍÆ®¿¡¼­ »ö»ó Á¤º¸ °¡Á®¿À±â
+                // Tile ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 Color tileColor = tileComponent.color;
 
                 string sendcolor = tileColor.ToString();    //Color32ToRGBString(tileColor);
                 //UnityEngine.Debug.Log(sendcolor);
-                // insertBlock ¸Þ¼­µå¿¡ x, y À§Ä¡¿Í »ö»ó Á¤º¸¸¦ Àü´Þ
+                // insertBlock ï¿½Þ¼ï¿½ï¿½å¿¡ x, y ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 //UnityEngine.Debug.Log("x: " + x + ", y: " + y + ", key: " + keyTime);
                 //blockPos.insertBlock(x, y, sendcolor, keyTime);
                  rememberTile(node, keyTime);
             }
             else
             {
-               // UnityEngine.Debug.Log("¿ÀºêÁ§Æ®°¡ null!");
+               // UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ null!");
             }
             //blockPos.insertBlock(x , y, )
-            //node.tag = keyTime; <<< ¸ø½á¸ÔÀ½2
-            //UnityEngine.Debug.Log(keyTime + "»ý¼ºµÊ");
+            //node.tag = keyTime; <<< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+            //UnityEngine.Debug.Log(keyTime + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
     }
 
-    // º¸µå¿¡ ¿Ï¼ºµÈ ÇàÀÌ ÀÖÀ¸¸é »èÁ¦
+    // ï¿½ï¿½ï¿½å¿¡ ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     
     void CheckBoardColumn()
     {
-        
-         List<List<Transform>> tilesFall = new List<List<Transform>>();
+        //SoundManager.Instance.playSfx(SfxType.Destroy);
+        List<List<Transform>> tilesFall = new List<List<Transform>>();
         foreach (Transform column in boardNode)
         {
-            List<Tile> tilesToRemove = new List<Tile>(); // Á¦°ÅÇÒ Å¸ÀÏ ¸®½ºÆ®
-            if (column.childCount == boardWidth)// ¿Ï¼ºµÈ Çà == ÇàÀÇ ÀÚ½Ä °¹¼ö°¡ °¡·Î Å©±â
+            List<Tile> tilesToRemove = new List<Tile>(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+            if (column.childCount == boardWidth)// ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ == ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
             {
                 foreach (Transform tile in column)
                 {
                     
                     Tile currentTile = tile.GetComponent<Tile>();
 
-                    if (currentTile.isIced) // ¾ó¾úÀ» ¶§
+                    if (currentTile.isIced) // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                     {
-                        currentTile.isIced = false; // Ç®±â
+                        currentTile.isIced = false; // Ç®ï¿½ï¿½
+
                         Destroy(tile.transform.GetChild(0).gameObject);
                         //currentTile.color = currentTile.preColor;
-                        // UnityEngine.Debug.Log("¾ó¾ú´Ù");
+                        // UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½");
+
+                        currentTile.color = currentTile.preColor;
+                        // UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
+
                     }
                     else
                     {
 
-                        tilesToRemove.Add(currentTile); // ¾È¾ó¾úÀ¸¸é Á¦°Å ¸®½ºÆ® Ãß°¡
-                        //UnityEngine.Debug.Log("¾È¾ó¾ú´Ù");
+                        tilesToRemove.Add(currentTile); // ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
+                        //UnityEngine.Debug.Log("ï¿½È¾ï¿½ï¿½ï¿½ï¿½");
                     }
                 }
                 foreach (var tile in tilesToRemove)
@@ -590,7 +597,7 @@ public class StageMulti : MonoBehaviour
                     {
                         yellowVal++;
                     }
-                    updateBlock(); // °³¼ö ¾÷µ¥ÀÌÆ®
+                    updateBlock(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
                     Destroy(tile.gameObject);
                     EffectManager.instance.Effect(tile.gameObject);
                     List<Transform> fallList2 = GetEx(tile.transform);
@@ -618,11 +625,11 @@ public class StageMulti : MonoBehaviour
                     if (tile != null)
                     {
                         tile.fallReady();
-                        //UnityEngine.Debug.Log("³«ÇÏ¿¡ Ãß°¡ÇÔ");
+                        //UnityEngine.Debug.Log("ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½ï¿½");
                     }
                     else
                     {
-                        UnityEngine.Debug.Log("¹®Á¦ÀÖÀ½");
+                        UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     }
                 }
             }
@@ -634,7 +641,7 @@ public class StageMulti : MonoBehaviour
     
 
 
-    // ÀÌµ¿ °¡´ÉÇÑÁö Ã¼Å©
+    // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
     bool CanMoveTo(Transform root)
     {
         for (int i = 0; i < root.childCount; ++i)
@@ -642,14 +649,14 @@ public class StageMulti : MonoBehaviour
             var node = root.GetChild(i);
             int x = Mathf.RoundToInt(node.transform.position.x -2*offset2p+ halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1 + offset_y);
-            //UnityEngine.Debug.Log("x ³ëµå:" + x);
-            if (x < 0  || x > boardWidth - 1 ) // xÁÂÇ¥°¡ º¸µå ÀÌ³»
+            //UnityEngine.Debug.Log("x ï¿½ï¿½ï¿½:" + x);
+            if (x < 0  || x > boardWidth - 1 ) // xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì³ï¿½
                 return false;
 
-            if (y < 0 + offset_y) //y°¡ À½¼ö
+            if (y < 0 + offset_y) //yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 return false;
 
-            var column = boardNode.Find("y_" + y.ToString()); //y½ºÆ®¸µ Ã£±â
+            var column = boardNode.Find("y_" + y.ToString()); //yï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½
 
             if (column != null && column.Find("x_" + x.ToString()) != null)
                 return false;
@@ -661,12 +668,12 @@ public class StageMulti : MonoBehaviour
 
 
 
-    // Å¸ÀÏ »ý¼º
+    // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     Tile CreateTile(Transform parent, Vector2 position, int color, int order = 1)
     {
 
 
-        //¿©±â¼­ var go ¸¦ ±â¾ïÇØµÖ¾ß »ç¿ë°¡´ÉÇÔ
+        //ï¿½ï¿½ï¿½â¼­ var go ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ØµÖ¾ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½ï¿½
 
         GameObject go;
 
@@ -749,7 +756,7 @@ public class StageMulti : MonoBehaviour
         string parentName = "back" + convertY.ToString();
 
         Transform pback = backgroundNode.transform.Find(parentName);
-        //UnityEngine.Debug.Log(parentName); µð¹ö±×¿ë
+        //UnityEngine.Debug.Log(parentName); ï¿½ï¿½ï¿½ï¿½×¿ï¿½
         go.transform.parent = backgroundNode;
         //go.transform.parent = backgroundNode;
         go.transform.localPosition = position;
@@ -762,12 +769,12 @@ public class StageMulti : MonoBehaviour
     }
 
 
-    // ¹è°æ Å¸ÀÏÀ» »ý¼º
+    // ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     void CreateBackground()
     {
         Color color = Color.gray;
 
-        // Å¸ÀÏ º¸µå
+        // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         color.a = 0.5f;
         for (int x = -halfWidth; x < halfWidth; ++x)
         {
@@ -780,7 +787,7 @@ public class StageMulti : MonoBehaviour
             }
         }
 
-        // ÁÂ¿ì Å×µÎ¸®
+        // ï¿½Â¿ï¿½ ï¿½×µÎ¸ï¿½
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
@@ -788,14 +795,14 @@ public class StageMulti : MonoBehaviour
             Createback(backgroundNode, new Vector2(halfWidth + 3/2f*offset2p, y + offset_y), color, 0);
         }
 
-        // ¾Æ·¡ Å×µÎ¸®
+        // ï¿½Æ·ï¿½ ï¿½×µÎ¸ï¿½
         for (int x = -halfWidth - 1; x <= halfWidth; ++x)
         {
             Createback(backgroundNode, new Vector2(x + 3/2f*offset2p, -halfHeight + offset_y), color, 0);
         }
     }
 
-    // Å×Æ®·Î¹Ì³ë »ý¼º
+    // ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½
     void CreateTetromino()
     {
         int index;
@@ -812,7 +819,7 @@ public class StageMulti : MonoBehaviour
         else arrIndex = arrIndexVal;
 
         int[,] colorArray = new int[24, 4] {
-        {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2}, //»ö»óÀ» °áÁ¤ÇÏ´Â Å°°ª
+        {1, 1, 2, 3}, {1, 1, 2, 4}, {1, 1, 3, 2}, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å°ï¿½ï¿½
         {1, 1, 3, 4}, {1, 1, 4, 2}, {1, 1, 4, 3},
         {2, 2, 1, 3}, {2, 2, 1, 4}, {2, 2, 3, 4},
         {2, 2, 3, 1}, {2, 2, 4, 1}, {2, 2, 4, 3},
@@ -832,7 +839,7 @@ public class StageMulti : MonoBehaviour
         col4 = colorArray[arrIndex, 3];
 
         tetrominoNode.rotation = Quaternion.identity;
-        tetrominoNode.position = new Vector2(offset_x + 2*offset2p , halfHeight - panalty + offset_y); // ºí·° »ý¼º À§Ä¡
+        tetrominoNode.position = new Vector2(offset_x + 2*offset2p , halfHeight - panalty + offset_y); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 
         switch (index)
         {
@@ -940,13 +947,13 @@ public class StageMulti : MonoBehaviour
     {
         switch (colorNum)
         {
-            case 1: // »¡°£»ö
+            case 1: // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 return new Color32(255, 0, 0, 255);
-            case 2: // ÆÄ¶õ»ö
+            case 2: // ï¿½Ä¶ï¿½ï¿½ï¿½
                 return new Color32(0, 0, 255, 255);
-            case 3: // ³ë¶õ»ö
+            case 3: // ï¿½ï¿½ï¿½ï¿½ï¿½
                 return new Color32(255, 255, 0, 255);
-            case 4: // ÃÊ·Ï»ö
+            case 4: // ï¿½Ê·Ï»ï¿½
                 return new Color32(0, 255, 0, 255);
             default:
                 return Color.white;
@@ -956,13 +963,14 @@ public class StageMulti : MonoBehaviour
 
 
     
-    private void CheckTileGroups() // 4°³ Á¶°ÇÀ» ¸¸Á·ÇÑ ºí·°µé Å½Áö/»èÁ¦ÇÏ´Â ¸Þ¼Òµå
+    private void CheckTileGroups() // 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
     {
+        //SoundManager.Instance.playSfx(SfxType.Destroy);
         List<List<Transform>> tilesFall = new List<List<Transform>>();
-        // °ÔÀÓ º¸µåÀÇ ¸ðµç ÇàÀ» ¼øÈ¸ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Õ´Ï´ï¿½.
         for (int y = 0; y < boardHeight; y++)
         {
-            // ÇØ´ç Çà¿¡¼­ ¿¬¼ÓµÈ ºí·Ï ±×·ìÀ» Å½»öÇÕ´Ï´Ù.
+            // ï¿½Ø´ï¿½ ï¿½à¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ Å½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             List<Vector2Int> continuousBlocks = FindContinuousBlocksInRow(y);
 
             
@@ -983,8 +991,8 @@ public class StageMulti : MonoBehaviour
                 {
                     Tile tile = blockTransform.GetComponent<Tile>();
                     int ygrav = y;
-                    // °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Ã£¾ÒÀ¸¹Ç·Î »èÁ¦ÇÕ´Ï´Ù.
-                    if (!tile.isIced) { // ¾È ¾ó¾úÀ» ¶§
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+                    if (!tile.isIced) { // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
                         if(tile.getColor() == "Red")
                         {
@@ -1010,13 +1018,16 @@ public class StageMulti : MonoBehaviour
                         Destroy(blockTransform.gameObject);
                         EffectManager.instance.Effect(blockTransform.gameObject);
                         updateBlock();
-                        UnityEngine.Debug.Log("ºí·Ï »èÁ¦µÊ: " + blockName);
+                        UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + blockName);
                        
                     }
                     else
                     {
                         tile.isIced = false;
+
                         Destroy(tile.transform.GetChild(0).gameObject);
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
+
                     }
                     
 
@@ -1028,8 +1039,8 @@ public class StageMulti : MonoBehaviour
                 }
                 else
                 {
-                    // °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Ã£Áö ¸øÇßÀ½À» ¾Ë¸³´Ï´Ù.
-                    //UnityEngine.Debug.LogWarning("°ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù: " + blockName);
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½Ï´ï¿½.
+                    //UnityEngine.Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: " + blockName);
                 }
 
             }
@@ -1047,11 +1058,11 @@ public class StageMulti : MonoBehaviour
                     if (tile != null)
                     {
                         tile.fallReady();
-                        //UnityEngine.Debug.Log("³«ÇÏ¿¡ Ãß°¡ÇÔ");
+                        //UnityEngine.Debug.Log("ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½ï¿½");
                     }
                     else
                     {
-                        UnityEngine.Debug.Log("¹®Á¦ÀÖÀ½");
+                        UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     }
                 }
             }
@@ -1065,24 +1076,24 @@ public class StageMulti : MonoBehaviour
 
     List<Vector2Int> FindContinuousBlocksInRow(int row)
     {
-        List<Vector2Int> continuousBlocks = new List<Vector2Int>(); //¿¬¼ÓµÈ ºí·Ï ±× ÀÚÃ¼¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
+        List<Vector2Int> continuousBlocks = new List<Vector2Int>(); //ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
         
 
-        // Ã¹ ¹øÂ° ºí·ÏÀÇ »ö»óÀ» °¡Á®¿É´Ï´Ù.
+        // Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
 
-        //UnityEngine.Debug.Log("Ã¹ ºí·Ï »ö»ó");
+        //UnityEngine.Debug.Log("Ã¹ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         string previousColor = GetTileColorAtPosition(new Vector2Int(0, row));
 
-        int currentStart = 0; // Áö±ÝÀÇ ½ÃÀÛ ÁÂÇ¥
+        int currentStart = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥
 
         continuousBlocks.Add(new Vector2Int(currentStart, row));
 
-        // ÁÂÃøºÎÅÍ ¸ðµç ºí·ÏÀ» È®ÀÎÇÏ¸ç ¿¬¼ÓµÈ ºí·Ï ±×·ìÀ» Ã£½À´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ï´ï¿½.
         for (int x = 1; x < 11; x++)
         {
 
-            // ÇöÀç ºí·ÏÀÇ »ö»óÀ» °¡Á®¿É´Ï´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
             string currentColor = GetTileColorAtPosition(new Vector2Int(x, row));
             
 
@@ -1091,36 +1102,36 @@ public class StageMulti : MonoBehaviour
 
             if (currentColor.Equals(previousColor) && currentColor != "null")
             {
-                // ÀÌÀü ºí·Ï°ú ÇöÀç ºí·ÏÀÇ »ö»óÀÌ °°À¸¸é ¿¬¼ÓµÈ ºí·Ï ±×·ìÀÔ´Ï´Ù.
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ô´Ï´ï¿½.
                 //currentGroupColors.Add(currentColor);
                 continuousBlocks.Add(new Vector2Int(x, row));
-               // UnityEngine.Debug.Log("¿¬¼ÓÀÓ! \n");
+               // UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! \n");
             }
             else
             {
-                // ÀÌÀü ºí·Ï°ú ÇöÀç ºí·ÏÀÇ »ö»óÀÌ ´Ù¸£¸é ¿¬¼ÓµÈ ºí·Ï ±×·ìÀÌ ³¡³µ½À´Ï´Ù.
-                // ÇöÀç ¿¬¼ÓµÈ ºí·Ï ±×·ìÀÇ °¡ÁßÄ¡¸¦ È®ÀÎÇÏ°í, 4 ÀÌ»óÀÎ °æ¿ì¿¡¸¸ ¸®½ºÆ®¿¡ Ãß°¡ÇÕ´Ï´Ù.
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½, 4 ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
                 if (continuousBlocks.Count >= 4)
                 {
                     for (int i = x - continuousBlocks.Count; i < x; i++)
                     {
-                       // UnityEngine.Debug.Log("ºí·° Ãß°¡!! \n");
+                       // UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½!! \n");
                     }
                     return continuousBlocks;
                 }
 
-                // ÇöÀç ¿¬¼ÓµÈ ºí·Ï ±×·ì ÃÊ±âÈ­
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½Ê±ï¿½È­
                 continuousBlocks.Clear();
                 continuousBlocks.Add(new Vector2Int(x, row));
             }
 
-            // ÀÌÀü ºí·ÏÀÇ »ö»óÀ» Áö±ÝÀÇ »ö»óÀ¸·Î ¼³Á¤ÇÕ´Ï´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             previousColor = currentColor;
 
 
 
         }
-        //UnityEngine.Debug.Log("¿¬¼Ó°è»êÁß..");
+        //UnityEngine.Debug.Log("ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½..");
         return continuousBlocks;
     }
 
@@ -1192,7 +1203,7 @@ public class StageMulti : MonoBehaviour
             if(column.childCount == boardWidth)
             {
              
-                UnityEngine.Debug.Log("³²Àº¿­»èÁ¦");
+                UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 CheckBoardColumn();
                 break;
             }
@@ -1203,7 +1214,7 @@ public class StageMulti : MonoBehaviour
             List<Vector2Int> cont = FindContinuousBlocksInRow(y);
             if(cont.Count >= 1)
             {
-                //UnityEngine.Debug.Log("³²Àº¿¬¼Ó »èÁ¦!!!");
+                //UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!!");
             
                 CheckTileGroups();
                 break;
@@ -1216,24 +1227,24 @@ public class StageMulti : MonoBehaviour
 
     string GetTileColorAtPosition(Vector2Int position)
     {
-        // À¯È¿ÇÑ À§Ä¡ÀÎÁö È®ÀÎÇÕ´Ï´Ù.
+        // ï¿½ï¿½È¿ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         if (position.x >= 0 && position.x < boardWidth &&
             position.y >= 0 && position.y < boardHeight)
         {
-            // ÇØ´ç ÇàÀÇ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ °¡Á®¿É´Ï´Ù.
+            // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
             Transform rowObject = boardNode.transform.Find("y_" + position.y.ToString());
 
-            // ÇØ´ç Çà¿¡ ÀÖ´Â ¸ðµç ºí·°À» °¡Á®¿É´Ï´Ù.
+            // ï¿½Ø´ï¿½ ï¿½à¿¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
 
             if (rowObject != null)
             {
-                // Çà ¿ÀºêÁ§Æ®°¡ ¹ß°ßµÇ¸é ÇØ´ç ÇàÀÇ ÀÚ½Ä ¿ÀºêÁ§Æ® Áß¿¡¼­ x ÁÂÇ¥¿Í °°Àº ÀÌ¸§À» °¡Áø ºí·ÏÀ» Ã£½À´Ï´Ù.
+                // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ßµÇ¸ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß¿ï¿½ï¿½ï¿½ x ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ï´ï¿½.
                 string blockName = "x_" + position.x.ToString();
                 Transform blockTransform = rowObject.transform.Find(blockName);
 
                 if (blockTransform != null)
                 {
-                    // ºí·ÏÀ» Ã£¾Ò½À´Ï´Ù
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Ò½ï¿½ï¿½Ï´ï¿½
                     Tile tile = blockTransform.GetComponent<Tile>();
                     string coll = tile.getColor();
 
@@ -1241,20 +1252,20 @@ public class StageMulti : MonoBehaviour
                 }
                 else
                 {
-                 //UnityEngine.Debug.Log("ÇØ´ç ÁÂÇ¥ ºí·° ¸øÃ£À½!!:" +blockName );       
-                // ÇØ´ç x ÁÂÇ¥¸¦ °¡Áø ºí·ÏÀÌ ¾ø½À´Ï´Ù.
+                 //UnityEngine.Debug.Log("ï¿½Ø´ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã£ï¿½ï¿½!!:" +blockName );       
+                // ï¿½Ø´ï¿½ x ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
                 }
             }
             else
             {
-                // ÇØ´ç y ÁÂÇ¥¸¦ °¡Áø ÇàÀÌ ¾ø½À´Ï´Ù.
+                // ï¿½Ø´ï¿½ y ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
             }
 
 
 
         }
 
-        // À§Ä¡°¡ À¯È¿ÇÏÁö ¾Ê°Å³ª ÇØ´ç À§Ä¡¿¡ ºí·°ÀÌ ¾ø´Â °æ¿ì ±âº»°ªÀ¸·Î Åõ¸í»öÀ» ¹ÝÈ¯ÇÕ´Ï´Ù.
+        // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°Å³ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
         string a = "null";
         return a;
     }
@@ -1266,36 +1277,36 @@ public class StageMulti : MonoBehaviour
 
     }*/
     public void doPanalty()
-    { // ÆÐ³ÎÆ¼ºÎ¿© + ÁÙ ÁÙ¾îµê
+    { // ï¿½Ð³ï¿½Æ¼ï¿½Î¿ï¿½ + ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½
         //int buff = 19 - panalty;
         //for (int i = 0; i < 12; i++)
         //{
            // Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
             // backRow.transform.position = new Vector3Int(-50, 0,0);
-            //backRow.transform.name = "delete";//ÀÌ¸§À» ¹Ù²ãÁà¾ß µô·¹ÀÌ ¾øÀÌ »èÁ¦°¡ °¡´ÉÇÔ, destroy´Â Áï½Ã »èÁ¦°¡ ¾Æ´Ï¶ó µô·¹ÀÌ°¡ Á¸ÀçÇÏ¹Ç·Î, ¹Ýº¹¹® ½Ã°£µ¿¾È ¾È°É¸®´Â°Í °°À½
+            //backRow.transform.name = "delete";//ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, destroyï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½Ýºï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È°É¸ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
             //Destroy(backRow);
         //}
         panalty++;
         panaltyVal++;
-
+        SoundManager.Instance.playSfx(SfxType.Panalty);
     }
 
-    //½ºÅ³ ±¸Çö
+    //ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
     [Header("Skill")]
-    public int redSkillNum; // Àû¿ë½ÃÅ³ ºí·° °³¼ö
-    public int yellowSkillNum; // Àû¿ë½ÃÅ³ ºí·° °³¼ö
-    public int blueSkillNum; // Àû¿ë½ÃÅ³ ºí·° °³¼ö
+    public int redSkillNum; // ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int yellowSkillNum; // ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int blueSkillNum; // ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public int maxBlock;
     private Color fire = Color.black;
     private Color ice = Color.gray;
     public GameObject ice_1;
     public UnityEngine.UI.Image lightening;
-    public float fadeInImage = 0.1f; // ÀÌ¹ÌÁö ³ªÅ¸³ª´Â ½Ã°£
-    public float fadeOutImage = 1.01f; // ÀÌ¹ÌÁö »ç¶óÁö´Â ½Ã°£
-    public Text red; // »ç¶óÁø ºí·°
-    public Text green; // »ç¶óÁø ºí·°
-    public Text blue; // »ç¶óÁø ºí·°
-    public Text yellow; // »ç¶óÁø ºí·°
+    public float fadeInImage = 0.1f; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public float fadeOutImage = 1.01f; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public TextMeshProUGUI red; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public TextMeshProUGUI green; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public TextMeshProUGUI blue; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public TextMeshProUGUI yellow; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
     public List<Tile> randomTile(int maxCount = 5)
@@ -1303,7 +1314,7 @@ public class StageMulti : MonoBehaviour
         List<Tile> selectedTiles = new List<Tile>();
         List<int> availableYIndices = new List<int>();
 
-        // °¢ y ³ëµå¿¡ ´ëÇØ ÀÚ½ÄÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ°í, ÀÎµ¦½º¸¦ ¸®½ºÆ®¿¡ Ãß°¡
+        // ï¿½ï¿½ y ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
         for (int y = 0; y < 19; y++)
         {
             var ynode = boardNode.Find("y_" + y.ToString());
@@ -1313,13 +1324,13 @@ public class StageMulti : MonoBehaviour
             }
         }
 
-        // »ç¿ë °¡´ÉÇÑ y ³ëµå°¡ ¾øÀ¸¸é ºó ¸®½ºÆ® ¹ÝÈ¯
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ y ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¯
         if (availableYIndices.Count == 0)
         {
             return selectedTiles;
         }
 
-        // ¹«ÀÛÀ§·Î 5°³ÀÇ y ÀÎµ¦½º ¼±ÅÃ (Áßº¹ ¾øÀ½)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½ï¿½ï¿½ y ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½)
         List<int> randomYIndices = new List<int>();
         while (randomYIndices.Count < maxCount && randomYIndices.Count < availableYIndices.Count)
         {
@@ -1330,7 +1341,7 @@ public class StageMulti : MonoBehaviour
             }
         }
 
-        // ¼±ÅÃµÈ °¢ y ³ëµå¿¡¼­ ¹«ÀÛÀ§·Î x ³ëµå ¼±ÅÃÇÏ¿© Å¸ÀÏ ¸®½ºÆ®¿¡ Ãß°¡
+        // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ y ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
        
         foreach (int yIndex in randomYIndices)
         {
@@ -1349,10 +1360,10 @@ public class StageMulti : MonoBehaviour
 
         return selectedTiles;
     }
-    public void redSkill(int num) // »¡°­ÀÌ
+    public void redSkill(int num) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         
-        UnityEngine.Debug.Log("»¡°­½ºÅ³");
+        UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³");
         List<Tile> tiles = randomTile(num);
        
         foreach (Tile tile in tiles)
@@ -1362,7 +1373,7 @@ public class StageMulti : MonoBehaviour
                 tile.isFired = true;
                 tile.color = fire;
             }else{
-                    redSkill(1);// ·£´ý °É¸±½Ã Àç»ç¿ë
+                    redSkill(1);// ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
         
@@ -1370,9 +1381,9 @@ public class StageMulti : MonoBehaviour
 
 
 
-    public void yellowSkill(int num) // ³ë¶ûÀÌ
+    public void yellowSkill(int num) // ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        UnityEngine.Debug.Log("³ë¶û½ºÅ³");
+        UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Å³");
         yellowDel(num);
     }
     public GameObject image;
@@ -1427,12 +1438,12 @@ public class StageMulti : MonoBehaviour
     //        yield return null;
     //    }
 
-    //    lightening.color = new Color(1, 1, 1, 0); // È­¸é »ç¶óÁü
+    //    lightening.color = new Color(1, 1, 1, 0); // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
     //}
-    public void blueSkill(int num) // ÆÄ¶ûÀÌ
+    public void blueSkill(int num) // ï¿½Ä¶ï¿½ï¿½ï¿½
     {
-        UnityEngine.Debug.Log("ÆÄ¶û½ºÅ³");
+        UnityEngine.Debug.Log("ï¿½Ä¶ï¿½ï¿½ï¿½Å³");
         int i = 0;
         
         while (i < num)
@@ -1454,10 +1465,10 @@ public class StageMulti : MonoBehaviour
     }
     public void updateBlock()
     {
-        red.text = $"{redVal}"; //ºí·° °³¼ö Ãâ·Â
-        green.text = $"{greenVal}"; // ºí·° °³¼ö Ãâ·Â
-        blue.text = $"{blueVal}"; // ºí·° °³¼ö Ãâ·Â
-        yellow.text = $"{yellowVal}"; // ºí·° °³¼ö Ãâ·Â
+        red.text = $"{redVal}"; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        green.text = $"{greenVal}"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        blue.text = $"{blueVal}"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        yellow.text = $"{yellowVal}"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     }
     public void updateScore()
     {
@@ -1509,12 +1520,12 @@ public class StageMulti : MonoBehaviour
         if (addedTiles.TryGetValue(key, out tetroList))
         {
             tetroList.Add(tile);
-            //UnityEngine.Debug.Log("³ªÁß°É·ÎÃß°¡¾Æ");
+            //UnityEngine.Debug.Log("ï¿½ï¿½ï¿½ß°É·ï¿½ï¿½ß°ï¿½ï¿½ï¿½");
         }
         else
         {
             addedTiles[key] = new List<Transform>() { tile };
-           // UnityEngine.Debug.Log("»õ·Ó°ÔÃß°¡");
+           // UnityEngine.Debug.Log("ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ß°ï¿½");
         }
     }
 
@@ -1525,22 +1536,22 @@ public class StageMulti : MonoBehaviour
     {
         List<Transform> result = new List<Transform>();
         string keyToRemove = null;
-        // key¿¡ ÇØ´çÇÏ´Â ¸®½ºÆ®°¡ ÀÖ´ÂÁö È®ÀÎ
+        // keyï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         foreach (var entry in addedTiles)
         {
             var blockList = entry.Value;
 
-            // ÇöÀç key¿¡ ´ëÇÑ value¿¡¼­ ÀÔ·ÂÇÑ (x, y) °ªÀ» Á¦¿ÜÇÏ°í ³ª¸ÓÁö °ªÀ» °á°ú¿¡ Ãß°¡
+            // ï¿½ï¿½ï¿½ï¿½ keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ valueï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ (x, y) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             foreach (Transform t in blockList)
             {
                 if (t == tile)
                 {
-                    keyToRemove = entry.Key; // ÅõÀÔÇÑ °ª°ú µ¿ÀÏÇÑ (x, y)¸¦ °¡Áø key¸¦ ÀúÀå
+                    keyToRemove = entry.Key; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x, y)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             
                 }
                 else
                 {
-                    result.Add(t); // (x, y)¿Í ´Ù¸¥ °ªÀº °á°ú¿¡ Ãß°¡
+                    result.Add(t); // (x, y)ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
                 }
             }
         }
@@ -1552,7 +1563,7 @@ public class StageMulti : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.Log("ÀÌ¹Ì Ã£¾Æ¼­ Á¸ÀçÇÏÁö¾ÊÀ½");
+            UnityEngine.Debug.Log("ï¿½Ì¹ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
 
         return result;

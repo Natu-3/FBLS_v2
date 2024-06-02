@@ -16,13 +16,13 @@ public class MultiManager : MonoBehaviour
     public int atkPlayer;
     
     [Header("1p")]
-    public GameObject warningPanel1; // °æ°íÆÇ
-    public GameObject warningRed1; //ÅØ½ºÆ®
+    public GameObject warningPanel1; // ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject warningRed1; //ï¿½Ø½ï¿½Æ®
     public GameObject warningBlue1;
     public GameObject warningYellow1;
     public GameObject cancelSkill1;
-    public GameObject warningImage1;
-    public GameObject redButton1; //¹öÆ°
+    //public GameObject warningImage1;
+    public GameObject redButton1; //ï¿½ï¿½Æ°
     public GameObject blueButton1;
     public GameObject yellowButton1;
     public GameObject greenButton1;
@@ -34,13 +34,13 @@ public class MultiManager : MonoBehaviour
     public SpriteRenderer twinkle_1;
 
     [Header("2p")]
-    public GameObject warningPanel2; // °æ°íÆÇ
-    public GameObject warningRed2; //ÅØ½ºÆ®
+    public GameObject warningPanel2; // ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject warningRed2; //ï¿½Ø½ï¿½Æ®
     public GameObject warningBlue2;
     public GameObject warningYellow2;
     public GameObject cancelSkill2;
-    public GameObject warningImage2;
-    public GameObject redButton2; //¹öÆ°
+   // public GameObject warningImage2;
+    public GameObject redButton2; //ï¿½ï¿½Æ°
     public GameObject blueButton2;
     public GameObject yellowButton2;
     public GameObject greenButton2;
@@ -89,7 +89,9 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed2);
         redButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_2));
-        abc_2 = StartCoroutine(SkillBackGround.Instance.SunBackGround(backGround_2));
+
+        abc_2 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_2));
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Sun));
     }
 
     public void AtkRed2()
@@ -99,7 +101,8 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed1);
         redButton2.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_1));
-        abc_1 = StartCoroutine(SkillBackGround.Instance.SunBackGround(backGround_1));
+        abc_1 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_1));
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Sun));
     }
 
     public void AtkBlue1()
@@ -107,8 +110,11 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "B");
         ActivePanel(warningBlue2);
         blueButton1.SetActive(false);
-        StartCoroutine(EffectManager.instance.WeatherEffect(snow_2));
-        abc_2 = StartCoroutine(SkillBackGround.Instance.SnowBackGround(backGround_2));
+
+        StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
+        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Snow));
+        SoundManager.Instance.playSfx(SfxType.Iced);
     }
 
     public void AtkBlue2()
@@ -117,8 +123,10 @@ public class MultiManager : MonoBehaviour
         SetAttack(2, "B");
         ActivePanel(warningBlue1);
         blueButton2.SetActive(false);
-        StartCoroutine(EffectManager.instance.WeatherEffect(snow_1));
-        abc_2 = StartCoroutine(SkillBackGround.Instance.SnowBackGround(backGround_1));
+        StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
+        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Snow));
+        SoundManager.Instance.playSfx(SfxType.Iced);
 
     }
 
@@ -130,6 +138,7 @@ public class MultiManager : MonoBehaviour
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
         StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_2));
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
     }
 
     public void AtkYellow2()
@@ -138,9 +147,12 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
         yellowButton2.SetActive(false);
+
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
         StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_1));
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
+
     }
 
     public void Green1()
@@ -148,7 +160,6 @@ public class MultiManager : MonoBehaviour
         green1p = true;
         CancelCurrentSkill();
         ActivePanel(cancelSkill2);
-        warningImage2.SetActive(false);
         greenButton1.SetActive(false);
         snow_1.gameObject.SetActive(false);
         sun_1.gameObject.SetActive(false);
@@ -157,6 +168,7 @@ public class MultiManager : MonoBehaviour
         StopCoroutine(abc_1);
         backGround_1.color = Color.white;
         backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
+        SoundManager.Instance.playSfx(SfxType.Shield);
     }
 
     public void Green2()
@@ -165,7 +177,7 @@ public class MultiManager : MonoBehaviour
         CancelCurrentSkill();
         UnityEngine.Debug.Log("green skill on");
         ActivePanel(cancelSkill1);
-        warningImage1.SetActive(false);
+
         greenButton2.SetActive(false);
         snow_2.gameObject.SetActive(false);
         sun_2.gameObject.SetActive(false);
@@ -174,6 +186,7 @@ public class MultiManager : MonoBehaviour
         StopCoroutine(abc_2);
         backGround_2.color = Color.white;
         backGround_2 = backGround_2.GetComponent<SpriteRenderer>();
+        SoundManager.Instance.playSfx(SfxType.Shield);
     }
 
     private void SetAttack(int player, string skill)
@@ -186,7 +199,7 @@ public class MultiManager : MonoBehaviour
 
     private void PerformSkill()
     {
-        UnityEngine.Debug.Log("½ºÅ³Àû¿ë!!!");
+        UnityEngine.Debug.Log("ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½!!!");
         if (atkPlayer == 2)
         {
             if(!green1p){
@@ -242,13 +255,12 @@ public class MultiManager : MonoBehaviour
         isSkillActive = false;
         UnityEngine.Debug.Log("Current skill action canceled due to green state.");
 
-        currentSkill.SetActive(false); // ¸·Àº ½ºÅ³ °æ°íÆÐ³Î ºñÈ°¼ºÈ­
+        currentSkill.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
     }
 
-    //°æ°íÆÇ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½
     public void ActivePanel(GameObject skillText)
     {
-        warningPanel1.SetActive(true);
         skillText.SetActive(true);
         currentSkill = skillText;
         Invoke("HidePanel", 5f);
@@ -256,54 +268,53 @@ public class MultiManager : MonoBehaviour
     private GameObject currentSkill;
     public void HidePanel()
     {
-        warningPanel1.SetActive(false);
         currentSkill.SetActive(false);
     }
 
-    //¹öÆ°
+    //ï¿½ï¿½Æ°
     public void ActiveButton()
     {
         //1p
-        if (Stage1.redVal >= 0 && !redButton1.activeSelf)
+        if (Stage1.redVal >= 10 && !redButton1.activeSelf)
         {
             redButton1.SetActive(true);
             Stage1.redVal = 0;
         }
-        if (Stage1.blueVal >= 0 && !blueButton1.activeSelf)
+        if (Stage1.blueVal >= 10 && !blueButton1.activeSelf)
         {
             blueButton1.SetActive(true);
             Stage1.blueVal = 0;
         }
-        if (Stage1.yellowVal >= 0 && !yellowButton1.activeSelf)
+        if (Stage1.yellowVal >= 10 && !yellowButton1.activeSelf)
         {
             yellowButton1.SetActive(true);
             Stage1.yellowVal = 0;
         }
-        if (Stage1.greenVal >= 0 && !greenButton1.activeSelf)
+        if (Stage1.greenVal >= 10 && !greenButton1.activeSelf)
         {
             greenButton1.SetActive(true);
             Stage1.greenVal = 0;
         }
         //2p
-        if (StageMulti.redVal >= 0 && !redButton2.activeSelf)
+        if (StageMulti.redVal >= 10 && !redButton2.activeSelf)
         {
             redButton2.SetActive(true);
             StageMulti.redVal = 0;
             UnityEngine.Debug.Log(StageMulti.redVal.ToString());
         }
-        if (StageMulti.blueVal >= 0 && !blueButton2.activeSelf)
+        if (StageMulti.blueVal >= 10 && !blueButton2.activeSelf)
         {
             blueButton2.SetActive(true);
             StageMulti.blueVal = 0;
             UnityEngine.Debug.Log(StageMulti.blueVal.ToString());
         }
-        if (StageMulti.yellowVal >= 0 && !yellowButton2.activeSelf)
+        if (StageMulti.yellowVal >= 10 && !yellowButton2.activeSelf)
         {
             yellowButton2.SetActive(true);
             StageMulti.yellowVal = 0;
             UnityEngine.Debug.Log(StageMulti.yellowVal.ToString());
         }
-        if (StageMulti.greenVal >= 0 && !greenButton2.activeSelf)
+        if (StageMulti.greenVal >= 10 && !greenButton2.activeSelf)
         {
             greenButton2.SetActive(true);
             StageMulti.greenVal = 0;

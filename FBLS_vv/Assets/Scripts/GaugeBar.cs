@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GaugeBar : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GaugeBar : MonoBehaviour
     private int enemyBlock = 0; // 상대 누적 블럭
     private int difference; // 누적 블럭 차이
     public int pivot = 50; // 기준(게이지 중간)
-    public Text textTime;
+    public TextMeshProUGUI textTime;
     private float timer;
     public float timeRange; // 싱글에서 시간마다 줄어드는 게이지 범위
     public float timerLimit; // 타이머 제한 시간 감소치
@@ -24,7 +25,7 @@ public class GaugeBar : MonoBehaviour
 
     public GameObject player1;
     public GameObject player2;
-
+    public GameObject warning;
 
     void InitializedGaugeBar(float time)
     {
@@ -81,6 +82,7 @@ public class GaugeBar : MonoBehaviour
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
+                warning.SetActive(true);
 
             }
 
@@ -90,12 +92,14 @@ public class GaugeBar : MonoBehaviour
                 Stage1.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+                warning.SetActive(false);
                 panto2();
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+                warning.SetActive(false);
             }
 
         }
