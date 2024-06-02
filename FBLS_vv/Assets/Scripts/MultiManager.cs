@@ -73,6 +73,7 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "R");
         ActivePanel(warningRed2);
         redButton1.SetActive(false);
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Sun));
     }
 
     public void AtkRed2()
@@ -81,6 +82,7 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Red skill on");
         ActivePanel(warningRed1);
         redButton2.SetActive(false);
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Sun));
     }
 
     public void AtkBlue1()
@@ -88,6 +90,8 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "B");
         ActivePanel(warningBlue2);
         blueButton1.SetActive(false);
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Snow));
+        SoundManager.Instance.playSfx(SfxType.Iced);
     }
 
     public void AtkBlue2()
@@ -96,6 +100,8 @@ public class MultiManager : MonoBehaviour
         SetAttack(2, "B");
         ActivePanel(warningBlue1);
         blueButton2.SetActive(false);
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Snow));
+        SoundManager.Instance.playSfx(SfxType.Iced);
     }
 
     public void AtkYellow1()
@@ -103,6 +109,7 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "Y");
         ActivePanel(warningYellow2);
         yellowButton1.SetActive(false);
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
     }
 
     public void AtkYellow2()
@@ -111,6 +118,7 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
         yellowButton2.SetActive(false);
+        StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
     }
 
     public void Green1()
@@ -119,6 +127,7 @@ public class MultiManager : MonoBehaviour
         CancelCurrentSkill();
         ActivePanel(cancelSkill2);
         greenButton1.SetActive(false);
+        SoundManager.Instance.playSfx(SfxType.Shield);
     }
 
     public void Green2()
@@ -129,6 +138,7 @@ public class MultiManager : MonoBehaviour
         ActivePanel(cancelSkill1);
 
         greenButton2.SetActive(false);
+        SoundManager.Instance.playSfx(SfxType.Shield);
     }
 
     private void SetAttack(int player, string skill)

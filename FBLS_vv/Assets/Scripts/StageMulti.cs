@@ -190,6 +190,7 @@ public class StageMulti : MonoBehaviour
                 nextFallTime = Time.time + fallCycle;
                 moveDir = Vector3.down;
                 isRotate = false;
+  
             }
 
             if (moveDir != Vector3.zero || isRotate)
@@ -473,6 +474,7 @@ public class StageMulti : MonoBehaviour
 
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
+                SoundManager.Instance.playSfx(SfxType.Fall);
                 AddToBoard(tetrominoNode);
                 for (int i = 0; i < ghostNode.childCount; i++)
                 {
@@ -483,7 +485,7 @@ public class StageMulti : MonoBehaviour
                 CreateTetromino();
                 CreatePreview();
                 CheckTileGroups();
-
+                
                 if (!CanMoveTo(tetrominoNode))
                 {
                     //gameoverPanel.SetActive(true);
@@ -546,7 +548,7 @@ public class StageMulti : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-
+        SoundManager.Instance.playSfx(SfxType.Destroy);
         foreach (Transform column in boardNode)
         {
             List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
@@ -562,6 +564,7 @@ public class StageMulti : MonoBehaviour
                         currentTile.isIced = false; // 풀기
                         currentTile.color = currentTile.preColor;
                         UnityEngine.Debug.Log("얼었다");
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
                     else
                     {
@@ -591,6 +594,7 @@ public class StageMulti : MonoBehaviour
                     }
                     updateBlock(); // 개수 업데이트
                     Destroy(tile.gameObject);
+                    
                 }
 
                     column.DetachChildren();
@@ -602,6 +606,7 @@ public class StageMulti : MonoBehaviour
                     UnityEngine.Debug.Log("count");
                 
             }
+            
         }
 
 
@@ -1013,6 +1018,7 @@ public class StageMulti : MonoBehaviour
     
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
+        SoundManager.Instance.playSfx(SfxType.Destroy);
         List<List<(int, int)>> allFall = new List<List<(int, int)>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
@@ -1058,6 +1064,7 @@ public class StageMulti : MonoBehaviour
                             yellowVal++;
                         }
                         Destroy(blockTransform.gameObject);
+                        
                         updateBlock();
                         UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
                         List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
@@ -1066,6 +1073,7 @@ public class StageMulti : MonoBehaviour
                     else
                     {
                         tile.isIced = false;
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
                     
 
@@ -1379,7 +1387,7 @@ public class StageMulti : MonoBehaviour
         }
         panalty++;
         panaltyVal++;
-
+        SoundManager.Instance.playSfx(SfxType.Panalty);
     }
 
     //스킬 구현

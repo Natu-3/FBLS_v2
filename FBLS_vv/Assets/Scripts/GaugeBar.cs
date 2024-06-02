@@ -48,6 +48,7 @@ public class GaugeBar : MonoBehaviour
         stage = GameObject.Find("Stage");
         stage.GetComponent<Stage>().doPanalty();
     }
+
     void Update()
     {
 
@@ -62,26 +63,31 @@ public class GaugeBar : MonoBehaviour
             gaugeBar.value = -difference + pivot;
             if (difference >= penaltyBlock) // 타이머 시작
             {
-                
+
                 textTime.gameObject.SetActive(true);
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
 
+               
             }
 
             if (timer <= 0) // 타이머 종료 후 패널티
             {
+      
                 StageMulti.blockCount = 0;
                 Stage1.blockCount = 0;
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
                 pan();
+
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
+    
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+
             }
 
         }

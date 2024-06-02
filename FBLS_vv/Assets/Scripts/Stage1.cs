@@ -199,6 +199,7 @@ public class Stage1 : MonoBehaviour
                 while (MoveTetromino(Vector3.down, false))
                 {
                 }
+
             }
 
             // 아래로 떨어지는 경우는 강제로 이동시킵니다.
@@ -207,6 +208,7 @@ public class Stage1 : MonoBehaviour
                 nextFallTime = Time.time + fallCycle;
                 moveDir = Vector3.down;
                 isRotate = false;
+ 
             }
 
             if (moveDir != Vector3.zero || isRotate)
@@ -225,7 +227,7 @@ public class Stage1 : MonoBehaviour
                 penaltyZone.gameObject.SetActive(true);
                 timer -= Time.deltaTime;
                 textTime.text = ((int)timer).ToString();
-
+                
             }
 
             if (timer <= 0) // 타이머 종료 후 패널티
@@ -235,15 +237,18 @@ public class Stage1 : MonoBehaviour
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
                 pan();
+ 
             }
             if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
             {
                 textTime.gameObject.SetActive(false);
                 InitializedGaugeBar(limitTime);
+ 
             }
         }
         setGhostBlock();
     }
+
     void CreatePreview()
     {
         // 이미 있는 미리보기 삭제하기
@@ -503,7 +508,7 @@ public class Stage1 : MonoBehaviour
                 CheckBoardColumn();
                 CreateTetromino();
                 CreatePreview();
-                
+                SoundManager.Instance.playSfx(SfxType.Fall);
 
                 if (!CanMoveTo(tetrominoNode))
                 {
@@ -581,7 +586,7 @@ public class Stage1 : MonoBehaviour
     void CheckBoardColumn()
     {
         bool isCleared = false;
-
+        SoundManager.Instance.playSfx(SfxType.Destroy);
         foreach (Transform column in boardNode)
         {
             List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
@@ -597,6 +602,7 @@ public class Stage1 : MonoBehaviour
                         currentTile.isIced = false; // 풀기
                         currentTile.color = currentTile.preColor;
                         UnityEngine.Debug.Log("얼었다");
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
                     else
                     {
@@ -626,6 +632,7 @@ public class Stage1 : MonoBehaviour
                     }
                     updateBlock(); // 개수 업데이트
                     Destroy(tile.gameObject);
+  
                 }
                 column.DetachChildren();
                 isCleared = true;
@@ -634,6 +641,7 @@ public class Stage1 : MonoBehaviour
                 //PlayerPrefs.SetInt("score", scoreVal);
                 blockCount += 10;
             }
+
         }
 
 
@@ -1039,6 +1047,7 @@ public class Stage1 : MonoBehaviour
 
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
+        SoundManager.Instance.playSfx(SfxType.Destroy);
         List<List<(int, int)>> allFall = new List<List<(int, int)>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
@@ -1084,6 +1093,7 @@ public class Stage1 : MonoBehaviour
                             yellowVal++;
                         }
                         Destroy(blockTransform.gameObject);
+                        
                         updateBlock();
                         UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
                         List<(int, int)> fallList = blockPos.GetExcept(xgrav, ygrav);
@@ -1092,6 +1102,7 @@ public class Stage1 : MonoBehaviour
                     else
                     {
                         tile.isIced = false;
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
 
 
@@ -1315,7 +1326,7 @@ public class Stage1 : MonoBehaviour
         }
          panalty++;
         panaltyVal++;
-        
+        SoundManager.Instance.playSfx(SfxType.Panalty);
     }
     public int maxBlock;
     public void updateBlock()

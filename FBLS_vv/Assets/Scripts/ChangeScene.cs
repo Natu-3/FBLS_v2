@@ -26,14 +26,17 @@ public class ChangeScene : MonoBehaviour
     public void goMain()
     {
         SceneManager.LoadScene("Main");
-        
+        SoundManager.Instance.playSfx(SfxType.Click);
+
     }    
     public void openSetting()
     {
         setting.SetActive(true);
+        SoundManager.Instance.playSfx(SfxType.Click);
     }
     public void CloseSetting()
     {
         setting.SetActive(false);
+        SoundManager.Instance.playSfx(SfxType.Click);
     }
 }
