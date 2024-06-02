@@ -36,8 +36,8 @@ public class GaugeBar : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(30f);
-            limitTime -= timerLimit;
-            gaugeBar.maxValue -= timerLimit;
+            //limitTime -= timerLimit;
+            //gaugeBar.maxValue -= timerLimit;
         }
     }
     void Start()
@@ -66,6 +66,39 @@ public class GaugeBar : MonoBehaviour
     {
 
         // 멀티
+        if (SceneManager.GetActiveScene().name == "MultiSceneServer")
+        {
+
+            //2p기준
+            myBlock = StageMulti.blockCount;
+            enemyBlock = Stage1.blockCount;
+            difference = enemyBlock - myBlock;
+            gaugeBar.value = -difference + pivot;
+            if (difference >= penaltyBlock) // 타이머 시작
+            {
+
+                textTime.gameObject.SetActive(true);
+                penaltyZone.gameObject.SetActive(true);
+                timer -= Time.deltaTime;
+                textTime.text = ((int)timer).ToString();
+
+            }
+
+            if (timer <= 0) // 타이머 종료 후 패널티
+            {
+                StageMulti.blockCount = 0;
+                Stage1.blockCount = 0;
+                textTime.gameObject.SetActive(false);
+                InitializedGaugeBar(limitTime);
+                panto2();
+            }
+            if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
+            {
+                textTime.gameObject.SetActive(false);
+                InitializedGaugeBar(limitTime);
+            }
+
+        }
         if (SceneManager.GetActiveScene().name == "MultiScene")
         {
 

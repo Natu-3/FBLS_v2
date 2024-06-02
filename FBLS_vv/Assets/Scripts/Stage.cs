@@ -768,6 +768,8 @@ public class Stage : MonoBehaviour
         col3 = colorArray[arrIndex, 2];
         col4 = colorArray[arrIndex, 3];
 
+    
+
         tetrominoNode.rotation = Quaternion.identity;
         tetrominoNode.position = new Vector2(2*offset1p, halfHeight - panalty);
         ghostNode.position = tetrominoNode.position;

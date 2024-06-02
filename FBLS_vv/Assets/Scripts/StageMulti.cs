@@ -116,6 +116,7 @@ public class StageMulti : MonoBehaviour
     private int previndexVal = -1;
     private int prevarrIndexVal = -1;
 
+    public string garim = "Assets / Images / garim.png";
 
 
 
@@ -142,11 +143,17 @@ public class StageMulti : MonoBehaviour
             GameObject col = Instantiate(nodePrefab);
             
             col.name = "y_" + (boardHeight - i - 1).ToString();
-            col.transform.position = new Vector3(offset2p*2, halfHeight - i, 0);
+            col.transform.position = new Vector3(offset2p*2 - 0.5f, halfHeight - i, 0);
            
             //* var col = new GameObject("y_" + (boardHeight - i - 1).ToString());     //보드의 가로줄을 동적으로 생성하는중
            
             col.transform.parent = boardNode;
+
+            SpriteRenderer renderer = col.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.enabled = false;
+            }
         }
 
         /*해야할 일
@@ -823,7 +830,7 @@ public class StageMulti : MonoBehaviour
         int convertY = (int)position.y + 9;
         string parentName = "back" + convertY.ToString();
 
-        Transform pback = backgroundNode.transform.Find(parentName);
+        Transform pback = backgroundNode.Find(parentName);
         //UnityEngine.Debug.Log(parentName); 디버그용
         go.transform.parent = backgroundNode;
         //go.transform.parent = backgroundNode;
@@ -1351,14 +1358,23 @@ public class StageMulti : MonoBehaviour
     }*/
     public void doPanalty()
     { // 패널티부여 + 줄 줄어듦
-        //int buff = 19 - panalty;
+        int buff = 19 - panalty;
+        Transform backRow = boardNode.Find("y_" + buff.ToString());
+        SpriteRenderer renderer = backRow.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.enabled = true;
+        }
+
+
         //for (int i = 0; i < 12; i++)
         //{
-           // Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
-            // backRow.transform.position = new Vector3Int(-50, 0,0);
-            //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
-            //Destroy(backRow);
+        // Transform backRow = backgroundNode.transform.Find("back" + buff.ToString());
+        // backRow.transform.position = new Vector3Int(-50, 0,0);
+        //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
+        //Destroy(backRow);
         //}
+        UnityEngine.Debug.Log("2P패널티");
         panalty++;
         panaltyVal++;
 
@@ -1599,7 +1615,7 @@ public class StageMulti : MonoBehaviour
         }
     }
 
-
+    /*
     public List<Transform> GetEx(Transform tile)
     {
         List<Transform> result = new List<Transform>();
@@ -1646,9 +1662,45 @@ public class StageMulti : MonoBehaviour
 
         return result;
     }
+    */
 
+    
+    public List<Transform> GetEx(Transform tile)
+    {
+        List<Transform> result = new List<Transform>();
+        string keyToRemove = null;
+        // key에 해당하는 리스트가 있는지 확인
+        foreach (var entry in addedTiles)
+        {
+            var blockList = entry.Value;
 
+            // 현재 key에 대한 value에서 입력한 (x, y) 값을 제외하고 나머지 값을 결과에 추가
+            foreach (Transform t in blockList)
+            {
+                if (t == tile)
+                {
+                    keyToRemove = entry.Key; // 투입한 값과 동일한 (x, y)를 가진 key를 저장
 
+                }
+                else
+                {
+                    result.Add(t); // (x, y)와 다른 값은 결과에 추가
+                }
+            }
+        }
+
+        if (keyToRemove != null)
+        {
+            addedTiles.Remove(keyToRemove);
+
+        }
+        else
+        {
+            UnityEngine.Debug.Log("이미 찾아서 존재하지않음");
+        }
+
+        return result;
+    }
 
 
 

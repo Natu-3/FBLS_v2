@@ -156,8 +156,15 @@ public class Stage1 : MonoBehaviour
         {
             GameObject col = Instantiate(nodePrefab);
             col.name = "y_" + (boardHeight - i - 1).ToString();
-            col.transform.position = new Vector3(0, halfHeight - i, 0);
+            col.transform.position = new Vector3(-0.5f, halfHeight - i, 0);
             col.transform.parent = boardNode;
+
+
+            SpriteRenderer renderer = col.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.enabled = false;
+            }
         }
 
         /* for (int i = 0; i < boardHeight; ++i)  //보드 높이까지
@@ -312,7 +319,7 @@ public class Stage1 : MonoBehaviour
                     blockCount = 0;
                     textTime.gameObject.SetActive(false);
                     InitializedGaugeBar(limitTime);
-                    pan();
+                    doPanalty();
                 }
                 if (timer >= 0 && difference <= penaltyBlock) // 시간 안에 패털티 구간 넘겼을 때
                 {
@@ -753,8 +760,8 @@ public class Stage1 : MonoBehaviour
 
                     Destroy(tile.gameObject);
                 }
-               
-       
+
+                
                 scoreVal += 10 * lineWeight;
                 updateScore();
                 //PlayerPrefs.SetInt("score", scoreVal);
@@ -1150,6 +1157,7 @@ public class Stage1 : MonoBehaviour
                             yellowVal++;
                         }
 
+
                         List<Transform> fallList2 = GetEx(blockTransform);
                         if (fallList2 != null)
                         {
@@ -1171,9 +1179,9 @@ public class Stage1 : MonoBehaviour
                         }
                     }
 
-
+                   // DropTiles();
                     scoreVal += colorWeight;
-                    UnityEngine.Debug.Log(scoreVal.ToString());
+                    //UnityEngine.Debug.Log(scoreVal.ToString());
                     blockCount++;
                     updateScore();
                     //PlayerPrefs.SetInt("score", scoreVal);
@@ -1186,9 +1194,11 @@ public class Stage1 : MonoBehaviour
                 }
 
             }
-
+        //    
 
         }
+
+       
 
         List<Transform> allF = new List<Transform>();
         foreach (List<Transform> fall2 in tilesFall)
@@ -1392,12 +1402,18 @@ public class Stage1 : MonoBehaviour
     public void doPanalty()
     { // 패널티부여 + 줄 줄어듦
         int buff = 19 - panalty;
+        
         //for (int i = 0; i < 12; i++)
        // {
-            //ransform backRow = backgroundNode.transform.Find("back" + buff.ToString());
-            // backRow.transform.position = new Vector3Int(-50, 0,0);
-            //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
-           // Destroy(backRow);
+            Transform backRow = boardNode.Find("y_" + buff.ToString());
+            SpriteRenderer renderer = backRow.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.enabled = true;
+            }
+        // backRow.transform.position = new Vector3Int(-50, 0,0);
+        //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
+        // Destroy(backRow);
         //}
         UnityEngine.Debug.Log("1P패널티");
         panalty++;
@@ -1423,8 +1439,8 @@ public class Stage1 : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(30f);
-            limitTime -= timerLimit;
-            gaugeBar.maxValue -= timerLimit;
+            //limitTime -= timerLimit;
+            //gaugeBar.maxValue -= timerLimit;
         }
     }
     void InitializedGaugeBar(float time)
@@ -1492,6 +1508,9 @@ public class Stage1 : MonoBehaviour
         }
     }
 
+
+
+    /*
     public List<Transform> GetEx(Transform tile)
     {
         List<Transform> result = new List<Transform>();
@@ -1538,6 +1557,55 @@ public class Stage1 : MonoBehaviour
 
         return result;
     }
+
+
+    */
+
+
+
+
+    public List<Transform> GetEx(Transform tile)
+    {
+        List<Transform> result = new List<Transform>();
+        string keyToRemove = null;
+        // key에 해당하는 리스트가 있는지 확인
+        foreach (var entry in addedTiles)
+        {
+            var blockList = entry.Value;
+
+            // 현재 key에 대한 value에서 입력한 (x, y) 값을 제외하고 나머지 값을 결과에 추가
+            foreach (Transform t in blockList)
+            {
+                if (t == tile)
+                {
+                    keyToRemove = entry.Key; // 투입한 값과 동일한 (x, y)를 가진 key를 저장
+
+                }
+                else
+                {
+                    result.Add(t); // (x, y)와 다른 값은 결과에 추가
+                }
+            }
+        }
+
+        if (keyToRemove != null)
+        {
+            addedTiles.Remove(keyToRemove);
+
+        }
+        else
+        {
+            UnityEngine.Debug.Log("이미 찾아서 존재하지않음");
+        }
+
+        return result;
+    }
+
+
+
+
+
+
 
     public bool CheckAgain()
     {
@@ -1726,6 +1794,88 @@ public class Stage1 : MonoBehaviour
 
         return selectedTiles;
     }
+
+
+
+    private bool CanMoveDown(List<Transform> tetroList)
+    {
+        // 모든 타일의 콜라이더를 비활성화
+        List<Collider2D> colliders = new List<Collider2D>();
+        foreach (Transform tile in tetroList)
+        {
+            Collider2D collider = tile.GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                colliders.Add(collider);
+                collider.enabled = false;
+            }
+        }
+
+        bool canMoveDown = true;
+        foreach (Transform tile in tetroList)
+        {
+            // 블록 아래에 다른 블록이나 땅이 있는지 확인
+            RaycastHit2D hit = Physics2D.Raycast(tile.position, Vector2.down, 1.0f);
+            if (hit.collider != null)
+            {
+                canMoveDown = false;
+                UnityEngine.Debug.Log("밑에 블럭 있음");
+                break;
+               
+            }
+            else { UnityEngine.Debug.Log("밑에 블럭 못찾음!"); }
+        }
+        // 모든 타일의 콜라이더를 다시 활성화
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = true;
+        }
+
+        return canMoveDown;
+    }
+
+    private void MoveDown(List<Transform> tetroList)
+    {
+        GameObject add = new GameObject("add");
+        Transform adds = add.transform;
+        foreach (Transform tile in tetroList)
+        {
+            tile.position += Vector3.down;
+            tile.parent = adds;
+        }
+
+        AddToBoard(adds);
+
+    }
+
+
+
+    private void DropTiles()
+        {
+            foreach (var kvp in addedTiles)
+            {
+                List<Transform> tetroList = kvp.Value;
+                while (CanMoveDown(tetroList))
+                {
+                    MoveDown(tetroList);
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
