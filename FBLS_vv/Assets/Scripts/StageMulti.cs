@@ -591,6 +591,7 @@ public class StageMulti : MonoBehaviour
                     }
                     updateBlock(); // 개수 업데이트
                     Destroy(tile.gameObject);
+                    EffectManager.instance.Effect(tile.gameObject);
                     List<Transform> fallList2 = GetEx(tile.transform);
                     tilesFall.Add(fallList2);
                 }
@@ -1006,6 +1007,7 @@ public class StageMulti : MonoBehaviour
 
 
                         Destroy(blockTransform.gameObject);
+                        EffectManager.instance.Effect(blockTransform.gameObject);
                         updateBlock();
                         UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
                        
