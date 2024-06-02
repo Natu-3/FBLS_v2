@@ -560,8 +560,9 @@ public class StageMulti : MonoBehaviour
                     if (currentTile.isIced) // 얼었을 때
                     {
                         currentTile.isIced = false; // 풀기
-                        currentTile.color = currentTile.preColor;
-                       // UnityEngine.Debug.Log("얼었다");
+                        Destroy(tile.transform.GetChild(0).gameObject);
+                        //currentTile.color = currentTile.preColor;
+                        // UnityEngine.Debug.Log("얼었다");
                     }
                     else
                     {
@@ -1015,6 +1016,7 @@ public class StageMulti : MonoBehaviour
                     else
                     {
                         tile.isIced = false;
+                        Destroy(tile.transform.GetChild(0).gameObject);
                     }
                     
 
@@ -1286,6 +1288,7 @@ public class StageMulti : MonoBehaviour
     public int maxBlock;
     private Color fire = Color.black;
     private Color ice = Color.gray;
+    public GameObject ice_1;
     public UnityEngine.UI.Image lightening;
     public float fadeInImage = 0.1f; // 이미지 나타나는 시간
     public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
@@ -1370,7 +1373,6 @@ public class StageMulti : MonoBehaviour
     public void yellowSkill(int num) // 노랑이
     {
         UnityEngine.Debug.Log("노랑스킬");
-        StartCoroutine(yellowSkillActive());
         yellowDel(num);
     }
     public GameObject image;
@@ -1399,35 +1401,35 @@ public class StageMulti : MonoBehaviour
     }
 
 
-    IEnumerator yellowSkillActive()
-    {
+    //IEnumerator yellowSkillActive()
+    //{
         
-        image.SetActive(true);
-        float timer = 0;
-        while (timer <= fadeInImage) // fade in
-        {
-            float alpha = Mathf.Lerp(0, 1, timer / fadeInImage);
-            lightening.color = new Color(1, 1, 1, alpha);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        lightening.color = Color.white;
+    //    image.SetActive(true);
+    //    float timer = 0;
+    //    while (timer <= fadeInImage) // fade in
+    //    {
+    //        float alpha = Mathf.Lerp(0, 1, timer / fadeInImage);
+    //        lightening.color = new Color(1, 1, 1, alpha);
+    //        timer += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    lightening.color = Color.white;
         
         
             
 
-        timer = 0;
-        while (timer <= fadeOutImage) // fade out
-        {
-            float alpha = Mathf.Lerp(1, 0, timer / fadeOutImage);
-            lightening.color = new Color(1, 1, 1, alpha);
-            timer += Time.deltaTime;
-            yield return null;
-        }
+    //    timer = 0;
+    //    while (timer <= fadeOutImage) // fade out
+    //    {
+    //        float alpha = Mathf.Lerp(1, 0, timer / fadeOutImage);
+    //        lightening.color = new Color(1, 1, 1, alpha);
+    //        timer += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        lightening.color = new Color(1, 1, 1, 0); // 화면 사라짐
+    //    lightening.color = new Color(1, 1, 1, 0); // 화면 사라짐
 
-    }
+    //}
     public void blueSkill(int num) // 파랑이
     {
         UnityEngine.Debug.Log("파랑스킬");
@@ -1441,7 +1443,10 @@ public class StageMulti : MonoBehaviour
                 if (!tile.isIced)
                 {
                     tile.isIced = true;
-                    tile.color = ice;
+                    //tile.color = ice;
+                    GameObject Ice = Instantiate(ice_1) as GameObject;
+                    Ice.transform.position = tile.gameObject.transform.position;
+                    Ice.transform.parent = tile.gameObject.transform;
                     i++;
                 }
             }

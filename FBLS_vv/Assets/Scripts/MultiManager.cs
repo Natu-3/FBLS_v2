@@ -31,6 +31,7 @@ public class MultiManager : MonoBehaviour
     public GameObject snow_1;
     public SpriteRenderer backGround_1;
     public Transform lightningTransform_1;
+    public SpriteRenderer twinkle_1;
 
     [Header("2p")]
     public GameObject warningPanel2; // ∞Ê∞Ì∆«
@@ -48,6 +49,7 @@ public class MultiManager : MonoBehaviour
     public GameObject snow_2;
     public SpriteRenderer backGround_2;
     public Transform lightningTransform_2;
+    public SpriteRenderer twinkle_2;
 
     private float skillTimer;
     private bool isSkillActive = false;
@@ -87,7 +89,7 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed2);
         redButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_2));
-        abc_2 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_2));
+        abc_2 = StartCoroutine(SkillBackGround.Instance.SunBackGround(backGround_2));
     }
 
     public void AtkRed2()
@@ -97,7 +99,7 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed1);
         redButton2.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_1));
-        abc_1 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_1));
+        abc_1 = StartCoroutine(SkillBackGround.Instance.SunBackGround(backGround_1));
     }
 
     public void AtkBlue1()
@@ -105,8 +107,8 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "B");
         ActivePanel(warningBlue2);
         blueButton1.SetActive(false);
-        StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
-        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
+        StartCoroutine(EffectManager.instance.WeatherEffect(snow_2));
+        abc_2 = StartCoroutine(SkillBackGround.Instance.SnowBackGround(backGround_2));
     }
 
     public void AtkBlue2()
@@ -115,8 +117,8 @@ public class MultiManager : MonoBehaviour
         SetAttack(2, "B");
         ActivePanel(warningBlue1);
         blueButton2.SetActive(false);
-        StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
-        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
+        StartCoroutine(EffectManager.instance.WeatherEffect(snow_1));
+        abc_2 = StartCoroutine(SkillBackGround.Instance.SnowBackGround(backGround_1));
 
     }
 
@@ -125,7 +127,9 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "Y");
         ActivePanel(warningYellow2);
         yellowButton1.SetActive(false);
-        StartCoroutine(EffectManager.instance.WeatherEffect(snow_2));
+        StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
+        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
+        StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_2));
     }
 
     public void AtkYellow2()
@@ -134,7 +138,9 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
         yellowButton2.SetActive(false);
-        StartCoroutine(EffectManager.instance.WeatherEffect(snow_1));
+        StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
+        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
+        StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_1));
     }
 
     public void Green1()
@@ -147,6 +153,7 @@ public class MultiManager : MonoBehaviour
         snow_1.gameObject.SetActive(false);
         sun_1.gameObject.SetActive(false);
         rain_1.gameObject.SetActive(false);
+        twinkle_1.gameObject.SetActive(false);
         StopCoroutine(abc_1);
         backGround_1.color = Color.white;
         backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
@@ -163,6 +170,7 @@ public class MultiManager : MonoBehaviour
         snow_2.gameObject.SetActive(false);
         sun_2.gameObject.SetActive(false);
         rain_2.gameObject.SetActive(false);
+        twinkle_2.gameObject.SetActive(false);
         StopCoroutine(abc_2);
         backGround_2.color = Color.white;
         backGround_2 = backGround_2.GetComponent<SpriteRenderer>();

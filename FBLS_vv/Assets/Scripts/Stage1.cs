@@ -110,6 +110,7 @@ public class Stage1 : MonoBehaviour
    
     private Color fire = Color.black;
     private Color ice = Color.gray;
+    public GameObject ice_1;
     public UnityEngine.UI.Image lightening;
     public float fadeInImage = 0.1f; // 이미지 나타나는 시간
     public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
@@ -652,7 +653,8 @@ public class Stage1 : MonoBehaviour
                     if (currentTile.isIced) // 얼었을 때
                     {
                         currentTile.isIced = false; // 풀기
-                        currentTile.color = currentTile.preColor;
+                        Destroy(tile.transform.GetChild(0).gameObject);
+                        //currentTile.color = currentTile.preColor;
                         UnityEngine.Debug.Log("얼었다");
                     }
                     else
@@ -1095,6 +1097,7 @@ public class Stage1 : MonoBehaviour
                     else
                     {
                         tile.isIced = false;
+                        Destroy(tile.transform.GetChild(0).gameObject);
                     }
 
 
@@ -1584,7 +1587,10 @@ public class Stage1 : MonoBehaviour
                 if (!tile.isIced)
                 {
                     tile.isIced = true;
-                    tile.color = ice;
+                    //tile.color = ice;
+                    GameObject Ice = Instantiate(ice_1) as GameObject;
+                    Ice.transform.position = tile.gameObject.transform.position;
+                    Ice.transform.parent = tile.gameObject.transform;
                     i++;
                 }
             }
