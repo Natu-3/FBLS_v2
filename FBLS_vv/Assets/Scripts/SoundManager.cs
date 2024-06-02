@@ -19,7 +19,8 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        bgmOff.SetActive(false);
+        sfxOff.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,8 +55,8 @@ public class SoundManager : MonoBehaviour
 
     public void ToggleBgmMute()
     {
-        isBgmMuted = !isBgmMuted; 
-        bgmSource.mute = isBgmMuted; 
+        isBgmMuted = !isBgmMuted;
+        bgmSource.mute = isBgmMuted;
         bgmOff.SetActive(isBgmMuted);
     }
 
