@@ -118,12 +118,57 @@ public class StageMulti : MonoBehaviour
 
     public string garim = "Assets / Images / garim.png";
 
+    private bool coderight= false;
+    private bool codeleft = false;
+    private bool codeup = false;
+    private bool codedown = false;
+    private bool codehold = false;
+    private bool codedrop = false;
+    private bool code1 = false;
+    private bool code2 = false;
+    private bool code3 = false;
+    private bool code4 = false;
+
+    public void Move(float moveHorizontal, float moveVertical)
+    {
+        if(moveHorizontal > 0) { codeleft = true; }
+        else if(moveHorizontal < 0) { coderight = true; }
+        
+        if(moveVertical > 0) { codeup = true; }
+        else if (moveVertical < 0) { codedown = true; }
+        
+    }
 
 
+    public void Hold()
+    {
+        codehold = true;
+    }
 
+    public void Drop()
+    {
+        codedrop = true;
+    }
 
+    public void Action1()
+    {
+        code1 = true;
+    }
 
+    public void Action2()
+    {
+        code2 = true;
+    }
 
+    public void Action3()
+    {
+        code3 = true;
+    }
+
+    public void Action4()
+    {
+        code4 = true;
+    }
 
     private bool isPaused = true;
     private void Start()
@@ -197,30 +242,35 @@ public class StageMulti : MonoBehaviour
             Vector3 moveDir = Vector3.zero;
             bool isRotate = false;
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (coderight)//Input.GetKeyDown(//KeyCode.LeftArrow))
             {
                 moveDir.x = -1;
-
+                coderight = false;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (codeleft)////Input.GetKeyDown(KeyCode.RightArrow))
             {
                 moveDir.x = 1;
+                codeleft = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (codeup)//Input.GetKeyDown(codeup//KeyCode.UpArrow))
             {
+
                 isRotate = true;
+                codeup = false;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (codedown)//Input.GetKeyDown(codedown//KeyCode.DownArrow))
             {
                 moveDir.y = -1;
+                codedown = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (codedrop)//Input.GetKeyDown(codedrop//KeyCode.Space))
             {
                 while (MoveTetromino(Vector3.down, false))
                 {
                 }
+                codedrop = false;
             }
 
             // 아래로 떨어지는 경우는 강제로 이동시킵니다.
@@ -236,33 +286,38 @@ public class StageMulti : MonoBehaviour
                 MoveTetromino(moveDir, isRotate);
             }
             
-            if (Input.GetKeyDown(KeyCode.M) && MultiManager.Instance.redButton2.activeSelf){
+            if (/*Input.GetKeyDown(KeyCode.M)*/code1 && MultiManager.Instance.redButton2.activeSelf){
                 MultiManager.Instance.AtkRed2();
                 updateBlock();
-        
+                code1 = false;
                 UnityEngine.Debug.Log("Red skill!");
             }
-            if (Input.GetKeyDown(KeyCode.Comma) && MultiManager.Instance.blueButton2.activeSelf)
+            if (/*Input.GetKeyDown(KeyCode.Comma)*/code2 && MultiManager.Instance.blueButton2.activeSelf)
             {
                 MultiManager.Instance.AtkBlue2();
                 UnityEngine.Debug.Log("Blue skill!");
                 updateBlock();
+                code2 = false;
             }
-            if (Input.GetKeyDown(KeyCode.Period) && MultiManager.Instance.yellowButton2.activeSelf)
+            if (/*Input.GetKeyDown(KeyCode.Period)*/code3 && MultiManager.Instance.yellowButton2.activeSelf)
             {
+
                 MultiManager.Instance.AtkYellow2();
                 UnityEngine.Debug.Log("Yellow skill!");
                 updateBlock();
+                code3 = false;
             }
-            if (Input.GetKeyDown(KeyCode.Slash) && MultiManager.Instance.greenButton2.activeSelf)
+            if (/*Input.GetKeyDown(KeyCode.Slash)*/code4 && MultiManager.Instance.greenButton2.activeSelf)
             {
                 UnityEngine.Debug.Log("Green skill!");
                 MultiManager.Instance.Green2();
                 updateBlock();
+                code4 = false;
             }
-            if (Input.GetKeyDown(KeyCode.RightControl))
+            if (codehold/*Input.GetKeyDown(KeyCode.RightControl)*/)
             {
                 HoldTetromino();
+                codehold = false;
             }
 
 
@@ -1705,8 +1760,6 @@ public class StageMulti : MonoBehaviour
 
 
 }
-
-
 
 
 

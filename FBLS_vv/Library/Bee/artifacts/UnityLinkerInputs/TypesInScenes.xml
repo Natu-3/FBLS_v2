@@ -2,9 +2,12 @@
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="ChangeScene" preserve="nothing"/>
 		<type fullname="Clone" preserve="nothing"/>
+		<type fullname="GameManager" preserve="nothing"/>
 		<type fullname="GameOver" preserve="nothing"/>
 		<type fullname="GaugeBar" preserve="nothing"/>
 		<type fullname="MultiManager" preserve="nothing"/>
+		<type fullname="PhotonManager" preserve="nothing"/>
+		<type fullname="PlayerController" preserve="nothing"/>
 		<type fullname="res" preserve="nothing"/>
 		<type fullname="Resoluetion" preserve="nothing"/>
 		<type fullname="rowNode" preserve="nothing"/>
@@ -20,6 +23,24 @@
 		<type fullname="TileY" preserve="nothing"/>
 		<type fullname="TimeManager" preserve="nothing"/>
 	</assembly>
+	<assembly fullname="PhotonUnityNetworking.Demos">
+		<type fullname="Photon.Pun.Demo.Asteroids.Asteroid" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.Asteroids.Bullet" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.Asteroids.Spaceship" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.PunBasics.CameraWork" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.PunBasics.PlayerAnimatorManager" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.PunBasics.PlayerManager" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.PunBasics.PlayerUI" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.SlotRacer.PlayerControl" preserve="nothing"/>
+		<type fullname="Photon.Pun.Demo.SlotRacer.Utils.SplineWalker" preserve="nothing"/>
+	</assembly>
+	<assembly fullname="PhotonUnityNetworking">
+		<type fullname="Photon.Pun.PhotonAnimatorView" preserve="nothing"/>
+		<type fullname="Photon.Pun.PhotonRigidbodyView" preserve="nothing"/>
+		<type fullname="Photon.Pun.PhotonTransformView" preserve="nothing"/>
+		<type fullname="Photon.Pun.PhotonView" preserve="nothing"/>
+		<type fullname="Photon.Pun.ServerSettings" preserve="nothing"/>
+	</assembly>
 	<assembly fullname="Unity.TextMeshPro">
 		<type fullname="TMPro.TextMeshProUGUI" preserve="nothing"/>
 		<type fullname="TMPro.TMP_ColorGradient" preserve="nothing"/>
@@ -29,6 +50,7 @@
 		<type fullname="TMPro.TMP_StyleSheet" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="UnityEngine">
+		<type fullname="UnityEditor.Animations.AnimatorController" preserve="nothing"/>
 		<type fullname="UnityEditor.AudioManager" preserve="nothing"/>
 		<type fullname="UnityEditor.InputManager" preserve="nothing"/>
 		<type fullname="UnityEditor.MonoManager" preserve="nothing"/>
@@ -39,13 +61,21 @@
 		<type fullname="UnityEditor.TagManager" preserve="nothing"/>
 		<type fullname="UnityEditor.TimeManager" preserve="nothing"/>
 		<type fullname="UnityEditor.VFXManager" preserve="nothing"/>
+		<type fullname="UnityEngine.AnimationClip" preserve="nothing"/>
+		<type fullname="UnityEngine.Animator" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioListener" preserve="nothing"/>
+		<type fullname="UnityEngine.Avatar" preserve="nothing"/>
 		<type fullname="UnityEngine.Behaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.BoxCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Camera" preserve="nothing"/>
 		<type fullname="UnityEngine.Canvas" preserve="nothing"/>
+		<type fullname="UnityEngine.CanvasGroup" preserve="nothing"/>
 		<type fullname="UnityEngine.CanvasRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.CapsuleCollider" preserve="nothing"/>
+		<type fullname="UnityEngine.CharacterController" preserve="nothing"/>
+		<type fullname="UnityEngine.Collider" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Component" preserve="nothing"/>
 		<type fullname="UnityEngine.Cubemap" preserve="nothing"/>
@@ -54,15 +84,25 @@
 		<type fullname="UnityEngine.LightingSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.LightmapSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Material" preserve="nothing"/>
+		<type fullname="UnityEngine.Mesh" preserve="nothing"/>
+		<type fullname="UnityEngine.MeshFilter" preserve="nothing"/>
+		<type fullname="UnityEngine.MeshRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.Motion" preserve="nothing"/>
 		<type fullname="UnityEngine.Object" preserve="nothing"/>
+		<type fullname="UnityEngine.ParticleSystem" preserve="nothing"/>
+		<type fullname="UnityEngine.ParticleSystemRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.QualitySettings" preserve="nothing"/>
 		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
 		<type fullname="UnityEngine.Renderer" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.GraphicsSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.RenderSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.Rigidbody" preserve="nothing"/>
 		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
+		<type fullname="UnityEngine.RuntimeAnimatorController" preserve="nothing"/>
 		<type fullname="UnityEngine.Shader" preserve="nothing"/>
+		<type fullname="UnityEngine.SkinnedMeshRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.SphereCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.Sprite" preserve="nothing"/>
 		<type fullname="UnityEngine.SpriteRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.TextAsset" preserve="nothing"/>
@@ -77,6 +117,7 @@
 		<type fullname="UnityEngine.UI.CanvasScaler" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.GraphicRaycaster" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Image" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Shadow" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Slider" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Text" preserve="nothing"/>
 	</assembly>

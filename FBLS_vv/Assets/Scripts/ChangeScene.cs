@@ -16,7 +16,7 @@ public class ChangeScene : MonoBehaviour
     }
     public void changeComputer()
     {
-        SceneManager.LoadScene("MultiScene");
+        SceneManager.LoadScene("MultiSceneServer");
     }
     public void GameExit()
     {
