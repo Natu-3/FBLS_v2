@@ -26,7 +26,10 @@ public class MultiManager : MonoBehaviour
     public GameObject blueButton1;
     public GameObject yellowButton1;
     public GameObject greenButton1;
-
+    public GameObject sun_1;
+    public GameObject rain_1;
+    public GameObject snow_1;
+    public SpriteRenderer backGround_1;
 
     [Header("2p")]
     public GameObject warningPanel2; // °æ°íÆÇ
@@ -39,9 +42,14 @@ public class MultiManager : MonoBehaviour
     public GameObject blueButton2;
     public GameObject yellowButton2;
     public GameObject greenButton2;
+    public GameObject sun_2;
+    public GameObject rain_2;
+    public GameObject snow_2;
+    public SpriteRenderer backGround_2;
+
     private float skillTimer;
     private bool isSkillActive = false;
- 
+    Coroutine adc;
 
     void Awake()
     {
@@ -75,6 +83,8 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "R");
         ActivePanel(warningRed2);
         redButton1.SetActive(false);
+        StartCoroutine(EffectManager.instance.WeatherEffect(sun_2));
+        StartCoroutine(SkillBackGround.Instance.Transparency(backGround_2));
     }
 
     public void AtkRed2()
@@ -83,6 +93,8 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Red skill on");
         ActivePanel(warningRed1);
         redButton2.SetActive(false);
+        StartCoroutine(EffectManager.instance.WeatherEffect(sun_1));
+        StartCoroutine(SkillBackGround.Instance.Transparency(backGround_1));
     }
 
     public void AtkBlue1()
@@ -90,6 +102,7 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "B");
         ActivePanel(warningBlue2);
         blueButton1.SetActive(false);
+        StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
     }
 
     public void AtkBlue2()
@@ -98,6 +111,7 @@ public class MultiManager : MonoBehaviour
         SetAttack(2, "B");
         ActivePanel(warningBlue1);
         blueButton2.SetActive(false);
+        StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
     }
 
     public void AtkYellow1()
@@ -105,6 +119,7 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "Y");
         ActivePanel(warningYellow2);
         yellowButton1.SetActive(false);
+        StartCoroutine(EffectManager.instance.WeatherEffect(snow_2));
     }
 
     public void AtkYellow2()
@@ -113,6 +128,7 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
         yellowButton2.SetActive(false);
+        adc = StartCoroutine(EffectManager.instance.WeatherEffect(snow_1));
     }
 
     public void Green1()
@@ -222,46 +238,46 @@ public class MultiManager : MonoBehaviour
     public void ActiveButton()
     {
         //1p
-        if (Stage1.redVal >= 10 && !redButton1.activeSelf)
+        if (Stage1.redVal >= 0 && !redButton1.activeSelf)
         {
             redButton1.SetActive(true);
             Stage1.redVal = 0;
         }
-        if (Stage1.blueVal >= 10 && !blueButton1.activeSelf)
+        if (Stage1.blueVal >= 0 && !blueButton1.activeSelf)
         {
             blueButton1.SetActive(true);
             Stage1.blueVal = 0;
         }
-        if (Stage1.yellowVal >= 10 && !yellowButton1.activeSelf)
+        if (Stage1.yellowVal >= 0 && !yellowButton1.activeSelf)
         {
             yellowButton1.SetActive(true);
             Stage1.yellowVal = 0;
         }
-        if (Stage1.greenVal >= 10 && !greenButton1.activeSelf)
+        if (Stage1.greenVal >= 0 && !greenButton1.activeSelf)
         {
             greenButton1.SetActive(true);
             Stage1.greenVal = 0;
         }
         //2p
-        if (StageMulti.redVal >= 10 && !redButton2.activeSelf)
+        if (StageMulti.redVal >= 0 && !redButton2.activeSelf)
         {
             redButton2.SetActive(true);
             StageMulti.redVal = 0;
             UnityEngine.Debug.Log(StageMulti.redVal.ToString());
         }
-        if (StageMulti.blueVal >= 10 && !blueButton2.activeSelf)
+        if (StageMulti.blueVal >= 0 && !blueButton2.activeSelf)
         {
             blueButton2.SetActive(true);
             StageMulti.blueVal = 0;
             UnityEngine.Debug.Log(StageMulti.blueVal.ToString());
         }
-        if (StageMulti.yellowVal >= 10 && !yellowButton2.activeSelf)
+        if (StageMulti.yellowVal >= 0 && !yellowButton2.activeSelf)
         {
             yellowButton2.SetActive(true);
             StageMulti.yellowVal = 0;
             UnityEngine.Debug.Log(StageMulti.yellowVal.ToString());
         }
-        if (StageMulti.greenVal >= 10 && !greenButton2.activeSelf)
+        if (StageMulti.greenVal >= 0 && !greenButton2.activeSelf)
         {
             greenButton2.SetActive(true);
             StageMulti.greenVal = 0;

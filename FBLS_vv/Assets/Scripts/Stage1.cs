@@ -56,7 +56,7 @@ public class Stage1 : MonoBehaviour
 
 
     public BlockPosition blockPos; // 블럭 구조체
-
+    
 
 
     [Header("Game Settings")]
@@ -245,7 +245,6 @@ public class Stage1 : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Alpha1) && MultiManager.Instance.redButton1.activeSelf){
                     MultiManager.Instance.AtkRed1();
                     updateBlock();
-        
                     UnityEngine.Debug.Log("Red skill!");
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha2) && MultiManager.Instance.blueButton1.activeSelf)
@@ -689,6 +688,7 @@ public class Stage1 : MonoBehaviour
            
 
                     Destroy(tile.gameObject);
+                    EffectManager.instance.Effect(tile.gameObject);
                 }
                
        
@@ -1087,6 +1087,7 @@ public class Stage1 : MonoBehaviour
 
 
                         Destroy(blockTransform.gameObject);
+                        EffectManager.instance.Effect(blockTransform.gameObject);
                         updateBlock();
                        // UnityEngine.Debug.Log("블록 삭제됨: " + blockName);
                        
