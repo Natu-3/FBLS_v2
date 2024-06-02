@@ -47,10 +47,10 @@ public class Stage1 : MonoBehaviour
     public Transform tetrominoNode; //테트리미노
                                     // public GameObject gameoverPanel; //게임오버
     public TextMeshProUGUI score; // 점수
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
+    public TextMeshProUGUI red; // 사라진 블럭
+    public TextMeshProUGUI green; // 사라진 블럭
+    public TextMeshProUGUI blue; // 사라진 블럭
+    public TextMeshProUGUI yellow; // 사라진 블럭
     public Transform preview; // 다음 블럭
     public GameObject start;
 
@@ -95,7 +95,7 @@ public class Stage1 : MonoBehaviour
     private int enemyBlock = 0; // 상대 누적 블럭
     private int difference; // 누적 블럭 차이
     public int pivot = 50; // 기준(게이지 중간)
-    public Text textTime;
+    public TextMeshProUGUI textTime;
     private float timer;
     public float timerLimit; // 타이머 제한 시간 감소치
     public int penaltyBlock; // 패널티 존에서 벗어나기 위한 블럭 개수
@@ -560,7 +560,7 @@ public class Stage1 : MonoBehaviour
                 CheckBoardColumn();
                 CreateTetromino();
                 CreatePreview();
-
+                SoundManager.Instance.playSfx(SfxType.Fall);
 
                 if (!CanMoveTo(tetrominoNode))
                 {
@@ -637,6 +637,7 @@ public class Stage1 : MonoBehaviour
     // 보드에 완성된 행이 있으면 삭제
     void CheckBoardColumn()
     {
+       // SoundManager.Instance.playSfx(SfxType.Destroy);
         List<List<Transform>> tilesFall = new List<List<Transform>>();
 
         foreach (Transform column in boardNode)
@@ -654,12 +655,14 @@ public class Stage1 : MonoBehaviour
                         currentTile.isIced = false; // 풀기
                         currentTile.color = currentTile.preColor;
                         UnityEngine.Debug.Log("얼었다");
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
                     else
                     {
 
                         tilesToRemove.Add(currentTile); // 안얼었으면 제거 리스트 추가
                         UnityEngine.Debug.Log("안얼었다");
+
                     }
                 }
                 foreach (var tile in tilesToRemove)
@@ -1037,6 +1040,7 @@ public class Stage1 : MonoBehaviour
 
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
+        //SoundManager.Instance.playSfx(SfxType.Destroy);
         List<List<Transform>> tilesFall = new List<List<Transform>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
@@ -1095,6 +1099,7 @@ public class Stage1 : MonoBehaviour
                     else
                     {
                         tile.isIced = false;
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
 
 
@@ -1319,12 +1324,13 @@ public class Stage1 : MonoBehaviour
     { // 패널티부여 + 줄 줄어듦
         int buff = 19 - panalty;
         //for (int i = 0; i < 12; i++)
-       // {
-            //ransform backRow = backgroundNode.transform.Find("back" + buff.ToString());
-            // backRow.transform.position = new Vector3Int(-50, 0,0);
-            //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
-           // Destroy(backRow);
+        // {
+        //ransform backRow = backgroundNode.transform.Find("back" + buff.ToString());
+        // backRow.transform.position = new Vector3Int(-50, 0,0);
+        //backRow.transform.name = "delete";//이름을 바꿔줘야 딜레이 없이 삭제가 가능함, destroy는 즉시 삭제가 아니라 딜레이가 존재하므로, 반복문 시간동안 안걸리는것 같음
+        // Destroy(backRow);
         //}
+        SoundManager.Instance.playSfx(SfxType.Panalty);
         UnityEngine.Debug.Log("1P패널티");
         panalty++;
         panaltyVal++;

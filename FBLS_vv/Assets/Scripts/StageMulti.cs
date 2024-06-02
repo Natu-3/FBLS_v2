@@ -472,6 +472,7 @@ public class StageMulti : MonoBehaviour
 
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
+                SoundManager.Instance.playSfx(SfxType.Fall);
                 AddToBoard(tetrominoNode);
                 for (int i = 0; i < ghostNode.childCount; i++)
                 {
@@ -545,8 +546,8 @@ public class StageMulti : MonoBehaviour
     
     void CheckBoardColumn()
     {
-        
-         List<List<Transform>> tilesFall = new List<List<Transform>>();
+        //SoundManager.Instance.playSfx(SfxType.Destroy);
+        List<List<Transform>> tilesFall = new List<List<Transform>>();
         foreach (Transform column in boardNode)
         {
             List<Tile> tilesToRemove = new List<Tile>(); // 제거할 타일 리스트
@@ -561,7 +562,8 @@ public class StageMulti : MonoBehaviour
                     {
                         currentTile.isIced = false; // 풀기
                         currentTile.color = currentTile.preColor;
-                       // UnityEngine.Debug.Log("얼었다");
+                        // UnityEngine.Debug.Log("얼었다");
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
                     else
                     {
@@ -957,6 +959,7 @@ public class StageMulti : MonoBehaviour
     
     private void CheckTileGroups() // 4개 조건을 만족한 블럭들 탐지/삭제하는 메소드
     {
+        //SoundManager.Instance.playSfx(SfxType.Destroy);
         List<List<Transform>> tilesFall = new List<List<Transform>>();
         // 게임 보드의 모든 행을 순회합니다.
         for (int y = 0; y < boardHeight; y++)
@@ -1015,6 +1018,7 @@ public class StageMulti : MonoBehaviour
                     else
                     {
                         tile.isIced = false;
+                        SoundManager.Instance.playSfx(SfxType.Uniced);
                     }
                     
 
@@ -1275,7 +1279,7 @@ public class StageMulti : MonoBehaviour
         //}
         panalty++;
         panaltyVal++;
-
+        SoundManager.Instance.playSfx(SfxType.Panalty);
     }
 
     //스킬 구현
@@ -1289,10 +1293,10 @@ public class StageMulti : MonoBehaviour
     public UnityEngine.UI.Image lightening;
     public float fadeInImage = 0.1f; // 이미지 나타나는 시간
     public float fadeOutImage = 1.01f; // 이미지 사라지는 시간
-    public Text red; // 사라진 블럭
-    public Text green; // 사라진 블럭
-    public Text blue; // 사라진 블럭
-    public Text yellow; // 사라진 블럭
+    public TextMeshProUGUI red; // 사라진 블럭
+    public TextMeshProUGUI green; // 사라진 블럭
+    public TextMeshProUGUI blue; // 사라진 블럭
+    public TextMeshProUGUI yellow; // 사라진 블럭
 
 
     public List<Tile> randomTile(int maxCount = 5)
