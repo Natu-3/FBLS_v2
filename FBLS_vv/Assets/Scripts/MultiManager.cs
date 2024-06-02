@@ -20,7 +20,7 @@ public class MultiManager : MonoBehaviour
     public GameObject warningBlue1;
     public GameObject warningYellow1;
     public GameObject cancelSkill1;
-    public GameObject warningImage1;
+    //public GameObject warningImage1;
     public GameObject redButton1; //버튼
     public GameObject blueButton1;
     public GameObject yellowButton1;
@@ -32,7 +32,7 @@ public class MultiManager : MonoBehaviour
     public GameObject warningBlue2;
     public GameObject warningYellow2;
     public GameObject cancelSkill2;
-    public GameObject warningImage2;
+    //public GameObject warningImage2;
     public GameObject redButton2; //버튼
     public GameObject blueButton2;
     public GameObject yellowButton2;
@@ -191,7 +191,6 @@ public class MultiManager : MonoBehaviour
     private GameObject currentSkill;
     public void HidePanel()
     {
-
         currentSkill.SetActive(false);
     }
 
