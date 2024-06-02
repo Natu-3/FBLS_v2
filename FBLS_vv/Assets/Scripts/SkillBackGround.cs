@@ -8,10 +8,12 @@ public class SkillBackGround : MonoBehaviour
 
     Color cr = Color.white;
     public float cl = 120; // 최종 색
+    MultiManager MultiManager;
 
     private void Awake()
     {
         SkillBackGround.Instance = this;
+        MultiManager = new MultiManager();
     }
 
     public IEnumerator Transparency(SpriteRenderer render) //색 변경
@@ -34,6 +36,5 @@ public class SkillBackGround : MonoBehaviour
             render = render.GetComponent<SpriteRenderer>();
             yield return new WaitForSeconds(0.04f);
         }
-
     }
 }

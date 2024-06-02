@@ -30,6 +30,7 @@ public class MultiManager : MonoBehaviour
     public GameObject rain_1;
     public GameObject snow_1;
     public SpriteRenderer backGround_1;
+    public Transform lightningTransform_1;
 
     [Header("2p")]
     public GameObject warningPanel2; // ∞Ê∞Ì∆«
@@ -46,10 +47,12 @@ public class MultiManager : MonoBehaviour
     public GameObject rain_2;
     public GameObject snow_2;
     public SpriteRenderer backGround_2;
+    public Transform lightningTransform_2;
 
     private float skillTimer;
     private bool isSkillActive = false;
-    Coroutine adc;
+    Coroutine abc_1;
+    Coroutine abc_2;
 
     void Awake()
     {
@@ -84,7 +87,7 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed2);
         redButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_2));
-        StartCoroutine(SkillBackGround.Instance.Transparency(backGround_2));
+        abc_2 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_2));
     }
 
     public void AtkRed2()
@@ -94,7 +97,7 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed1);
         redButton2.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_1));
-        StartCoroutine(SkillBackGround.Instance.Transparency(backGround_1));
+        abc_1 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_1));
     }
 
     public void AtkBlue1()
@@ -103,6 +106,7 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningBlue2);
         blueButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
+        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
     }
 
     public void AtkBlue2()
@@ -112,6 +116,8 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningBlue1);
         blueButton2.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
+        StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
+
     }
 
     public void AtkYellow1()
@@ -128,7 +134,7 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
         yellowButton2.SetActive(false);
-        adc = StartCoroutine(EffectManager.instance.WeatherEffect(snow_1));
+        StartCoroutine(EffectManager.instance.WeatherEffect(snow_1));
     }
 
     public void Green1()
@@ -138,6 +144,12 @@ public class MultiManager : MonoBehaviour
         ActivePanel(cancelSkill2);
         warningImage2.SetActive(false);
         greenButton1.SetActive(false);
+        snow_1.gameObject.SetActive(false);
+        sun_1.gameObject.SetActive(false);
+        rain_1.gameObject.SetActive(false);
+        StopCoroutine(abc_1);
+        backGround_1.color = Color.white;
+        backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
     }
 
     public void Green2()
@@ -148,6 +160,12 @@ public class MultiManager : MonoBehaviour
         ActivePanel(cancelSkill1);
         warningImage1.SetActive(false);
         greenButton2.SetActive(false);
+        snow_2.gameObject.SetActive(false);
+        sun_2.gameObject.SetActive(false);
+        rain_2.gameObject.SetActive(false);
+        StopCoroutine(abc_2);
+        backGround_2.color = Color.white;
+        backGround_2 = backGround_2.GetComponent<SpriteRenderer>();
     }
 
     private void SetAttack(int player, string skill)

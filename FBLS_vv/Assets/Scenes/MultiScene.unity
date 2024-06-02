@@ -255,6 +255,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506993}
   m_CullTransparentMesh: 1
+--- !u!1 &6283637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6283638}
+  m_Layer: 0
+  m_Name: Lightning_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6283638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283637}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.51, y: 2.59, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 622090015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7089421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,7 +1702,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 3681624186604509672, guid: ce236983c0401a847894a457e3da2a49,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3374,12 +3405,13 @@ Transform:
   m_GameObject: {fileID: 622090014}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.38, y: 0.16, z: 0}
+  m_LocalPosition: {x: 20.44, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1012861779}
   - {fileID: 2057241115}
+  - {fileID: 6283638}
   m_Father: {fileID: 452944803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &643929886
@@ -9118,6 +9150,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704011324}
   m_CullTransparentMesh: 1
+--- !u!1 &707242699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 707242700}
+  m_Layer: 0
+  m_Name: Lightning_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &707242700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707242699}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.07, y: 2.59, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2083894143}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &711206589
 GameObject:
   m_ObjectHideFlags: 0
@@ -9227,6 +9290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 165734, guid: 6c1e328deef14cf41982d5f9232e04ff, type: 3}
+  Light: {fileID: 2351321312291813239, guid: 31cd740d2b453fa42aa25404dee7a84e, type: 3}
   multi: {fileID: 0}
 --- !u!4 &723478307
 Transform:
@@ -10010,7 +10074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &924856854
 Transform:
   m_ObjectHideFlags: 0
@@ -10039,7 +10103,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 882946c4b2fa7c343bcd87ab4f566dfb, type: 3}
   m_Resource: {fileID: 8300000, guid: 882946c4b2fa7c343bcd87ab4f566dfb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.42
+  m_Volume: 0.24
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -16280,7 +16344,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 3681624186604509672, guid: ce236983c0401a847894a457e3da2a49,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -22174,6 +22238,7 @@ MonoBehaviour:
   rain_1: {fileID: 2083894142}
   snow_1: {fileID: 352463234}
   backGround_1: {fileID: 450777491}
+  lightningTransform_1: {fileID: 707242700}
   warningPanel2: {fileID: 1061007561}
   warningRed2: {fileID: 398030630}
   warningBlue2: {fileID: 1459226257}
@@ -22188,6 +22253,7 @@ MonoBehaviour:
   rain_2: {fileID: 622090014}
   snow_2: {fileID: 891346181}
   backGround_2: {fileID: 690196973}
+  lightningTransform_2: {fileID: 6283638}
 --- !u!1 &1312121847
 GameObject:
   m_ObjectHideFlags: 0
@@ -23470,7 +23536,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 9159674155076601580, guid: d6075590531088642ba05bcee23e3d37,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -31820,7 +31886,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 9159674155076601580, guid: d6075590531088642ba05bcee23e3d37,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -32130,6 +32196,7 @@ Transform:
   m_Children:
   - {fileID: 1168271586}
   - {fileID: 1472573795}
+  - {fileID: 707242700}
   m_Father: {fileID: 700486351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2086818943
