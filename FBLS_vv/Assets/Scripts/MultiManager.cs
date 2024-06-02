@@ -31,7 +31,7 @@ public class MultiManager : MonoBehaviour
     public GameObject snow_1;
     public SpriteRenderer backGround_1;
     public Transform lightningTransform_1;
-    public SpriteRenderer twinkle_1;
+    //public SpriteRenderer twinkle_1;
 
     [Header("2p")]
     public GameObject warningPanel2; // �����
@@ -49,7 +49,7 @@ public class MultiManager : MonoBehaviour
     public GameObject snow_2;
     public SpriteRenderer backGround_2;
     public Transform lightningTransform_2;
-    public SpriteRenderer twinkle_2;
+   // public SpriteRenderer twinkle_2;
 
     private float skillTimer;
     private bool isSkillActive = false;
@@ -137,7 +137,7 @@ public class MultiManager : MonoBehaviour
         yellowButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
-        StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_2));
+       // StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_2));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
     }
 
@@ -150,7 +150,7 @@ public class MultiManager : MonoBehaviour
 
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
-        StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_1));
+        //StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_1));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
 
     }
@@ -164,10 +164,10 @@ public class MultiManager : MonoBehaviour
         snow_1.gameObject.SetActive(false);
         sun_1.gameObject.SetActive(false);
         rain_1.gameObject.SetActive(false);
-        twinkle_1.gameObject.SetActive(false);
+       // twinkle_1.gameObject.SetActive(false);
         StopCoroutine(abc_1);
         backGround_1.color = Color.white;
-        backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
+       backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
         SoundManager.Instance.playSfx(SfxType.Shield);
     }
 
@@ -182,7 +182,7 @@ public class MultiManager : MonoBehaviour
         snow_2.gameObject.SetActive(false);
         sun_2.gameObject.SetActive(false);
         rain_2.gameObject.SetActive(false);
-        twinkle_2.gameObject.SetActive(false);
+        //twinkle_2.gameObject.SetActive(false);
         StopCoroutine(abc_2);
         backGround_2.color = Color.white;
         backGround_2 = backGround_2.GetComponent<SpriteRenderer>();
