@@ -15,7 +15,7 @@ C:/Users/Cyy/Desktop/CapsTone/FBLSGIT/FBLS_v2/FBLS_vv
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-10144
+14004
 -job-worker-count
 9
 -background-job-worker-count
@@ -58,12 +58,12 @@ C:/Users/Cyy/Desktop/CapsTone/FBLSGIT/FBLS_v2/FBLS_vv
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [21636] Host "[IP] 222.98.104.61 [Port] 0 [Flags] 2 [Guid] 452304646 [EditorId] 452304646 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-B54JAR9) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
-Player connection [21636] Host "[IP] 222.98.104.61 [Port] 0 [Flags] 2 [Guid] 452304646 [EditorId] 452304646 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-B54JAR9) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [30548] Host "[IP] 222.98.104.61 [Port] 0 [Flags] 2 [Guid] 4153818527 [EditorId] 4153818527 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-B54JAR9) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [30548] Host "[IP] 222.98.104.61 [Port] 0 [Flags] 2 [Guid] 4153818527 [EditorId] 4153818527 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-B54JAR9) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 9
 [Physics::Module] Initialized MultithreadedJobDispatcher with 9 workers.
 Library Redirect Path: Library/
-Refreshing native plugins compatible for Editor in 0.83 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 1.11 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2023.2.14f1 (eeca29774eb5)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/Resources/UnitySubsystems
@@ -79,7 +79,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56792
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56676
 Begin MonoManager ReloadAssembly
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
@@ -95,46 +95,46 @@ Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2023.2.14f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
-Registered in 0.005995 seconds.
-- Loaded All Assemblies, in  0.313 seconds
+Registered in 0.006301 seconds.
+- Loaded All Assemblies, in  0.467 seconds
 [usbmuxd] Start listen thread
 [usbmuxd] Listen thread started
 Native extension for iOS target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 262 ms
+Android Extension - Scanning For ADB Devices 315 ms
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-- Finished resetting the current domain, in  0.551 seconds
-Domain Reload Profiling: 861ms
-	BeginReloadAssembly (112ms)
+- Finished resetting the current domain, in  0.598 seconds
+Domain Reload Profiling: 1060ms
+	BeginReloadAssembly (186ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (0ms)
-	RebuildCommonClasses (26ms)
-	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (42ms)
-	LoadAllAssembliesAndSetupDomain (122ms)
-		LoadAssemblies (109ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (38ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (48ms)
+	LoadAllAssembliesAndSetupDomain (182ms)
+		LoadAssemblies (184ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (119ms)
-			TypeCache.Refresh (118ms)
-				TypeCache.ScanAssembly (107ms)
+		AnalyzeDomain (177ms)
+			TypeCache.Refresh (176ms)
+				TypeCache.ScanAssembly (159ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (552ms)
+	FinalizeReload (598ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (520ms)
+		SetupLoadedEditorAssemblies (567ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (341ms)
+			InitializePlatformSupportModulesInManaged (396ms)
 			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (4ms)
-			ProcessInitializeOnLoadAttributes (128ms)
-			ProcessInitializeOnLoadMethodAttributes (44ms)
+			BeforeProcessingInitializeOnLoad (8ms)
+			ProcessInitializeOnLoadAttributes (118ms)
+			ProcessInitializeOnLoadMethodAttributes (43ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -155,293 +155,129 @@ C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CF94CC020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
+Symbol file data-0000024E0B827660 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94CC020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
+Symbol file data-0000024E0B76FED0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBAC1A50 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
+Symbol file data-0000024E0C3E7A30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBAC7A60 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
+Symbol file data-0000024E07F131C0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBAC7A60 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
+Symbol file data-0000024E0B827660 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF97456E0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
+Symbol file data-0000024E07F20DD0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF97456E0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file data-0000024E07F20DD0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFA626020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file data-0000024E0B76FED0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBAC7A60 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file data-0000024E0B837670 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFA626020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file data-0000024E0B7826E0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file data-0000024E08074A20 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF90F7A30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file data-0000024E08074A20 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBC25F30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file data-0000024E09454020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF90F7A30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file data-0000024E08074A20 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBC25F30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file data-0000024E09475A30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBAC7A60 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file data-0000024E0B837670 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF90F7A30 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file data-0000024E0B7A66F0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3E4D010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file data-0000024E0A816020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.505 seconds
-Refreshing native plugins compatible for Editor in 0.50 ms, found 2 plugins.
+- Loaded All Assemblies, in  0.620 seconds
+Refreshing native plugins compatible for Editor in 0.53 ms, found 2 plugins.
 Native extension for iOS target not found
 Native extension for Android target not found
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.375 seconds
-Domain Reload Profiling: 875ms
-	BeginReloadAssembly (234ms)
+- Finished resetting the current domain, in  0.416 seconds
+Domain Reload Profiling: 1031ms
+	BeginReloadAssembly (289ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (22ms)
-	RebuildCommonClasses (27ms)
+		CreateAndSetChildDomain (19ms)
+	RebuildCommonClasses (25ms)
 	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (26ms)
-	LoadAllAssembliesAndSetupDomain (205ms)
-		LoadAssemblies (227ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (264ms)
+		LoadAssemblies (265ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (72ms)
-			TypeCache.Refresh (60ms)
-				TypeCache.ScanAssembly (50ms)
-			BuildScriptInfoCaches (7ms)
-			ResolveRequiredComponents (1ms)
-	FinalizeReload (375ms)
+		AnalyzeDomain (90ms)
+			TypeCache.Refresh (77ms)
+				TypeCache.ScanAssembly (62ms)
+			BuildScriptInfoCaches (9ms)
+			ResolveRequiredComponents (2ms)
+	FinalizeReload (416ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (236ms)
+		SetupLoadedEditorAssemblies (266ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (17ms)
 			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (19ms)
-			ProcessInitializeOnLoadAttributes (173ms)
-			ProcessInitializeOnLoadMethodAttributes (20ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (11ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
-Refreshing native plugins compatible for Editor in 0.58 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1683 unused Assets / (0.6 MB). Loaded Objects now: 2266.
-Memory consumption went from 108.8 MB to 108.2 MB.
-Total: 3.211900 ms (FindLiveObjects: 0.111400 ms CreateObjectMapping: 0.041300 ms MarkObjects: 2.699700 ms  DeleteObjects: 0.358800 ms)
-
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFA942010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF79E6050 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBB85860 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB994010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB994010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF99E4430 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF950EFF0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7929740 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF9D45020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFCB90080 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB360E330 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFCC7AAD0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD17E010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBE9D010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBD28C80 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7BFC020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFCC7AAD0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF79E6050 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.368 seconds
-Refreshing native plugins compatible for Editor in 0.69 ms, found 2 plugins.
-Native extension for iOS target not found
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.348 seconds
-Domain Reload Profiling: 712ms
-	BeginReloadAssembly (142ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (22ms)
-	RebuildCommonClasses (24ms)
-	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (20ms)
-	LoadAllAssembliesAndSetupDomain (171ms)
-		LoadAssemblies (212ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (46ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (1ms)
-			BuildScriptInfoCaches (37ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (348ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (222ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (16ms)
-			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (20ms)
-			ProcessInitializeOnLoadAttributes (161ms)
-			ProcessInitializeOnLoadMethodAttributes (16ms)
-			AfterProcessingInitializeOnLoad (7ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (16ms)
-Refreshing native plugins compatible for Editor in 0.63 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (463.4 KB). Loaded Objects now: 2266.
-Memory consumption went from 105.4 MB to 105.0 MB.
-Total: 2.971700 ms (FindLiveObjects: 0.112200 ms CreateObjectMapping: 0.039100 ms MarkObjects: 2.506700 ms  DeleteObjects: 0.312800 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-========================================================================
-Received Import Request.
-  Time since last request: 755997.570925 seconds.
-  path: Assets/Scripts/SkillBackGround.cs
-  artifactKey: Guid(978e8b731822e7f43b16535452ea00f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/SkillBackGround.cs using Guid(978e8b731822e7f43b16535452ea00f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '346798487cd33c4ca20bd224309a2e78') in 0.0049594 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
-
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFA942010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7C6E010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB106EB0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFBCFD010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFC33C1B0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFC33C1B0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFC33C1B0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFC33C1B0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD9F3030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFAC97010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445FDBC0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43DB8940 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF9457020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43F25900 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7C6E010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.376 seconds
-Refreshing native plugins compatible for Editor in 0.56 ms, found 2 plugins.
-Native extension for iOS target not found
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.350 seconds
-Domain Reload Profiling: 723ms
-	BeginReloadAssembly (143ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (22ms)
-	RebuildCommonClasses (24ms)
-	RebuildNativeTypeToScriptingClass (13ms)
-	initialDomainReloadingComplete (18ms)
-	LoadAllAssembliesAndSetupDomain (175ms)
-		LoadAssemblies (213ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (47ms)
-			TypeCache.Refresh (4ms)
-				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (40ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (351ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (218ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (16ms)
-			SetLoadedEditorAssemblies (2ms)
 			BeforeProcessingInitializeOnLoad (22ms)
-			ProcessInitializeOnLoadAttributes (154ms)
-			ProcessInitializeOnLoadMethodAttributes (18ms)
-			AfterProcessingInitializeOnLoad (6ms)
+			ProcessInitializeOnLoadAttributes (196ms)
+			ProcessInitializeOnLoadMethodAttributes (22ms)
+			AfterProcessingInitializeOnLoad (8ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (14ms)
-Refreshing native plugins compatible for Editor in 0.77 ms, found 2 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 0.75 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (379.5 KB). Loaded Objects now: 2268.
-Memory consumption went from 107.9 MB to 107.5 MB.
-Total: 3.265900 ms (FindLiveObjects: 0.111400 ms CreateObjectMapping: 0.067900 ms MarkObjects: 2.755200 ms  DeleteObjects: 0.330200 ms)
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1683 unused Assets / (0.6 MB). Loaded Objects now: 2266.
+Memory consumption went from 109.0 MB to 108.3 MB.
+Total: 3.511600 ms (FindLiveObjects: 0.114300 ms CreateObjectMapping: 0.046900 ms MarkObjects: 2.933500 ms  DeleteObjects: 0.416100 ms)
 
-Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 758693.240182 seconds.
+  path: Assets/Audio/빨강_녹는거.mp3
+  artifactKey: Guid(f5513e0bce8479e479b3460ba3cda84a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/빨강_녹는거.mp3 using Guid(f5513e0bce8479e479b3460ba3cda84a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8fe09b6af9d9224a35590c3de40cce6d') in 0.067689 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Audio/click.wav
+  artifactKey: Guid(d7cbbd2fc4b55e9479c73d9624e4e4b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/click.wav using Guid(d7cbbd2fc4b55e9479c73d9624e4e4b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '66e438fc5db8d18e95e9db377d9f1343') in 0.0083327 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000079 seconds.
+  path: Assets/Audio/누적게이지경고.mp3
+  artifactKey: Guid(cf1c478be070f224fa57763537427978) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/누적게이지경고.mp3 using Guid(cf1c478be070f224fa57763537427978) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'cb690c7fa89d2e1ac9d2402a725bc0e9') in 0.0088058 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.221971 seconds.
+  path: Assets/Audio/테트리스.wav
+  artifactKey: Guid(882946c4b2fa7c343bcd87ab4f566dfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/테트리스.wav using Guid(882946c4b2fa7c343bcd87ab4f566dfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ef19889cc66ed4c79445980d04922b61') in 0.0106845 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.753943 seconds.
+  path: Assets/Audio/파랑_얼은블록 깨질때.mp3
+  artifactKey: Guid(796ca8cb7fbebca4f90cf3df82ae3a01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/파랑_얼은블록 깨질때.mp3 using Guid(796ca8cb7fbebca4f90cf3df82ae3a01) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '78ed7ce845d3c1f16c608b542098e525') in 0.0096322 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
@@ -457,293 +293,87 @@ C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFA942010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
+Symbol file data-0000024E07F3FF80 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF79E6050 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
+Symbol file data-0000024E0B8C85E0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43ADC220 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
+Symbol file data-0000024E094F7030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3EA4430 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
+Symbol file data-0000024E09648090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3D13D60 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
+Symbol file data-0000024E07607020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3EA4430 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
+Symbol file data-0000024E0B651150 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3EA4430 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file data-0000024E0B651150 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file data-0000024E08ED7010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFA50F020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file data-0000024E07607020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4653C030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file data-0000024E0A18A010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFAC97010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file data-0000024E0CC26020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file data-0000024E081E0830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF908D020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file data-0000024E13EB9AE0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43DB8940 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file data-0000024E0B6AB010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF9C21010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file data-0000024E0A1AE020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFA50F020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file data-0000024E07607020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file data-0000024E081E0830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF79E6050 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file data-0000024E0B8C85E0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.378 seconds
-Refreshing native plugins compatible for Editor in 0.82 ms, found 2 plugins.
+- Loaded All Assemblies, in  0.393 seconds
+Refreshing native plugins compatible for Editor in 0.78 ms, found 2 plugins.
 Native extension for iOS target not found
 Native extension for Android target not found
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.334 seconds
-Domain Reload Profiling: 708ms
+- Finished resetting the current domain, in  0.384 seconds
+Domain Reload Profiling: 773ms
 	BeginReloadAssembly (150ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (4ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (28ms)
-	RebuildCommonClasses (25ms)
-	RebuildNativeTypeToScriptingClass (8ms)
+		CreateAndSetChildDomain (25ms)
+	RebuildCommonClasses (23ms)
+	RebuildNativeTypeToScriptingClass (9ms)
 	initialDomainReloadingComplete (19ms)
-	LoadAllAssembliesAndSetupDomain (171ms)
-		LoadAssemblies (212ms)
+	LoadAllAssembliesAndSetupDomain (187ms)
+		LoadAssemblies (221ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (47ms)
-			TypeCache.Refresh (6ms)
-				TypeCache.ScanAssembly (1ms)
-			BuildScriptInfoCaches (37ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (335ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (217ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (16ms)
-			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (21ms)
-			ProcessInitializeOnLoadAttributes (157ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (6ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (14ms)
-Refreshing native plugins compatible for Editor in 0.69 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (484.2 KB). Loaded Objects now: 2268.
-Memory consumption went from 109.8 MB to 109.3 MB.
-Total: 3.718300 ms (FindLiveObjects: 0.108500 ms CreateObjectMapping: 0.044900 ms MarkObjects: 3.256900 ms  DeleteObjects: 0.307300 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFA942010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD6FF010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43AD2010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB994010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3D13D60 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB994010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB99D030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFCCF73D0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4652C020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFAC97010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4686B010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4410A130 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFA48B020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB2F3090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43A79900 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.355 seconds
-Refreshing native plugins compatible for Editor in 0.58 ms, found 2 plugins.
-Native extension for iOS target not found
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.339 seconds
-Domain Reload Profiling: 690ms
-	BeginReloadAssembly (137ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (21ms)
-	RebuildCommonClasses (24ms)
-	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (18ms)
-	LoadAllAssembliesAndSetupDomain (164ms)
-		LoadAssemblies (200ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (46ms)
+		AnalyzeDomain (55ms)
 			TypeCache.Refresh (4ms)
 				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (38ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (339ms)
+			BuildScriptInfoCaches (45ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (384ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (217ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (17ms)
-			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (20ms)
-			ProcessInitializeOnLoadAttributes (157ms)
-			ProcessInitializeOnLoadMethodAttributes (16ms)
-			AfterProcessingInitializeOnLoad (6ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (14ms)
-Refreshing native plugins compatible for Editor in 0.70 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (451.8 KB). Loaded Objects now: 2268.
-Memory consumption went from 111.7 MB to 111.3 MB.
-Total: 2.973000 ms (FindLiveObjects: 0.113200 ms CreateObjectMapping: 0.042300 ms MarkObjects: 2.521200 ms  DeleteObjects: 0.295700 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 0.67 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1674 unused Assets / (331.2 KB). Loaded Objects now: 2268.
-Memory consumption went from 111.8 MB to 111.4 MB.
-Total: 3.476600 ms (FindLiveObjects: 0.109500 ms CreateObjectMapping: 0.035300 ms MarkObjects: 2.994800 ms  DeleteObjects: 0.336000 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFAC97010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD6FF010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43A64320 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7E37830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7906030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF9CBA010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB99D030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445E0090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43B3D220 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4393E310 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3E06020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D40054090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF9C21010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445E0090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF8455FD0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.386 seconds
-Refreshing native plugins compatible for Editor in 0.97 ms, found 2 plugins.
-Native extension for iOS target not found
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.369 seconds
-Domain Reload Profiling: 752ms
-	BeginReloadAssembly (137ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (21ms)
-	RebuildCommonClasses (25ms)
-	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (19ms)
-	LoadAllAssembliesAndSetupDomain (193ms)
-		LoadAssemblies (215ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (63ms)
-			TypeCache.Refresh (6ms)
-				TypeCache.ScanAssembly (1ms)
-			BuildScriptInfoCaches (53ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (369ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (233ms)
+		SetupLoadedEditorAssemblies (246ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (16ms)
 			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (20ms)
-			ProcessInitializeOnLoadAttributes (170ms)
-			ProcessInitializeOnLoadMethodAttributes (18ms)
-			AfterProcessingInitializeOnLoad (7ms)
+			BeforeProcessingInitializeOnLoad (26ms)
+			ProcessInitializeOnLoadAttributes (174ms)
+			ProcessInitializeOnLoadMethodAttributes (20ms)
+			AfterProcessingInitializeOnLoad (8ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (18ms)
-Refreshing native plugins compatible for Editor in 0.68 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 1.20 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (467.1 KB). Loaded Objects now: 2268.
-Memory consumption went from 113.7 MB to 113.2 MB.
-Total: 2.986600 ms (FindLiveObjects: 0.126000 ms CreateObjectMapping: 0.039600 ms MarkObjects: 2.511900 ms  DeleteObjects: 0.308300 ms)
+Unloading 1681 unused Assets / (498.4 KB). Loaded Objects now: 2277.
+Memory consumption went from 106.1 MB to 105.6 MB.
+Total: 3.434700 ms (FindLiveObjects: 0.124800 ms CreateObjectMapping: 0.051400 ms MarkObjects: 2.908500 ms  DeleteObjects: 0.349100 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 ========================================================================
@@ -761,282 +391,86 @@ C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
 C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFAC97010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
+Symbol file data-0000024E07F3FF80 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD6FF010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
+Symbol file data-0000024E07D36020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7E37830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
+Symbol file data-0000024E0809E020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7E37830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
+Symbol file data-0000024E0CBDC030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFAEFC020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
+Symbol file data-0000024E09608630 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7E37830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
+Symbol file data-0000024E0CBDC030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFB99D030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+Symbol file data-0000024E0CBDC030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
+Symbol file data-0000024E13FC9D10 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445E0090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
+Symbol file data-0000024E07F6C970 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D4065C090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+Symbol file data-0000024E0BA36020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4393E310 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+Symbol file data-0000024E0D45C020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
+Symbol file data-0000024E07F3FF80 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3E06020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
+Symbol file data-0000024E0A5D9010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B438D8140 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
+Symbol file data-0000024E07ABB030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B46986020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+Symbol file data-0000024E0B010010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445E0090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
+Symbol file data-0000024E07F6C970 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+Symbol file data-0000024E07F3FF80 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF8455FD0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
+Symbol file data-0000024DC3B22C40 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.372 seconds
-Refreshing native plugins compatible for Editor in 0.56 ms, found 2 plugins.
+- Loaded All Assemblies, in  0.375 seconds
+Refreshing native plugins compatible for Editor in 0.85 ms, found 2 plugins.
 Native extension for iOS target not found
 Native extension for Android target not found
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.340 seconds
-Domain Reload Profiling: 708ms
-	BeginReloadAssembly (147ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (20ms)
-	RebuildCommonClasses (26ms)
-	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (19ms)
-	LoadAllAssembliesAndSetupDomain (166ms)
-		LoadAssemblies (214ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (46ms)
-			TypeCache.Refresh (4ms)
-				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (38ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (340ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (218ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (15ms)
-			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (18ms)
-			ProcessInitializeOnLoadAttributes (162ms)
-			ProcessInitializeOnLoadMethodAttributes (15ms)
-			AfterProcessingInitializeOnLoad (5ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (13ms)
-Refreshing native plugins compatible for Editor in 0.73 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (462.8 KB). Loaded Objects now: 2268.
-Memory consumption went from 115.6 MB to 115.1 MB.
-Total: 3.022000 ms (FindLiveObjects: 0.118400 ms CreateObjectMapping: 0.040900 ms MarkObjects: 2.525900 ms  DeleteObjects: 0.336000 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013CFD4E4030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD6FF010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7E37830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7E37830 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D40C06600 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF784E010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF784E010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445E0090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D40A76060 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFAC97010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CB3E06020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D407AF010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B445E0090 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D40628030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.387 seconds
-Refreshing native plugins compatible for Editor in 0.54 ms, found 2 plugins.
-Native extension for iOS target not found
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.366 seconds
-Domain Reload Profiling: 749ms
-	BeginReloadAssembly (152ms)
+- Finished resetting the current domain, in  0.348 seconds
+Domain Reload Profiling: 720ms
+	BeginReloadAssembly (145ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (4ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (21ms)
-	RebuildCommonClasses (25ms)
-	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (24ms)
-	LoadAllAssembliesAndSetupDomain (171ms)
-		LoadAssemblies (224ms)
+		CreateAndSetChildDomain (22ms)
+	RebuildCommonClasses (24ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (18ms)
+	LoadAllAssembliesAndSetupDomain (177ms)
+		LoadAssemblies (218ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (44ms)
+		AnalyzeDomain (50ms)
 			TypeCache.Refresh (4ms)
 				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (37ms)
+			BuildScriptInfoCaches (42ms)
 			ResolveRequiredComponents (2ms)
-	FinalizeReload (366ms)
+	FinalizeReload (349ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (236ms)
+		SetupLoadedEditorAssemblies (224ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (17ms)
 			SetLoadedEditorAssemblies (2ms)
 			BeforeProcessingInitializeOnLoad (24ms)
-			ProcessInitializeOnLoadAttributes (171ms)
+			ProcessInitializeOnLoadAttributes (159ms)
 			ProcessInitializeOnLoadMethodAttributes (17ms)
-			AfterProcessingInitializeOnLoad (6ms)
+			AfterProcessingInitializeOnLoad (7ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (15ms)
-Refreshing native plugins compatible for Editor in 0.75 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.56 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (455.7 KB). Loaded Objects now: 2268.
-Memory consumption went from 117.5 MB to 117.1 MB.
-Total: 2.935800 ms (FindLiveObjects: 0.116600 ms CreateObjectMapping: 0.042100 ms MarkObjects: 2.480200 ms  DeleteObjects: 0.295900 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
-Symbol file data-0000013B4393E310 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD6FF010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D40FA0260 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D40FA0260 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD25A010 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B6A41A790 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B6A41A790 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF7927730 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D4180C030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4610C030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B4393E310 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013D415B1020 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B46859430 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD4E4030 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CFD849070 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013CF94FC450 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000013B43E589D0 doesn't match image C:\Users\Cyy\Desktop\CapsTone\FBLSGIT\FBLS_v2\FBLS_vv\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.371 seconds
-Refreshing native plugins compatible for Editor in 0.57 ms, found 2 plugins.
-Native extension for iOS target not found
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.347 seconds
-Domain Reload Profiling: 715ms
-	BeginReloadAssembly (136ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (23ms)
-	RebuildCommonClasses (28ms)
-	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (21ms)
-	LoadAllAssembliesAndSetupDomain (174ms)
-		LoadAssemblies (211ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (44ms)
-			TypeCache.Refresh (4ms)
-				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (37ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (347ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (218ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (15ms)
-			SetLoadedEditorAssemblies (2ms)
-			BeforeProcessingInitializeOnLoad (19ms)
-			ProcessInitializeOnLoadAttributes (159ms)
-			ProcessInitializeOnLoadMethodAttributes (17ms)
-			AfterProcessingInitializeOnLoad (6ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (14ms)
-Refreshing native plugins compatible for Editor in 1.21 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 1681 unused Assets / (0.5 MB). Loaded Objects now: 2268.
-Memory consumption went from 119.4 MB to 118.9 MB.
-Total: 3.309700 ms (FindLiveObjects: 0.158300 ms CreateObjectMapping: 0.041800 ms MarkObjects: 2.623800 ms  DeleteObjects: 0.484400 ms)
+Unloading 1681 unused Assets / (461.4 KB). Loaded Objects now: 2277.
+Memory consumption went from 108.0 MB to 107.6 MB.
+Total: 3.007700 ms (FindLiveObjects: 0.110500 ms CreateObjectMapping: 0.040000 ms MarkObjects: 2.555300 ms  DeleteObjects: 0.301300 ms)
 
 Prepare: number of updated asset objects reloaded= 0
