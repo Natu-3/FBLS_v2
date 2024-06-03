@@ -3,12 +3,14 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - ChangeScene
     - Clone
+    - EffectManager
     - GameOver
     - GaugeBar
     - MultiManager
-    - Resoluetion
     - Skill
+    - SkillBackGround
     - SkillManager
+    - SoundManager
     - Stage
     - Stage1
     - StageMulti
@@ -18,6 +20,7 @@ ScriptsOnlyBuild:
     - TileR
     - TileY
     - TimeManager
+    - res
     - rowNode
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
@@ -33,6 +36,7 @@ ScriptsOnlyBuild:
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro:
+    - TMPro.TMP_ColorGradient
     - TMPro.TMP_FontAsset
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
@@ -58,6 +62,9 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   serializedClasses:
+    Assembly-CSharp:
+    - .SoundManager/BgmData
+    - .SoundManager/SfxData
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -93,8 +100,35 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.SpriteState
   methodsToPreserve:
   - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleSfxMute
+  - assembly: Assembly-CSharp
     fullTypeName: ChangeScene
     methodName: changeSingle
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: bgmAudioControl
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleBgmMute
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleSfxMute
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleBgmMute
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: sfxAudioControl
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: CloseSetting
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: openSetting
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: changeComputer
   - assembly: Assembly-CSharp
     fullTypeName: ChangeScene
     methodName: changeComputer
@@ -116,6 +150,54 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: ChangeScene
     methodName: goMain
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: changeComputer
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: goMain
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: goMain
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: changeComputer
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: goMain
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: changeComputer
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: changeComputer
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: sfxAudioControl
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: openSetting
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: CloseSetting
+  - assembly: Assembly-CSharp
+    fullTypeName: ChangeScene
+    methodName: goMain
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: bgmAudioControl
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleBgmMute
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleSfxMute
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleBgmMute
+  - assembly: Assembly-CSharp
+    fullTypeName: SoundManager
+    methodName: ToggleSfxMute
   sceneClasses:
     Assets/Scenes/GameOver.unity:
     - Class: 1
@@ -137,23 +219,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 21592}
+      Script: {instanceID: 21820}
     - Class: 114
-      Script: {instanceID: 21724}
+      Script: {instanceID: 21952}
     - Class: 114
-      Script: {instanceID: 22508}
+      Script: {instanceID: 22764}
     - Class: 114
-      Script: {instanceID: 22662}
+      Script: {instanceID: 22922}
     - Class: 114
-      Script: {instanceID: 22770}
+      Script: {instanceID: 23030}
     - Class: 114
-      Script: {instanceID: 22936}
+      Script: {instanceID: 23200}
     - Class: 114
-      Script: {instanceID: 23128}
+      Script: {instanceID: 23400}
     - Class: 114
-      Script: {instanceID: 23354}
+      Script: {instanceID: 23628}
     - Class: 114
-      Script: {instanceID: 23572}
+      Script: {instanceID: 23850}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -187,38 +269,42 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 21336}
+      Script: {instanceID: 17938}
     - Class: 114
-      Script: {instanceID: 21592}
+      Script: {instanceID: 21820}
     - Class: 114
-      Script: {instanceID: 21724}
+      Script: {instanceID: 22288}
     - Class: 114
-      Script: {instanceID: 22056}
-    - Class: 114
-      Script: {instanceID: 22318}
-    - Class: 114
-      Script: {instanceID: 22508}
+      Script: {instanceID: 22562}
     - Class: 114
       Script: {instanceID: 22662}
     - Class: 114
-      Script: {instanceID: 22692}
+      Script: {instanceID: 22728}
     - Class: 114
-      Script: {instanceID: 22770}
+      Script: {instanceID: 22764}
     - Class: 114
-      Script: {instanceID: 23128}
+      Script: {instanceID: 22922}
     - Class: 114
-      Script: {instanceID: 23208}
+      Script: {instanceID: 23030}
     - Class: 114
-      Script: {instanceID: 23260}
+      Script: {instanceID: 23400}
     - Class: 114
-      Script: {instanceID: 23354}
+      Script: {instanceID: 23534}
     - Class: 114
-      Script: {instanceID: 23572}
+      Script: {instanceID: 23628}
+    - Class: 114
+      Script: {instanceID: 23850}
+    - Class: 114
+      Script: {instanceID: 23896}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -227,6 +313,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
     - Class: 222
@@ -234,6 +322,12 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
     Assets/Scenes/MultiGameOver.unity:
     - Class: 1
@@ -255,23 +349,25 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 21592}
+      Script: {instanceID: 21560}
     - Class: 114
-      Script: {instanceID: 21724}
+      Script: {instanceID: 21820}
     - Class: 114
-      Script: {instanceID: 22508}
+      Script: {instanceID: 22764}
     - Class: 114
-      Script: {instanceID: 22662}
+      Script: {instanceID: 22922}
     - Class: 114
-      Script: {instanceID: 22770}
+      Script: {instanceID: 23030}
     - Class: 114
-      Script: {instanceID: 22936}
+      Script: {instanceID: 23200}
     - Class: 114
-      Script: {instanceID: 23128}
+      Script: {instanceID: 23400}
     - Class: 114
-      Script: {instanceID: 23354}
+      Script: {instanceID: 23534}
     - Class: 114
-      Script: {instanceID: 23572}
+      Script: {instanceID: 23628}
+    - Class: 114
+      Script: {instanceID: 23850}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -279,6 +375,8 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -305,54 +403,74 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 21592}
+      Script: {instanceID: 21560}
     - Class: 114
-      Script: {instanceID: 21628}
+      Script: {instanceID: 21662}
     - Class: 114
-      Script: {instanceID: 21724}
+      Script: {instanceID: 21820}
     - Class: 114
-      Script: {instanceID: 21828}
+      Script: {instanceID: 21856}
     - Class: 114
-      Script: {instanceID: 22036}
+      Script: {instanceID: 21952}
     - Class: 114
-      Script: {instanceID: 22152}
+      Script: {instanceID: 22056}
     - Class: 114
-      Script: {instanceID: 22266}
+      Script: {instanceID: 22268}
     - Class: 114
-      Script: {instanceID: 22274}
+      Script: {instanceID: 22388}
     - Class: 114
-      Script: {instanceID: 22342}
+      Script: {instanceID: 22504}
     - Class: 114
-      Script: {instanceID: 22474}
+      Script: {instanceID: 22514}
     - Class: 114
-      Script: {instanceID: 22508}
+      Script: {instanceID: 22552}
     - Class: 114
-      Script: {instanceID: 22564}
+      Script: {instanceID: 22588}
     - Class: 114
-      Script: {instanceID: 22662}
+      Script: {instanceID: 22728}
     - Class: 114
-      Script: {instanceID: 22770}
+      Script: {instanceID: 22764}
     - Class: 114
-      Script: {instanceID: 23038}
+      Script: {instanceID: 22822}
     - Class: 114
-      Script: {instanceID: 23128}
+      Script: {instanceID: 22922}
     - Class: 114
-      Script: {instanceID: 23354}
+      Script: {instanceID: 23030}
     - Class: 114
-      Script: {instanceID: 23422}
+      Script: {instanceID: 23302}
     - Class: 114
-      Script: {instanceID: 23434}
+      Script: {instanceID: 23400}
     - Class: 114
-      Script: {instanceID: 23572}
+      Script: {instanceID: 23534}
     - Class: 114
-      Script: {instanceID: 23910}
+      Script: {instanceID: 23628}
     - Class: 114
-      Script: {instanceID: 24068}
+      Script: {instanceID: 23696}
+    - Class: 114
+      Script: {instanceID: 23708}
+    - Class: 114
+      Script: {instanceID: 23850}
+    - Class: 114
+      Script: {instanceID: 23896}
+    - Class: 114
+      Script: {instanceID: 24200}
+    - Class: 114
+      Script: {instanceID: 24360}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -360,6 +478,10 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
@@ -370,6 +492,12 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
     - Class: 850595691
       Script: {instanceID: 0}
@@ -395,45 +523,49 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 21592}
+      Script: {instanceID: 21560}
     - Class: 114
-      Script: {instanceID: 21724}
+      Script: {instanceID: 21820}
     - Class: 114
-      Script: {instanceID: 21828}
+      Script: {instanceID: 21952}
     - Class: 114
-      Script: {instanceID: 21966}
+      Script: {instanceID: 22056}
     - Class: 114
-      Script: {instanceID: 22036}
+      Script: {instanceID: 22194}
     - Class: 114
-      Script: {instanceID: 22152}
+      Script: {instanceID: 22268}
     - Class: 114
-      Script: {instanceID: 22274}
+      Script: {instanceID: 22388}
     - Class: 114
-      Script: {instanceID: 22474}
+      Script: {instanceID: 22514}
     - Class: 114
-      Script: {instanceID: 22508}
+      Script: {instanceID: 22724}
     - Class: 114
-      Script: {instanceID: 22564}
+      Script: {instanceID: 22728}
     - Class: 114
-      Script: {instanceID: 22662}
+      Script: {instanceID: 22764}
     - Class: 114
-      Script: {instanceID: 22692}
+      Script: {instanceID: 22822}
     - Class: 114
-      Script: {instanceID: 22770}
+      Script: {instanceID: 22922}
     - Class: 114
-      Script: {instanceID: 23128}
+      Script: {instanceID: 23030}
     - Class: 114
-      Script: {instanceID: 23354}
+      Script: {instanceID: 23400}
     - Class: 114
-      Script: {instanceID: 23422}
+      Script: {instanceID: 23534}
     - Class: 114
-      Script: {instanceID: 23434}
+      Script: {instanceID: 23628}
     - Class: 114
-      Script: {instanceID: 23572}
+      Script: {instanceID: 23696}
     - Class: 114
-      Script: {instanceID: 23574}
+      Script: {instanceID: 23708}
     - Class: 114
-      Script: {instanceID: 24068}
+      Script: {instanceID: 23850}
+    - Class: 114
+      Script: {instanceID: 23852}
+    - Class: 114
+      Script: {instanceID: 24360}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -474,23 +606,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 21592}
+      Script: {instanceID: 21820}
     - Class: 114
-      Script: {instanceID: 21724}
+      Script: {instanceID: 21952}
     - Class: 114
-      Script: {instanceID: 22508}
+      Script: {instanceID: 22764}
     - Class: 114
-      Script: {instanceID: 22662}
+      Script: {instanceID: 22922}
     - Class: 114
-      Script: {instanceID: 22770}
+      Script: {instanceID: 23030}
     - Class: 114
-      Script: {instanceID: 22936}
+      Script: {instanceID: 23200}
     - Class: 114
-      Script: {instanceID: 23128}
+      Script: {instanceID: 23400}
     - Class: 114
-      Script: {instanceID: 23354}
+      Script: {instanceID: 23628}
     - Class: 114
-      Script: {instanceID: 23572}
+      Script: {instanceID: 23850}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -510,16 +642,34 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
+      Hash: 9ebb206587356b4f57cd7f4108f0f87f
+    assemblyName: Unity.TextMeshPro
+    namespaceName: TMPro
+    className: TMP_SpriteAsset
+  - hash:
+      serializedVersion: 2
       Hash: 04b6685b6f724c0d6024e6b6f96c8202
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 7fdf16e81eb701e209ae0569d98a5316
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Ghost
+  - hash:
+      serializedVersion: 2
       Hash: b2d2a01a2a85d9ed12e80cb33a9a6044
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: AnimationTrack
+  - hash:
+      serializedVersion: 2
+      Hash: e416782d95a812c5b5b00e9b103a8e94
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: CameraController
   - hash:
       serializedVersion: 2
       Hash: 5874b789cd9832847c61ebfa803213af
@@ -540,10 +690,22 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 04f2d6a4db8a670aeb2c87d9ffd08865
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro
+    className: TMP_TextEventHandler
+  - hash:
+      serializedVersion: 2
       Hash: 5ebc58ec194dd44630b25fcc270ad4af
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: f688e70628d12aeac4e2ea68ead077ab
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: EffectManager
   - hash:
       serializedVersion: 2
       Hash: 27a74b2668324e8e0e751d01427711b3
@@ -582,7 +744,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: f9a5ff97a8208a5b2f2797850787111c
+      Hash: 213d40f1186abf754b10cf3172f777ec
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: MultiManager
@@ -612,7 +774,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: d581012e4956c26cb18391e240e1858e
+      Hash: b1a390914c5d32c4a0ed4bf18dd35e12
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Tile
@@ -636,7 +798,13 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 592b9571ac76c2d0a2df72c0095fefdc
+      Hash: ed8bac09ffacadca9994789e381c69ce
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_TextSelector_A
+  - hash:
+      serializedVersion: 2
+      Hash: c952215a1e913f3582f25db2108a2479
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Stage
@@ -648,7 +816,13 @@ ScriptsOnlyBuild:
     className: ActivationTrack
   - hash:
       serializedVersion: 2
-      Hash: 62c0aace3cf35c17f80da2fbaafe38b9
+      Hash: 1deda86fe7ffd8587afcfe68a02d034c
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: EnvMapAnimator
+  - hash:
+      serializedVersion: 2
+      Hash: 62d99e16fc609a7bf84d31dc59c95884
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TileY
@@ -666,10 +840,22 @@ ScriptsOnlyBuild:
     className: TMP_Settings
   - hash:
       serializedVersion: 2
+      Hash: 52840a82fb83b3a7df342e354c4815e4
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMPro_InstructionOverlay
+  - hash:
+      serializedVersion: 2
       Hash: 8dc40a01667ca02b3354a4e7a61be082
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 0dd14e314956b0d0d83ffcffe60aa46f
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro
+    className: TMP_DigitValidator
   - hash:
       serializedVersion: 2
       Hash: 9dd54ce33440072d6692a67e0c384ad1
@@ -682,6 +868,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TimeManager
+  - hash:
+      serializedVersion: 2
+      Hash: 4166580c620718548959a77fa7b43fc1
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TextMeshSpawner
   - hash:
       serializedVersion: 2
       Hash: 20a120e55ad3ab65556328d5fd8309dd
@@ -702,22 +894,46 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 419a93eee78e68200764fa91877598ab
+      Hash: 9eccc4340fcd994586e0dcb134c4612e
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TeleType
+  - hash:
+      serializedVersion: 2
+      Hash: 82fea608e91f335a91942d472b0e06bc
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: StageMulti
   - hash:
       serializedVersion: 2
-      Hash: 4ca6f6a37499c8bd434b8fdaa4aed01c
+      Hash: 035b429dc407ced50ee38ce4da24ee0e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GaugeBar
+  - hash:
+      serializedVersion: 2
+      Hash: 11a492830b189fafb9ed2f7afa464c56
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: SimpleScript
+  - hash:
+      serializedVersion: 2
+      Hash: 4446c32fb3dc60163891e5984f8a30a2
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SkillBackGround
   - hash:
       serializedVersion: 2
       Hash: 8d5318ed8488b1fe17c08044ce1b8309
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: c9b1ea3bf987a2e780a24849503ca72e
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: Benchmark01_UGUI
   - hash:
       serializedVersion: 2
       Hash: e18dfd2b913b09fbbb2405165a2e6a44
@@ -732,6 +948,12 @@ ScriptsOnlyBuild:
     className: SkillManager
   - hash:
       serializedVersion: 2
+      Hash: 593a641cd7822a10b9a54aa9eb5c3d5e
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: Benchmark04
+  - hash:
+      serializedVersion: 2
       Hash: 185e7bacfbbc5defefa609c70f7ff4ce
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
@@ -742,6 +964,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: RectMask2D
+  - hash:
+      serializedVersion: 2
+      Hash: 4ee82fc6438e9fcbe06cdf5e2c1116d3
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: ObjectSpin
   - hash:
       serializedVersion: 2
       Hash: ece1e4406dfd0bdc7f9516e4d85e1941
@@ -756,6 +984,18 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
+      Hash: ab3d19695db8289414a06e6d45fd6c8e
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: ShaderPropAnimator
+  - hash:
+      serializedVersion: 2
+      Hash: 48ef3568979f3669d87084041d4e1093
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: res
+  - hash:
+      serializedVersion: 2
       Hash: 53e329840e6d03aebec76623c3b054db
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
@@ -768,16 +1008,34 @@ ScriptsOnlyBuild:
     className: NavMeshSurface
   - hash:
       serializedVersion: 2
+      Hash: 35e0b31791c377513b6fc7b9568c50cd
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: Benchmark02
+  - hash:
+      serializedVersion: 2
       Hash: 540882762544409cc4530e60db00e951
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: CanvasScaler
   - hash:
       serializedVersion: 2
-      Hash: 0f15eca30bc37843b37d58c938ff0358
+      Hash: fc0a9a681d29388386a9abf3f08b024a
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: Benchmark03
+  - hash:
+      serializedVersion: 2
+      Hash: 01c04574aebb7159452c51c271cf89d5
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TileR
+  - hash:
+      serializedVersion: 2
+      Hash: e2734bcc7b3e94776ade5d59f54fec1e
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_TextSelector_B
   - hash:
       serializedVersion: 2
       Hash: dd9dda1dfd39e605c49e72003342ef5d
@@ -798,10 +1056,22 @@ ScriptsOnlyBuild:
     className: InputField
   - hash:
       serializedVersion: 2
-      Hash: 16536f7a1c5f5fa33fc3a73a6c4a6c26
+      Hash: 941b17f62448bc42a11c7623ffc5fc6d
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: ChangeScene
+  - hash:
+      serializedVersion: 2
+      Hash: 418b67019f13f9684552f2693bae3971
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TextMeshProFloatingText
+  - hash:
+      serializedVersion: 2
+      Hash: a75a568ce902366f4e82fc98ca6108f5
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_ExampleScript_01
   - hash:
       serializedVersion: 2
       Hash: 2fe8d27b961a89bc0b7c90fee9030680
@@ -822,10 +1092,22 @@ ScriptsOnlyBuild:
     className: GameOver
   - hash:
       serializedVersion: 2
-      Hash: 9e04ff1a04f1cfa97f20f48cc2dba3f0
+      Hash: 974e645079785b7f17c0404eb5286bf0
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Stage1
+  - hash:
+      serializedVersion: 2
+      Hash: c4de0ff7e075dd89c9fed5913dd775d2
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro
+    className: TMP_PhoneNumberValidator
+  - hash:
+      serializedVersion: 2
+      Hash: c4ae0ec287bc3cde0bc98e1a65f9cef7
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: VertexColorCycler
   - hash:
       serializedVersion: 2
       Hash: ff76cf6cf52b4db7b95af6ffadca9288
@@ -834,10 +1116,22 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
+      Hash: 216f6c07bfa250e44b3e8d62572474e8
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: Benchmark01
+  - hash:
+      serializedVersion: 2
       Hash: 4fcf0bb4aff1d14a1dfcdedc4b07bd05
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: d0caa48b5fe6778ce3f0de7aec45c4e6
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: SkewTextExample
   - hash:
       serializedVersion: 2
       Hash: 8703b6ae2b0eefd9dafbc44d8d333fb1
@@ -858,6 +1152,12 @@ ScriptsOnlyBuild:
     className: EventSystem
   - hash:
       serializedVersion: 2
+      Hash: 665da785348a8806bf1524fe10742a60
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_UiFrameRateCounter
+  - hash:
+      serializedVersion: 2
       Hash: b747f5d40674055dd70e18552f1b0447
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
@@ -876,16 +1176,16 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 9ebb206587356b4f57cd7f4108f0f87f
-    assemblyName: Unity.TextMeshPro
-    namespaceName: TMPro
-    className: TMP_SpriteAsset
-  - hash:
-      serializedVersion: 2
       Hash: 0b63f6d3335e11939ce8790b904c8691
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: ActivationPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: ceeb6c51b89f022a3deb7b3408c66745
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_TextEventCheck
   - hash:
       serializedVersion: 2
       Hash: 1799e2459e3f656b6f21094fd998eaee
@@ -918,10 +1218,22 @@ ScriptsOnlyBuild:
     className: rowNode
   - hash:
       serializedVersion: 2
-      Hash: 7f1edb178081fe3938a47441c00f0823
+      Hash: c6f684ae88025ab620527749dcca63c2
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TileG
+  - hash:
+      serializedVersion: 2
+      Hash: 9fb1c3ab48b256d508ecddd967f98652
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: VertexZoom
+  - hash:
+      serializedVersion: 2
+      Hash: 1d830bc5cfaaf24301dffea2877f4bea
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: VertexShakeA
   - hash:
       serializedVersion: 2
       Hash: 915204dac8acad99f076d6e72ada0a0f
@@ -942,6 +1254,30 @@ ScriptsOnlyBuild:
     className: TextMeshPro
   - hash:
       serializedVersion: 2
+      Hash: 72561d2e822b466169cd12a3b9f9ae0c
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: VertexShakeB
+  - hash:
+      serializedVersion: 2
+      Hash: 1af1c5e207563d28c797fefff462d11c
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SoundManager
+  - hash:
+      serializedVersion: 2
+      Hash: dc31d211c7459841fe4f406ae2e51480
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TextConsoleSimulator
+  - hash:
+      serializedVersion: 2
+      Hash: aa349b22cd61b9e8488d736f82590d6b
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_TextInfoDebugTool
+  - hash:
+      serializedVersion: 2
       Hash: 10c17b309bdca62b4d7fbaf113ed4ca0
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
@@ -960,7 +1296,7 @@ ScriptsOnlyBuild:
     className: NavMeshModifierVolume
   - hash:
       serializedVersion: 2
-      Hash: 363ee690dffd28911d22d47c10cfa34d
+      Hash: ab51bf4e728e3a1b3ef967b0e36cf797
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TileR1
@@ -970,6 +1306,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TMP_SubMesh
+  - hash:
+      serializedVersion: 2
+      Hash: 8668b70b18eb7f5cd2dce04386848007
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: VertexJitter
   - hash:
       serializedVersion: 2
       Hash: afb7b65d28d5a7423e69a1b076be0064
@@ -988,6 +1330,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: ControlTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 502a0d788634601faaefeacfda55e23a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: DropdownSample
   - hash:
       serializedVersion: 2
       Hash: f0e207b32140b6fdd9c97f625e689941
@@ -1014,7 +1362,13 @@ ScriptsOnlyBuild:
     className: ContentSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 17a0d1345d2b4d9f730482a74c07b7c5
+      Hash: d3bece132a2b48e63d78047dece48ba7
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: ChatController
+  - hash:
+      serializedVersion: 2
+      Hash: ccc70cf9d975e1c410da81aa06dd4a7c
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TileB
@@ -1024,6 +1378,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 1981decccddfde3e97fcfd6689332a6f
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: WarpTextExample
   - hash:
       serializedVersion: 2
       Hash: a90f6a00b23520788be7d89ee3b0773d
@@ -1042,6 +1402,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 7fdd3ee28e9042c3ec83463d0bb3b230
+    assemblyName: Assembly-CSharp
+    namespaceName: TMPro.Examples
+    className: TMP_FrameRateCounter
   - hash:
       serializedVersion: 2
       Hash: f2305da2400dfe6f069770a1a63f0f7c
@@ -1068,4 +1434,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/SingleGameOver.unity
   - Assets/Scenes/MultiGameOver.unity
   - Assets/Scenes/MultiScene.unity
-  playerPath: C:/Users/user/Desktop/FBLS/fbls_bulid/Tetris.exe
+  playerPath: C:/Users/user/Desktop/FBLS/buildcap/Tetris.exe

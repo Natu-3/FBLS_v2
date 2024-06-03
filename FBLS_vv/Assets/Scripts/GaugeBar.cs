@@ -37,8 +37,8 @@ public class GaugeBar : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(30f);
-            limitTime -= timerLimit;
-            gaugeBar.maxValue -= timerLimit;
+            //limitTime -= timerLimit;
+            //gaugeBar.maxValue -= timerLimit;
         }
     }
     void Start()
@@ -48,7 +48,7 @@ public class GaugeBar : MonoBehaviour
         StartCoroutine(GaugeTimer());
         InitializedGaugeBar(limitTime);
     }
-    void pan(){
+     void pan(){
         
         var pansolo = player1.GetComponent<Stage>();
         pansolo.doPanalty();
@@ -63,6 +63,7 @@ public class GaugeBar : MonoBehaviour
         var panaltys = player2.GetComponent<StageMulti>();
         panaltys.doPanalty();
     }
+  
     void Update()
     {
 

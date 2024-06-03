@@ -16,13 +16,12 @@ public class MultiManager : MonoBehaviour
     public int atkPlayer;
     
     [Header("1p")]
-    public GameObject warningPanel1; // �����
-    public GameObject warningRed1; //�ؽ�Ʈ
+    public GameObject warningPanel1;
+    public GameObject warningRed1;
     public GameObject warningBlue1;
     public GameObject warningYellow1;
     public GameObject cancelSkill1;
-    //public GameObject warningImage1;
-    public GameObject redButton1; //��ư
+    public GameObject redButton1;
     public GameObject blueButton1;
     public GameObject yellowButton1;
     public GameObject greenButton1;
@@ -31,16 +30,14 @@ public class MultiManager : MonoBehaviour
     public GameObject snow_1;
     public SpriteRenderer backGround_1;
     public Transform lightningTransform_1;
-    //public SpriteRenderer twinkle_1;
 
     [Header("2p")]
-    public GameObject warningPanel2; // �����
-    public GameObject warningRed2; //�ؽ�Ʈ
+    public GameObject warningPanel2;
+    public GameObject warningRed2;
     public GameObject warningBlue2;
     public GameObject warningYellow2;
     public GameObject cancelSkill2;
-   // public GameObject warningImage2;
-    public GameObject redButton2; //��ư
+    public GameObject redButton2;
     public GameObject blueButton2;
     public GameObject yellowButton2;
     public GameObject greenButton2;
@@ -49,15 +46,22 @@ public class MultiManager : MonoBehaviour
     public GameObject snow_2;
     public SpriteRenderer backGround_2;
     public Transform lightningTransform_2;
-   // public SpriteRenderer twinkle_2;
 
+
+
+    private bool p1cooldown;
+    private bool p2cooldown;
     private float skillTimer;
     private bool isSkillActive = false;
     Coroutine abc_1;
     Coroutine abc_2;
 
+
     void Awake()
     {
+
+        p1cooldown = true;
+        p2cooldown = true;
         if (Instance == null)
         {
             Instance = this;
@@ -89,9 +93,9 @@ public class MultiManager : MonoBehaviour
         ActivePanel(warningRed2);
         redButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_2));
-
         abc_2 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_2));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Sun));
+        DisableOtherButtons(1);
     }
 
     public void AtkRed2()
@@ -103,6 +107,7 @@ public class MultiManager : MonoBehaviour
         StartCoroutine(EffectManager.instance.WeatherEffect(sun_1));
         abc_1 = StartCoroutine(SkillBackGround.Instance.Transparency(backGround_1));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Sun));
+        DisableOtherButtons(2);
     }
 
     public void AtkBlue1()
@@ -110,11 +115,11 @@ public class MultiManager : MonoBehaviour
         SetAttack(1, "B");
         ActivePanel(warningBlue2);
         blueButton1.SetActive(false);
-
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Snow));
         SoundManager.Instance.playSfx(SfxType.Iced);
+        DisableOtherButtons(1);
     }
 
     public void AtkBlue2()
@@ -127,7 +132,7 @@ public class MultiManager : MonoBehaviour
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Snow));
         SoundManager.Instance.playSfx(SfxType.Iced);
-
+        DisableOtherButtons(2);
     }
 
     public void AtkYellow1()
@@ -137,8 +142,8 @@ public class MultiManager : MonoBehaviour
         yellowButton1.SetActive(false);
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_2));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_2));
-       // StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_2));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
+        DisableOtherButtons(1);
     }
 
     public void AtkYellow2()
@@ -147,12 +152,10 @@ public class MultiManager : MonoBehaviour
         UnityEngine.Debug.Log("Yellow skill on");
         ActivePanel(warningYellow1);
         yellowButton2.SetActive(false);
-
         StartCoroutine(EffectManager.instance.WeatherEffect(rain_1));
         StartCoroutine(EffectManager.instance.Lightning(lightningTransform_1));
-        //StartCoroutine(SkillBackGround.Instance.Twinkle(twinkle_1));
         StartCoroutine(SoundManager.Instance.skillSound(SfxType.Rain));
-
+        DisableOtherButtons(2);
     }
 
     public void Green1()
@@ -164,11 +167,11 @@ public class MultiManager : MonoBehaviour
         snow_1.gameObject.SetActive(false);
         sun_1.gameObject.SetActive(false);
         rain_1.gameObject.SetActive(false);
-       // twinkle_1.gameObject.SetActive(false);
         StopCoroutine(abc_1);
         backGround_1.color = Color.white;
-       backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
+        backGround_1 = backGround_1.GetComponent<SpriteRenderer>();
         SoundManager.Instance.playSfx(SfxType.Shield);
+        DisableOtherButtons(1);
     }
 
     public void Green2()
@@ -177,16 +180,15 @@ public class MultiManager : MonoBehaviour
         CancelCurrentSkill();
         UnityEngine.Debug.Log("green skill on");
         ActivePanel(cancelSkill1);
-
         greenButton2.SetActive(false);
         snow_2.gameObject.SetActive(false);
         sun_2.gameObject.SetActive(false);
         rain_2.gameObject.SetActive(false);
-        //twinkle_2.gameObject.SetActive(false);
         StopCoroutine(abc_2);
         backGround_2.color = Color.white;
         backGround_2 = backGround_2.GetComponent<SpriteRenderer>();
         SoundManager.Instance.playSfx(SfxType.Shield);
+        DisableOtherButtons(2);
     }
 
     private void SetAttack(int player, string skill)
@@ -199,7 +201,7 @@ public class MultiManager : MonoBehaviour
 
     private void PerformSkill()
     {
-        UnityEngine.Debug.Log("��ų����!!!");
+        UnityEngine.Debug.Log("Performing skill!!!");
         if (atkPlayer == 2)
         {
             if(!green1p){
@@ -254,11 +256,9 @@ public class MultiManager : MonoBehaviour
     {
         isSkillActive = false;
         UnityEngine.Debug.Log("Current skill action canceled due to green state.");
-
-        currentSkill.SetActive(false); // ���� ��ų ����г� ��Ȱ��ȭ
+        currentSkill.SetActive(false);
     }
 
-    //�����
     public void ActivePanel(GameObject skillText)
     {
         skillText.SetActive(true);
@@ -271,54 +271,102 @@ public class MultiManager : MonoBehaviour
         currentSkill.SetActive(false);
     }
 
-    //��ư
     public void ActiveButton()
     {
+        if(p1cooldown){
         //1p
-        if (Stage1.redVal >= 10 && !redButton1.activeSelf)
-        {
-            redButton1.SetActive(true);
-            Stage1.redVal = 0;
+            if (Stage1.redVal >= 10 && !redButton1.activeSelf)
+            {
+                redButton1.SetActive(true);
+                Stage1.redVal = 0;
+            }
+            if (Stage1.blueVal >= 10 && !blueButton1.activeSelf)
+            {
+                blueButton1.SetActive(true);
+                Stage1.blueVal = 0;
+            }
+            if (Stage1.yellowVal >= 10 && !yellowButton1.activeSelf)
+            {
+                yellowButton1.SetActive(true);
+                Stage1.yellowVal = 0;
+            }
+            if (Stage1.greenVal >= 10 && !greenButton1.activeSelf)
+            {
+                greenButton1.SetActive(true);
+                Stage1.greenVal = 0;
+            }
         }
-        if (Stage1.blueVal >= 10 && !blueButton1.activeSelf)
-        {
-            blueButton1.SetActive(true);
-            Stage1.blueVal = 0;
-        }
-        if (Stage1.yellowVal >= 10 && !yellowButton1.activeSelf)
-        {
-            yellowButton1.SetActive(true);
-            Stage1.yellowVal = 0;
-        }
-        if (Stage1.greenVal >= 10 && !greenButton1.activeSelf)
-        {
-            greenButton1.SetActive(true);
-            Stage1.greenVal = 0;
-        }
+
+        if(p2cooldown){
         //2p
-        if (StageMulti.redVal >= 10 && !redButton2.activeSelf)
-        {
-            redButton2.SetActive(true);
-            StageMulti.redVal = 0;
-            UnityEngine.Debug.Log(StageMulti.redVal.ToString());
-        }
-        if (StageMulti.blueVal >= 10 && !blueButton2.activeSelf)
-        {
-            blueButton2.SetActive(true);
-            StageMulti.blueVal = 0;
-            UnityEngine.Debug.Log(StageMulti.blueVal.ToString());
-        }
-        if (StageMulti.yellowVal >= 10 && !yellowButton2.activeSelf)
-        {
-            yellowButton2.SetActive(true);
-            StageMulti.yellowVal = 0;
-            UnityEngine.Debug.Log(StageMulti.yellowVal.ToString());
-        }
-        if (StageMulti.greenVal >= 10 && !greenButton2.activeSelf)
-        {
-            greenButton2.SetActive(true);
-            StageMulti.greenVal = 0;
-            UnityEngine.Debug.Log(StageMulti.greenVal.ToString());
+            if (StageMulti.redVal >= 10 && !redButton2.activeSelf)
+            {
+                redButton2.SetActive(true);
+                StageMulti.redVal = 0;
+                UnityEngine.Debug.Log(StageMulti.redVal.ToString());
+            }
+            if (StageMulti.blueVal >= 10 && !blueButton2.activeSelf)
+            {
+                blueButton2.SetActive(true);
+                StageMulti.blueVal = 0;
+                UnityEngine.Debug.Log(StageMulti.blueVal.ToString());
+            }
+            if (StageMulti.yellowVal >= 10 && !yellowButton2.activeSelf)
+            {
+                yellowButton2.SetActive(true);
+                StageMulti.yellowVal = 0;
+                UnityEngine.Debug.Log(StageMulti.yellowVal.ToString());
+            }
+            if (StageMulti.greenVal >= 10 && !greenButton2.activeSelf)
+            {
+                greenButton2.SetActive(true);
+                StageMulti.greenVal = 0;
+                UnityEngine.Debug.Log(StageMulti.greenVal.ToString());
+            }
         }
     }
+
+    private void DisableOtherButtons(int player)
+    {
+        if (player == 1)
+        {
+            p1cooldown = false;
+            StartCoroutine(DisableButtonsForSeconds(redButton1, blueButton1, yellowButton1));
+            Invoke("coolend1", 5f); 
+        }
+        else if (player == 2)
+        {
+            p2cooldown = false;   
+            StartCoroutine(DisableButtonsForSeconds(redButton2, blueButton2, yellowButton2));
+            Invoke("coolend2", 5f); 
+        }
+    }
+
+    private IEnumerator DisableButtonsForSeconds(params GameObject[] buttons)
+    {
+        List<GameObject> activeButtons = new List<GameObject>();
+        foreach (var button in buttons)
+        {
+            if (button.activeSelf)
+            {
+                button.SetActive(false);
+                activeButtons.Add(button);
+            }
+        }
+
+
+        yield return new WaitForSeconds(5f);
+        foreach (var button in activeButtons)
+        {
+            button.SetActive(true);
+        }
+    }
+
+    void coolend1(){
+     p1cooldown = true;
+    }
+    void coolend2(){
+     p2cooldown = true;
+    }
+
 }

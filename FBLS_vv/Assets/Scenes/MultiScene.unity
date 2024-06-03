@@ -2514,7 +2514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &409907078
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3006,6 +3006,9 @@ MonoBehaviour:
   offset_x: 0
   offset_y: 0
   offset2p: 14
+  prevIndex: 
+  prevarr: 
+  holdNode: {fileID: 847352866}
   scale1: 1.1
   scale2: 1
   redSkillNum: 5
@@ -9413,6 +9416,10 @@ MonoBehaviour:
   lightening: {fileID: 1577722560}
   fadeInImage: 0.1
   fadeOutImage: 1.01
+  prevIndex: 
+  prevarr: 
+  holdNode: {fileID: 1078418481}
+  warning: {fileID: 409907077}
   scale1: 1.1
   scale2: 1
   maxBlock: 10
@@ -10761,7 +10768,7 @@ MonoBehaviour:
   - {fileID: 711206591}
   - {fileID: 1833794440}
   - {fileID: 1833794440}
-  limitTime: 180
+  limitTime: 120
   gameover: {fileID: 2011521440}
 --- !u!4 &890302459
 Transform:
@@ -11435,7 +11442,7 @@ Transform:
   m_GameObject: {fileID: 998081163}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.52, y: -10.06, z: 0}
+  m_LocalPosition: {x: 27.52, y: -10.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30232,7 +30239,7 @@ Transform:
   m_GameObject: {fileID: 1595840519}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.71, y: -10.17, z: 0}
+  m_LocalPosition: {x: -0.56, y: -10.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33527,7 +33534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gaugeBar: {fileID: 1888636986}
-  limitTime: 20
+  limitTime: 10
   goal: 1
   pivot: 50
   textTime: {fileID: 1385710490}

@@ -15,6 +15,9 @@ public class GameOver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        draw.SetActive(false);
+            win1p.SetActive(false);
+            win2p.SetActive(false);
         if (SceneManager.GetActiveScene().name == "SingleGameOver")
         {
             score.text = "Score: " + PlayerPrefs.GetInt("score").ToString();
@@ -46,11 +49,16 @@ public class GameOver : MonoBehaviour
                     draw.SetActive(true);
                 }
             }
-            else if ((Stage1.panaltyVal < StageMulti.panaltyVal) || StageMulti.lose)
+            if (StageMulti.lose)
             { // 1p 천장 위치 더 높음, 2p가 천장 닿았을 때
                 win1p.SetActive(true);
-            }
-            else if ((Stage1.panaltyVal > StageMulti.panaltyVal) || Stage1.lose)
+            }else if (Stage1.lose)
+            { // 1p 천장 위치 더 높음, 2p가 천장 닿았을 때
+                win1p.SetActive(true);
+            }else if ((Stage1.scoreVal > StageMulti.scoreVal))
+            { // 1p 천장 위치 더 높음, 2p가 천장 닿았을 때
+                win1p.SetActive(true);
+            }else if ((Stage1.scoreVal < StageMulti.scoreVal))
             { //2p 천장 위치 더 높음, 1p가 천장 닿았을 때
                 win2p.SetActive(true);
             }
